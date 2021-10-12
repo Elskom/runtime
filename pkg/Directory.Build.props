@@ -1,0 +1,17 @@
+<Project>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.DotNet.SharedFramework.Sdk" Version="7.0.0-beta.21512.6" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <SharedFrameworkName>Elskom.Sdk.App</SharedFrameworkName>
+    <PlatformPackageType>RuntimePack</PlatformPackageType>
+    <RuntimeIdentifier>any</RuntimeIdentifier>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <!-- Include a list of runtime files in the data dir. -->
+    <!-- <FrameworkListFilename>RuntimeList.xml</FrameworkListFilename> -->
+    <!-- <FrameworkListTargetPath>data/</FrameworkListTargetPath> -->
+    <!-- <FrameworkListFile>$(IntermediateOutputPath)$(FrameworkListFilename)</FrameworkListFile> -->
+  </PropertyGroup>
+
+</Project>

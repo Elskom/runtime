@@ -1,0 +1,11 @@
+<Project>
+
+  <ItemGroup>
+    <AdditionalFiles Include="../../stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Reflection" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,11 @@
+<Project>
+
+  <ItemGroup>
+    <!-- Common .NET Dependency packages. -->
+    <!-- For Span/ReadOnlySpan. -->
+    <!-- <PackageReference Include="System.Memory" Version="*-*" Condition="$(TargetFramework.StartsWith('netstandard2'))" /> -->
+  </ItemGroup>
+
+  <Import Project="../../Directory.Packages.props" />
+
+</Project>

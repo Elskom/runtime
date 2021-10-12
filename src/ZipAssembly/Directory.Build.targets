@@ -1,0 +1,18 @@
+<Project>
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+    <None Remove="readme.md" />
+    <AdditionalFiles Include="../../stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+    <AdditionalFiles Include="Properties\Resources.resx" />
+    <Using Include="System.Diagnostics" />
+    <Using Include="System.IO.Compression" />
+    <Using Include="System.Reflection" />
+    <Using Include="System.Runtime.Loader" />
+    <Using Include="System.Runtime.Serialization" />
+    <Using Include="Elskom.Generic.Libs.Properties" />
+  </ItemGroup>
+
+</Project>

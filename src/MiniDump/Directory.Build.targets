@@ -1,0 +1,16 @@
+<Project>
+
+  <ItemGroup>
+    <None Remove=".git" />
+    <None Remove=".gitignore" />
+    <None Remove="readme.md" />
+    <AdditionalFiles Include="../../stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+    <Using Include="System.Diagnostics" />
+    <Using Include="System.Globalization" />
+    <Using Include="System.Text" />
+    <Using Include="Microsoft.Diagnostics.NETCore.Client" />
+  </ItemGroup>
+
+</Project>
