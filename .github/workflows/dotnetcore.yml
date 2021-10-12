@@ -21,4 +21,4 @@ jobs:
     - name: Restore, Build, and pack
       uses: Elskom/build-dotnet@main
       with:
-        TEST: false
+        RESTORE: false

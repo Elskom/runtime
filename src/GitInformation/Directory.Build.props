@@ -1,0 +1,21 @@
+<Project>
+
+  <Import Project="../Directory.Build.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Elskom.GitInformation</AssemblyName>
+    <PackageTags>GitBuildInformation</PackageTags>
+    <Copyright>Copyright (c) 2019-2021</Copyright>
+    <Description>A c# library that Registers git repository information on the assembly.</Description>
+    <PackageReleaseNotes>Fixed bug in GitInformation.IsTag where it will never be true even when it should be.</PackageReleaseNotes>
+    <Version>1.0.1</Version>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <NoWarn>$(NoWarn);NU5104;NU5118</NoWarn>
+    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <GitBuildInfoAssemblyType>GitInformation</GitBuildInfoAssemblyType>
+  </PropertyGroup>
+
+</Project>

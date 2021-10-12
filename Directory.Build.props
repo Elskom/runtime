@@ -1,10 +1,12 @@
 <Project>
 
   <PropertyGroup>
+    <!-- Mark the nuget packages as serviceable. -->
+    <Serviceable>true</Serviceable>
     <!-- suppress message when using the .NET Preview SDKs. -->
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
-    <ElskomSdkBuild>true</ElskomSdkBuild>
-    <ElskomSdkSkipImplicitPackages>true</ElskomSdkSkipImplicitPackages>
+    <UseElskomSdk>true</UseElskomSdk>
+    <ElskomSdkDisableImplicitFrameworkReference>true</ElskomSdkDisableImplicitFrameworkReference>
     <!--
         Sorry, we have to disable the warning for adding the reference assemblies to the package without adding them to the nuspec.
         This is because of the fact that if we use the methods to add them that does add them to the nuspec, then the folder paths
@@ -16,11 +18,15 @@
     <Company>Els_kom org.</Company>
     <Authors>Els_kom org.</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Elskom/Sdk/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Elskom/Sdk/</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Elskom/runtime/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Elskom/runtime/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Copyright>Copyright (c) 2018-2021</Copyright>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <VersionSuffix>-dev</VersionSuffix>
+    <VersionSuffix Condition="'$(GITHUB_ACTIONS)' == 'true'">-preview.$(GITHUB_RUN_NUMBER).</VersionSuffix>
+    <VersionSuffix Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(GITHUB_RERUN_COUNT)' != ''">$(VersionSuffix)$(GITHUB_RERUN_COUNT)</VersionSuffix>
+    <VersionSuffix Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(GITHUB_RERUN_COUNT)' == ''">$(VersionSuffix)0</VersionSuffix>
     <RootNamespace>Elskom.Generic.Libs</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Elskom.snk</AssemblyOriginatorKeyFile>
@@ -29,14 +35,16 @@
     <!-- <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <CompilerGeneratedFilesOutputPath>SourceGenerated</CompilerGeneratedFilesOutputPath> -->
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
     <SnkPublicKey>0024000004800000940000000602000000240000525341310004000001000100bd92841e5ad5805edc6b90c3102ae676cc9a694e2c16cf827fa0fbd36fc3ec7aca9475b0d32f8b574aa01f2fffcdc3c92684531ddf215a76d5878fb433ab41c3b4ac7c96c86c87eb4dc71646ec00880fdecd576ccbbe92c3093de976e8e30af00e14df9ca1458cafa5f71dee161394c5bb9904b8075c75229812c457bcc745d5</SnkPublicKey>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)obj\$(MSBuildProjectName)\$(Configuration)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(MSBuildThisFileDirectory)obj\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <!--
       Import the Sdk.props from this project to simplify this file and the setups on all
       the other projects (set defaults that would normally not be set).
   -->
-  <Import Project="./Sdk/Sdk.props" />
+  <Import Project="$(MSBuildThisFileDirectory)Sdk/Sdk/Sdk.props" />
 
 </Project>

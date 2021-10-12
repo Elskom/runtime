@@ -32,7 +32,7 @@ jobs:
       - name: Restore and Build
         uses: Elskom/build-dotnet@main
         with:
-          TEST: false
+          RESTORE: false
           PACK: false
 
       # Execute Codacy Analysis CLI and generate a SARIF output with the security issues identified during the analysis
