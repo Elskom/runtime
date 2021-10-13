@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <!-- SourceLink -->
-    <PackageReference Include="Microsoft.SourceLink.GitHub" IsImplicitlyDefined="true" Version="*-*">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" IsImplicitlyDefined="true" Version="-*">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <!-- Generate code for resx files. -->
