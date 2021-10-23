@@ -10,10 +10,11 @@
     <SharedFrameworkFriendlyName>Elskom.Sdk</SharedFrameworkFriendlyName>
     <Version>1.0.0$(VersionSuffix)</Version>
     <PublishReadyToRun>false</PublishReadyToRun>
-    <LicenseFile>$(MSBuildThisFileDirectory)../LICENSE</LicenseFile>
+    <LicenseFile>$(MSBuildThisFileDirectory)../../LICENSE</LicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PlatformPackageType>TargetingPack</PlatformPackageType>
     <RuntimeIdentifier>any</RuntimeIdentifier>
+    <RuntimePackProjectPath>../Elskom.Sdk.App.Runtime/Elskom.Sdk.App.sfxproj</RuntimePackProjectPath>
     <SkipValidatePackage>true</SkipValidatePackage>
     <GenerateInstallers>true</GenerateInstallers>
     <IncludeSymbols>false</IncludeSymbols>
@@ -22,20 +23,20 @@
   <Import Project="Sdk.targets" Sdk="Microsoft.DotNet.SharedFramework.Sdk" Version="7.0.0-beta.21512.6" />
 
   <ItemGroup>
-    <ProjectReference Include="../ref/GitInformation/GitInformation.csproj" />
-    <ProjectReference Include="../ref/Common/Common.csproj" />
+    <ProjectReference Include="../../ref/GitInformation/GitInformation.csproj" />
+    <ProjectReference Include="../../ref/Common/Common.csproj" />
     <!-- zlib.managed has a zlib compression regression that needs fixed. -->
-    <ProjectReference Include="../ref/zlib.managed/zlib.managed.csproj" />
-    <ProjectReference Include="../ref/BlowFish/BlowFish.csproj" />
-    <ProjectReference Include="../ref/MessageManager/MessageManager.csproj" />
-    <ProjectReference Include="../ref/PluginUpdateCheck/PluginUpdateCheck.csproj" />
-    <ProjectReference Include="../ref/ReleasePackaging/ReleasePackaging.csproj" />
-    <ProjectReference Include="../ref/SettingsFile/SettingsFile.csproj" />
-    <ProjectReference Include="../ref/UnluacNET/UnluacNET.csproj" />
-    <ProjectReference Include="../ref/ZipAssembly/ZipAssembly.csproj" />
-    <ProjectReference Include="../ref/GenericPluginLoader/GenericPluginLoader.csproj" />
-    <ProjectReference Include="../ref/MiniDump/MiniDump.csproj" />
-    <ProjectReference Include="../ref/PluginFramework/PluginFramework.csproj" />
+    <ProjectReference Include="../../ref/zlib.managed/zlib.managed.csproj" />
+    <ProjectReference Include="../../ref/BlowFish/BlowFish.csproj" />
+    <ProjectReference Include="../../ref/MessageManager/MessageManager.csproj" />
+    <ProjectReference Include="../../ref/PluginUpdateCheck/PluginUpdateCheck.csproj" />
+    <ProjectReference Include="../../ref/ReleasePackaging/ReleasePackaging.csproj" />
+    <ProjectReference Include="../../ref/SettingsFile/SettingsFile.csproj" />
+    <ProjectReference Include="../../ref/UnluacNET/UnluacNET.csproj" />
+    <ProjectReference Include="../../ref/ZipAssembly/ZipAssembly.csproj" />
+    <ProjectReference Include="../../ref/GenericPluginLoader/GenericPluginLoader.csproj" />
+    <ProjectReference Include="../../ref/MiniDump/MiniDump.csproj" />
+    <ProjectReference Include="../../ref/PluginFramework/PluginFramework.csproj" />
     <!-- SourceLink -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" IsImplicitlyDefined="true" Version="*-*">
       <PrivateAssets>all</PrivateAssets>

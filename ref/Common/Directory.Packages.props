@@ -1,0 +1,9 @@
+<Project>
+
+  <ItemGroup>
+    <ProjectReference Include="../GitInformation/GitInformation.csproj" />
+  </ItemGroup>
+
+  <Import Project="../Directory.Packages.props" />
+
+</Project>

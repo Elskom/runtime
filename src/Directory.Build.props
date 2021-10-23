@@ -1,14 +1,15 @@
 <Project>
 
-  <Import Project="../Directory.Build.props" />
-
   <PropertyGroup>
-    <!-- Do not pack these, instead pack their outputs into an runtime pack and ref pack later. -->
+    <!-- Do not pack these, instead pack their outputs into a runtime pack and ref pack later. -->
     <IsPackable>false</IsPackable>
-    <ProduceReferenceAssembly Condition="'$(ProduceReferenceAssembly)' == ''">true</ProduceReferenceAssembly>
-    <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' == ''">true</GenerateDocumentationFile>
+    <ProduceReferenceAssembly Condition="'$(ProduceReferenceAssembly)' == ''">false</ProduceReferenceAssembly>
+    <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' == ''">false</GenerateDocumentationFile>
     <GenerateDependencyFile>false</GenerateDependencyFile>
-    <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+    <ProduceReferenceAssemblyInOutDir>false</ProduceReferenceAssemblyInOutDir>
+    <NoWarn>$(NoWarn);SA0001</NoWarn>
   </PropertyGroup>
+
+  <Import Project="../Directory.Build.props" />
 
 </Project>

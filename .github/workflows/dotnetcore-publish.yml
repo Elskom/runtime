@@ -13,10 +13,11 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_NOLOGO: true
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      BUILD_RERUN_COUNT: ${{ github.run_attempt }}
     steps:
     - uses: actions/checkout@main
       with:
-        # we need the submodule to zlib.managed.
+        # we need the submodule to Sdk.
         submodules: recursive
 
     - name: Install latest .NET SDK

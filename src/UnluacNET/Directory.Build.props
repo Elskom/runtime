@@ -23,8 +23,8 @@
     <!-- <IncludeSource>true</IncludeSource> -->
     <!-- <IncludeBuildOutput>true</IncludeBuildOutput> -->
     <!-- <SymbolPackageFormat>snupkg</SymbolPackageFormat> -->
-    <NoWarn>1591</NoWarn>
-    <NoWarn Condition="'$(Configuration)' == 'Debug'">$(NoWarn), 0659</NoWarn>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <NoWarn Condition="'$(Configuration)' == 'Debug'">$(NoWarn);0659</NoWarn>
     <GitBuildInfoAssemblyType>Elskom.Generic.Libs.UnluacNET.Decompiler</GitBuildInfoAssemblyType>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>

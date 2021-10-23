@@ -1,0 +1,13 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- Do not pack these, instead pack their outputs into a runtime pack and ref pack later. -->
+    <IsPackable>false</IsPackable>
+    <ProduceOnlyReferenceAssembly Condition="'$(ProduceReferenceAssembly)' == ''">true</ProduceOnlyReferenceAssembly>
+    <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' == ''">true</GenerateDocumentationFile>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <Import Project="../Directory.Build.props" />
+
+</Project>
