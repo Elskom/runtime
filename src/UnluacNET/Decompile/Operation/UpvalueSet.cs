@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class UpvalueSet : Operation
+internal class UpvalueSet : Operation
 {
     private readonly UpvalueTarget m_target;
     private readonly Expression m_value;

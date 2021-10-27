@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class LambdaOperation : Operation
+internal class LambdaOperation : Operation
 {
     private readonly Func<Registers, Block, Statement> m_func;
 

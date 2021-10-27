@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class LFloatNumber : LNumber
+internal class LFloatNumber : LNumber
 {
     public LFloatNumber(float number)
         => this.Number = number;

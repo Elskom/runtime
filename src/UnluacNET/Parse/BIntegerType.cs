@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class BIntegerType : BObjectType<BInteger>
+internal class BIntegerType : BObjectType<BInteger>
 {
     public BIntegerType(int intSize)
         => this.IntSize = intSize;

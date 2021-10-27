@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class CallOperation : Operation
+internal class CallOperation : Operation
 {
     private readonly FunctionCall m_call;
 

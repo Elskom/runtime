@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class ForBlock : Block
+internal class ForBlock : Block
 {
     private readonly int m_register;
     private readonly Registers m_r;

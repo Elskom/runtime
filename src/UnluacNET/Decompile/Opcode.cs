@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public static class Opcode
+internal static class Opcode
 {
     // TODO: Optimize method
     public static string CodePointToString(Op opcode, LInstruction code)

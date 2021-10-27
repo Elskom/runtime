@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class LString : LObject
+internal class LString : LObject
 {
     public LString(BSizeT size, string value)
     {

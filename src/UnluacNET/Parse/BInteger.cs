@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class BInteger : BObject
+internal class BInteger : BObject
 {
     private static readonly long MAX_INT = int.MaxValue;
     private static readonly long MIN_INT = int.MinValue;

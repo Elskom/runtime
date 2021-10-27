@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public enum OpcodeFormat
+internal enum OpcodeFormat
 {
     A,
     A_B,

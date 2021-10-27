@@ -25,7 +25,7 @@
     <!-- <SymbolPackageFormat>snupkg</SymbolPackageFormat> -->
     <NoWarn>$(NoWarn);1591</NoWarn>
     <NoWarn Condition="'$(Configuration)' == 'Debug'">$(NoWarn);0659</NoWarn>
-    <GitBuildInfoAssemblyType>Elskom.Generic.Libs.UnluacNET.Decompiler</GitBuildInfoAssemblyType>
+    <GitBuildInfoAssemblyType>Elskom.Generic.Libs.UnluacNET.LuaDecompileStream</GitBuildInfoAssemblyType>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
 

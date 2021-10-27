@@ -5,11 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class Version
+internal class Version
 {
     public static readonly Version LUA51 = new(0x51);
     public static readonly Version LUA52 = new(0x52);
-    protected readonly int versionNumber;
+    private readonly int versionNumber;
 
     protected Version(int versionNumber)
     {

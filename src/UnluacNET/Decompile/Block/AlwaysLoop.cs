@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class AlwaysLoop : Block
+internal class AlwaysLoop : Block
 {
     private readonly List<Statement> m_statements;
 

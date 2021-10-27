@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public abstract class LNumber : LObject
+internal abstract class LNumber : LObject
 {
     // TODO: problem solution for this issue (???)
     public abstract double Value { get; }

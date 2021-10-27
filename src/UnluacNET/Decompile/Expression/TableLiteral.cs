@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class TableLiteral : Expression
+internal class TableLiteral : Expression
 {
     private readonly List<Entry> m_entries;
     private readonly int m_capacity;

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class OpcodeMap
+internal class OpcodeMap
 {
     private readonly int[] luaP_opmodes =
     {

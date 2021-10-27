@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class GlobalTarget : Target
+internal class GlobalTarget : Target
 {
     private readonly string m_name;
 

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class Vararg : Expression
+internal class Vararg : Expression
 {
     private readonly bool m_multiple;
 

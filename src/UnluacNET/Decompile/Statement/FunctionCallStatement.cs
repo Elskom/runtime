@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class FunctionCallStatement : Statement
+internal class FunctionCallStatement : Statement
 {
     private readonly FunctionCall m_call;
 

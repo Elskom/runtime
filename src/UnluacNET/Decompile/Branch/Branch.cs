@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public abstract class Branch
+internal abstract class Branch
 {
     protected Branch(int line, int begin, int end)
     {

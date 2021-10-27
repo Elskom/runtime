@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class FunctionCall : Expression
+internal class FunctionCall : Expression
 {
     private readonly Expression m_function;
     private readonly Expression[] m_arguments;

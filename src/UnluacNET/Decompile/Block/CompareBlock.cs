@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class CompareBlock : Block
+internal class CompareBlock : Block
 {
     public CompareBlock(LFunction function, int begin, int end, int target, Branch branch)
         : base(function, begin, end)

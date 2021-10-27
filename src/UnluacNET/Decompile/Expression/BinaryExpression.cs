@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class BinaryExpression : Expression
+internal class BinaryExpression : Expression
 {
     private readonly string m_op;
     private readonly Expression m_left;

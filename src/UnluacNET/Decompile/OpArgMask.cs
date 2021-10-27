@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public enum OpArgMask
+internal enum OpArgMask
 {
     /// <summary>
     /// Argument is not used.

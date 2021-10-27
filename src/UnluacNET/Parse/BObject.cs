@@ -5,6 +5,6 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public abstract class BObject
+internal abstract class BObject
 {
 }

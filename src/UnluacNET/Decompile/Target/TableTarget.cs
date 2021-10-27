@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class TableTarget : Target
+internal class TableTarget : Target
 {
     private readonly Expression m_table;
     private readonly Expression m_index;

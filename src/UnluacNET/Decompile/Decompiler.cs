@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class Decompiler
+internal class Decompiler
 {
     private static Stack<Branch> m_backup;
     private readonly int registers;

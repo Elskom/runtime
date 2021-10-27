@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class TrueNode : Branch
+internal class TrueNode : Branch
 {
     public TrueNode(int register, bool inverted, int line, int begin, int end)
         : base(line, begin, end)

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class LLongNumber : LNumber
+internal class LLongNumber : LNumber
 {
     public LLongNumber(long number)
         => this.Number = number;

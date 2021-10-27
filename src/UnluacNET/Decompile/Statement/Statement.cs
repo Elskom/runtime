@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public abstract class Statement
+internal abstract class Statement
 {
     public string Comment { get; set; }
 

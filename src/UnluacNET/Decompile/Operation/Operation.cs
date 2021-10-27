@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public abstract class Operation
+internal abstract class Operation
 {
     protected Operation(int line)
         => this.Line = line;

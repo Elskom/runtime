@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class Code
+internal class Code
 {
     /*
     ** Size and position of opcode arguments

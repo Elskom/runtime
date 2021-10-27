@@ -5,13 +5,13 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class Constant
+internal class Constant
 {
     public const int CONST_NIL = 0;
     public const int CONST_BOOL = 1;
     public const int CONST_NUMBER = 2;
     public const int CONST_STRING = 3;
-    private static readonly HashSet<string> m_reservedWords =
+    private static readonly HashSet<string> M_reservedWords =
         new()
         {
             "and",
@@ -93,7 +93,7 @@ public class Constant
     {
         get
         {
-            if (!this.IsString || this.m_string.Length is 0 || m_reservedWords.Contains(this.m_string))
+            if (!this.IsString || this.m_string.Length is 0 || M_reservedWords.Contains(this.m_string))
             {
                 return false;
             }

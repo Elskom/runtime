@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class UpvalueExpression : Expression
+internal class UpvalueExpression : Expression
 {
     private readonly string m_name;
 

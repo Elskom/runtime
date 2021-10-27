@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class LNumberType : BObjectType<LNumber>
+internal class LNumberType : BObjectType<LNumber>
 {
     public LNumberType(int size, bool integral)
     {

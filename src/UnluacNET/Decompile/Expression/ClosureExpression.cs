@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class ClosureExpression : Expression
+internal class ClosureExpression : Expression
 {
     private readonly LFunction m_function;
     private readonly int m_upvalueLine;

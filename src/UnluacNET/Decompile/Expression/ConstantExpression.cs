@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class ConstantExpression : Expression
+internal class ConstantExpression : Expression
 {
     private readonly Constant m_constant;
     private readonly int m_index;

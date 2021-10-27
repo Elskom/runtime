@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class IfThenEndBlock : Block
+internal class IfThenEndBlock : Block
 {
     private readonly Branch m_branch;
     private readonly Stack<Branch> m_stack;

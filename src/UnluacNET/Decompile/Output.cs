@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class Output
+internal class Output
 {
     private readonly TextWriter m_writer;
 

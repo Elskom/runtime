@@ -144,20 +144,8 @@ csharp_space_between_square_brackets = false
 csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
-# SA1600: Elements should be documented
-dotnet_diagnostic.SA1600.severity = none
-
 # SA1308: Variable names should not be prefixed
 dotnet_diagnostic.SA1308.severity = none
-
-# SA1401: Fields should be private
-dotnet_diagnostic.SA1401.severity = none
-
-# CA1051: Do not declare visible instance fields
-dotnet_diagnostic.CA1051.severity = none
-
-# SA1311: Static readonly fields should begin with upper-case letter
-dotnet_diagnostic.SA1311.severity = none
 
 # SA1310: Field names should not contain underscore
 dotnet_diagnostic.SA1310.severity = none
@@ -165,20 +153,11 @@ dotnet_diagnostic.SA1310.severity = none
 # S3358: Ternary operators should not be nested
 dotnet_diagnostic.S3358.severity = none
 
-# S4035: Classes implementing "IEquatable<T>" should be sealed
-dotnet_diagnostic.S4035.severity = none
-
 # S2583: Conditionally executed code should be reachable
 dotnet_diagnostic.S2583.severity = none
 
 # S125: Sections of code should not be commented out
 dotnet_diagnostic.S125.severity = none
-
-# S3453: Classes should not have only "private" constructors
-dotnet_diagnostic.S3453.severity = none
-
-# SA1602: Enumeration items should be documented
-dotnet_diagnostic.SA1602.severity = none
 
 # SA1300: Element should begin with upper-case letter
 dotnet_diagnostic.SA1300.severity = none
@@ -191,3 +170,6 @@ dotnet_diagnostic.S2696.severity = none
 
 # S3903: Move '%s' into a named namespace.
 dotnet_diagnostic.S3903.severity = none
+
+# IDISP008: Don't assign member with injected and created disposables
+dotnet_diagnostic.IDISP008.severity = none

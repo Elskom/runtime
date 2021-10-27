@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public abstract class BObjectType<T> : BObject
+internal abstract class BObjectType<T> : BObject
     where T : BObject
 {
     public abstract T Parse(Stream stream, BHeader header);

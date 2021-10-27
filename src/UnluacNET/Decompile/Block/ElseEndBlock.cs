@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class ElseEndBlock : Block
+internal class ElseEndBlock : Block
 {
     private readonly List<Statement> m_statements;
 

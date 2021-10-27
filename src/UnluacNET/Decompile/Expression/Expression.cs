@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public abstract class Expression
+internal abstract class Expression
 {
     public static readonly int PRECEDENCE_OR = 1;
     public static readonly int PRECEDENCE_AND = 2;

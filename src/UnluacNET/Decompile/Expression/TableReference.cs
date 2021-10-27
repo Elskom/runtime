@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class TableReference : Expression
+internal class TableReference : Expression
 {
     private readonly Expression m_table;
     private readonly Expression m_index;

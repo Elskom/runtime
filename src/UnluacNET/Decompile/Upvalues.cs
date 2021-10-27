@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class Upvalues
+internal class Upvalues
 {
     private readonly LUpvalue[] m_upvalues;
 

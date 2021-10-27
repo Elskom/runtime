@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class BHeader
+internal class BHeader
 {
     private static readonly int Signature = 0x61754C1B; // '\x1B\Lua'
 

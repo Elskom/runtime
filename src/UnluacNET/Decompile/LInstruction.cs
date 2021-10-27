@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public sealed class LInstruction
+internal sealed class LInstruction
 {
     /*
     ** Size and position of opcode arguments

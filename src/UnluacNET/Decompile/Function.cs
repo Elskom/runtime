@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class Function
+internal class Function
 {
     private readonly Constant[] m_constants;
 

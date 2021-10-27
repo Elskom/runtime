@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class TestNode : Branch
+internal class TestNode : Branch
 {
     public TestNode(int test, bool inverted, int line, int begin, int end)
         : base(line, begin, end)

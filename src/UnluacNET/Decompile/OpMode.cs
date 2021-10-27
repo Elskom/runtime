@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public enum OpMode
+internal enum OpMode
 {
     iABC,
     iABx,

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET.IO;
 
-public static class StreamExtensions
+internal static class StreamExtensions
 {
     public static char ReadChar(this Stream stream)
         => (char)stream.ReadByte();

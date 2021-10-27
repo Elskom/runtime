@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class AndBranch : Branch
+internal class AndBranch : Branch
 {
     private readonly Branch m_left;
     private readonly Branch m_right;

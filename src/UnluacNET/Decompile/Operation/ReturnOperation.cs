@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class ReturnOperation : Operation
+internal class ReturnOperation : Operation
 {
     private readonly Expression[] m_values;
 

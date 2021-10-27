@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class VariableTarget : Target
+internal class VariableTarget : Target
 {
     public VariableTarget(Declaration decl)
         => this.Declaration = decl;

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public enum Op
+internal enum Op
 {
     /*------------------------------------------------------------------------
     name           args    description

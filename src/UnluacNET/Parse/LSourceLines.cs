@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class LSourceLines
+internal class LSourceLines
 {
     // TODO: Encapsulate a LuaStream of some sort to automatically support Big-Endian
     public static LSourceLines Parse(Stream stream)

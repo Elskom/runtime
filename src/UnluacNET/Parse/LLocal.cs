@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class LLocal : BObject
+internal class LLocal : BObject
 {
     public LLocal(LString name, BInteger start, BInteger end)
     {
