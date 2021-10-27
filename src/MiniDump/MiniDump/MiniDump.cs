@@ -34,7 +34,7 @@ internal static class MiniDump
             MessageEventArgs args;
             try
             {
-                diagnosticsClient.WriteDump(MiniDumpAttribute.CurrentInstance.DumpType, MiniDumpAttribute.CurrentInstance.DumpFileName);
+                diagnosticsClient.WriteDump((DumpType)MiniDumpAttribute.CurrentInstance.DumpType, MiniDumpAttribute.CurrentInstance.DumpFileName);
                 args = new(
                     string.Format(
                         CultureInfo.InvariantCulture,

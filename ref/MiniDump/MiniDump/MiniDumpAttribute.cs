@@ -62,7 +62,7 @@ public sealed class MiniDumpAttribute : Attribute
     /// <summary>
     /// Gets or sets the mini-dump type.
     /// </summary>
-    public DumpType DumpType
+    public MiniDumpType DumpType
     {
         get => throw null!;
         set => throw null!;

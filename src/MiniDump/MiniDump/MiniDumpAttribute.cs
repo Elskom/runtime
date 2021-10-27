@@ -60,7 +60,7 @@ public sealed class MiniDumpAttribute : Attribute
     /// <summary>
     /// Gets or sets the mini-dump type.
     /// </summary>
-    public DumpType DumpType { get; set; }
+    public MiniDumpType DumpType { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the unhandled exception messagebox.
