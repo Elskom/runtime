@@ -10,6 +10,7 @@
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <UseElskomSdk>true</UseElskomSdk>
     <ElskomSdkDisableImplicitFrameworkReference>true</ElskomSdkDisableImplicitFrameworkReference>
+    <ElskomSdkDevBuild>true</ElskomSdkDevBuild>
     <!--
         Sorry, we have to disable the warning for adding the reference assemblies to the package without adding them to the nuspec.
         This is because of the fact that if we use the methods to add them that does add them to the nuspec, then the folder paths
@@ -28,7 +29,7 @@
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
     <VersionSuffix>-dev</VersionSuffix>
     <VersionSuffix Condition="'$(GITHUB_ACTIONS)' == 'true'">-preview.$(GITHUB_RUN_NUMBER).$(BUILD_RERUN_COUNT)</VersionSuffix>
-    <RootNamespace>Elskom.Generic.Libs</RootNamespace>
+    <RootNamespace Condition="'$(RootNamespace)' == ''">Elskom.Generic.Libs</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Elskom.snk</AssemblyOriginatorKeyFile>
     <DebugType>embedded</DebugType>
@@ -41,7 +42,7 @@
     <IntermediateOutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' == ''">$(MSBuildThisFileDirectory)obj\runtime\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
     <BaseIntermediateOutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' != ''">$(MSBuildThisFileDirectory)obj\ref\$(MSBuildProjectName)\$(Configuration)\</BaseIntermediateOutputPath>
     <IntermediateOutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' != ''">$(MSBuildThisFileDirectory)obj\ref\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
-<BaseIntermediateOutputPath Condition="'$(IsPackageProject)' == 'true'">$(MSBuildThisFileDirectory)obj\pkg\$(MSBuildProjectName)\$(Configuration)\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="'$(IsPackageProject)' == 'true'">$(MSBuildThisFileDirectory)obj\pkg\$(MSBuildProjectName)\$(Configuration)\</BaseIntermediateOutputPath>
     <IntermediateOutputPath Condition="'$(IsPackageProject)' == 'true'">$(MSBuildThisFileDirectory)obj\pkg\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
     <OutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' == ''">$(MSBuildThisFileDirectory)bin\$(Configuration)\runtime\</OutputPath>
     <OutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' != ''">$(MSBuildThisFileDirectory)bin\$(Configuration)\ref\</OutputPath>

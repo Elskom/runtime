@@ -5,6 +5,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Elskom.Generic.Libs.UnluacNET</RootNamespace>
     <AssemblyTitle>Unluac.NET</AssemblyTitle>
     <Product>Unluac.NET</Product>
     <Version>1.0.0</Version>
@@ -25,7 +26,7 @@
     <!-- <SymbolPackageFormat>snupkg</SymbolPackageFormat> -->
     <NoWarn>$(NoWarn);1591</NoWarn>
     <NoWarn Condition="'$(Configuration)' == 'Debug'">$(NoWarn);0659</NoWarn>
-    <GitBuildInfoAssemblyType>Elskom.Generic.Libs.UnluacNET.LuaDecompileStream</GitBuildInfoAssemblyType>
+    <GitBuildInfoAssemblyType>LuaDecompileStream</GitBuildInfoAssemblyType>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
 
