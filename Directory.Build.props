@@ -27,8 +27,9 @@
     <RepositoryType>git</RepositoryType>
     <Copyright>Copyright (c) 2018-2021</Copyright>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
-    <VersionSuffix>-dev</VersionSuffix>
-    <VersionSuffix Condition="'$(GITHUB_ACTIONS)' == 'true'">-preview.$(GITHUB_RUN_NUMBER).$(BUILD_RERUN_COUNT)</VersionSuffix>
+    <IsTagBuild Condition="$(GITHUB_REF.StartsWith('refs/tags/'))">true</IsTagBuild>
+    <VersionSuffix Condition="'$(IsTagBuild)' == '' AND '$(GITHUB_ACTIONS)' == ''">-dev</VersionSuffix>
+    <VersionSuffix Condition="'$(IsTagBuild)' == '' AND '$(GITHUB_ACTIONS)' == 'true'">-preview.$(GITHUB_RUN_NUMBER).$(BUILD_RERUN_COUNT)</VersionSuffix>
     <RootNamespace Condition="'$(RootNamespace)' == ''">Elskom.Generic.Libs</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Elskom.snk</AssemblyOriginatorKeyFile>
