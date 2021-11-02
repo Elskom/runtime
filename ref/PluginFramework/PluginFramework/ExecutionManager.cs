@@ -32,6 +32,13 @@ public static class ExecutionManager
         => throw null!;
 
     /// <summary>
+    /// Gets if Elsword or the launcher is currently executing.
+    /// </summary>
+    /// <returns>Boolean.</returns>
+    public static bool IsExecuting(bool launcher)
+        => throw null!;
+
+    /// <summary>
     /// Runs Elsword Directly.
     /// This is an blocking call that has to run in an separate thread from Els_kom's main thread.
     /// NEVER UNDER ANY CIRCUMSTANCES RUN THIS IN THE MAIN THREAD, YOU WILL DEADLOCK ELS_KOM!!!.

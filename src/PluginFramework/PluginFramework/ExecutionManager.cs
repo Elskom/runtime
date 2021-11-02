@@ -77,6 +77,18 @@ public static class ExecutionManager
     }
 
     /// <summary>
+    /// Gets if Elsword or the launcher is currently executing.
+    /// </summary>
+    /// <returns>Boolean.</returns>
+    public static bool IsExecuting(bool launcher)
+        => (launcher, File.Exists($"{ElsDir}\\voidels.exe")) switch
+        {
+            (true, true) => VoidLauncherStartOptions.Executing,
+            (true, false) => LauncherStartOptions.Executing,
+            _ => GameStartOptions.Executing,
+        };
+
+    /// <summary>
     /// Runs Elsword Directly.
     /// This is an blocking call that has to run in an separate thread from Els_kom's main thread.
     /// NEVER UNDER ANY CIRCUMSTANCES RUN THIS IN THE MAIN THREAD, YOU WILL DEADLOCK ELS_KOM!!!.
