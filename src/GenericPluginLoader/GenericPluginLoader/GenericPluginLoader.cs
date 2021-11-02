@@ -21,10 +21,7 @@ public class GenericPluginLoader<T>
     /// </summary>
     public static event EventHandler<MessageEventArgs>? PluginLoaderMessage;
 
-    /// <summary>
-    /// Gets the list of <see cref="PluginLoadContext"/>s loaded by this instance.
-    /// </summary>
-    public List<PluginLoadContext> Contexts { get; } = new();
+    internal List<PluginLoadContext> Contexts { get; } = new();
 
     /// <summary>
     /// Loads plugins with the specified plugin interface type.

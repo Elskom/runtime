@@ -26,12 +26,6 @@ public class GenericPluginLoader<T>
     }
 
     /// <summary>
-    /// Gets the list of <see cref="PluginLoadContext"/>s loaded by this instance.
-    /// </summary>
-    public List<PluginLoadContext> Contexts
-        => throw null!;
-
-    /// <summary>
     /// Loads plugins with the specified plugin interface type.
     /// </summary>
     /// <param name="path">
