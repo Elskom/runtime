@@ -70,10 +70,10 @@ public class JsonSettings
     public int UseNotifications { get; set; }
 
     /// <summary>
-    /// Gets the sources to use to install plugins from.
+    /// Gets or sets the sources to use to install plugins from.
     /// </summary>
     [JsonPropertyName(nameof(Sources))]
-    public string[] Sources { get; private set; }
+    public string[] Sources { get; set; }
 
     /// <summary>
     /// Deserializes the input json data to the target type for the settings file.
