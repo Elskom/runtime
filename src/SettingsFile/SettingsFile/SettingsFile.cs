@@ -72,7 +72,7 @@ public static class SettingsFile
                 return thisProcessId;
             }
 
-            using var thisProcess = ThisProcess;
+            using var thisProcess = Process.GetCurrentProcess();
             thisProcessId = thisProcess.Id;
             return thisProcessId;
         }
@@ -87,13 +87,11 @@ public static class SettingsFile
                 return thisProcessName;
             }
 
-            using var thisProcess = ThisProcess;
+            using var thisProcess = Process.GetCurrentProcess();
             thisProcessName = thisProcess.ProcessName;
             return thisProcessName;
         }
     }
-
-    private static Process ThisProcess { get; } = Process.GetCurrentProcess();
 
     private static string LocalApplicationDataFolder
     {
