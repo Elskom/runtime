@@ -1,5 +1,1 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <AdditionalFiles Remove="Properties\Resources.resx" />
-  </ItemGroup>
-</Project>
+<Project Sdk="Elskom.Sdk" />

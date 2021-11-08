@@ -1,4 +1,0 @@
-[submodule "Sdk"]
-	path = Sdk
-	url = https://github.com/Elskom/Sdk.git
-	branch = main

@@ -16,12 +16,14 @@ jobs:
       BUILD_RERUN_COUNT: ${{ github.run_attempt }}
     steps:
     - uses: actions/checkout@main
-      with:
-        # we need the submodule to Sdk.
-        submodules: recursive
 
     - name: Install latest .NET SDK
       uses: Elskom/setup-latest-dotnet@main
+
+    - name: Install Elskom workload
+      run: |
+        dotnet tool restore
+        dotnet tool run elskom-check -- install # this will install the entire workload.
 
     - name: Restore, Build, and pack
       uses: Elskom/build-dotnet@main

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "elskom.net.check": {
+      "version": "1.0.7",
+      "commands": [
+        "elskom-check"
+      ]
+    }
+  }
+}
