@@ -30,27 +30,19 @@ internal static class MiniDump
             }
 
             File.WriteAllText(MiniDumpAttribute.CurrentInstance.DumpLogFileName, exceptionData);
-            var diagnosticsClient = new DiagnosticsClient(SettingsFile.ThisProcessId);
             MessageEventArgs args;
-            try
-            {
-                diagnosticsClient.WriteDump((DumpType)MiniDumpAttribute.CurrentInstance.DumpType, MiniDumpAttribute.CurrentInstance.DumpFileName);
-                args = new(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        MiniDumpAttribute.CurrentInstance.Text,
-                        MiniDumpAttribute.CurrentInstance.DumpLogFileName),
-                    threadException ? MiniDumpAttribute.CurrentInstance.ThreadExceptionTitle : MiniDumpAttribute.CurrentInstance.ExceptionTitle,
-                    ErrorLevel.Error);
-            }
-            catch (ServerErrorException ex)
-            {
-                args = new(
-                    ex.Message,
-                    threadException ? MiniDumpAttribute.CurrentInstance.ThreadExceptionTitle : MiniDumpAttribute.CurrentInstance.ExceptionTitle,
-                    ErrorLevel.Error);
-            }
-
+            var dumpArgs = new MiniDumpEventArgs(
+                SettingsFile.ThisProcessId,
+                MiniDumpAttribute.CurrentInstance.DumpFileName,
+                MiniDumpAttribute.CurrentInstance.DumpType);
+            var dumpResult = MiniDumpAttribute.InvokeDump(ref dumpArgs);
+            args = new(
+                dumpResult ? string.Format(
+                    CultureInfo.InvariantCulture,
+                    MiniDumpAttribute.CurrentInstance.Text,
+                    MiniDumpAttribute.CurrentInstance.DumpLogFileName) : dumpArgs.ErrorMessage!,
+                threadException ? MiniDumpAttribute.CurrentInstance.ThreadExceptionTitle : MiniDumpAttribute.CurrentInstance.ExceptionTitle,
+                ErrorLevel.Error);
             MiniDumpAttribute.InvokeDumpMessage(ref args);
             return args.ExitCode;
         }
