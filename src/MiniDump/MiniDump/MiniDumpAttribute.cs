@@ -35,6 +35,14 @@ public sealed class MiniDumpAttribute : Attribute
     }
 
     /// <summary>
+    /// Occurs when a mini-dump needs to be generated.
+    ///
+    /// This event *should* generate the dumps and return
+    /// if they was successfully generated.
+    /// </summary>
+    public static event EventHandler<MiniDumpEventArgs> Dump;
+
+    /// <summary>
     /// Occurs when a mini-dump is generated or fails.
     /// </summary>
     public static event EventHandler<MessageEventArgs> DumpMessage;
@@ -97,4 +105,10 @@ public sealed class MiniDumpAttribute : Attribute
 
     internal static void InvokeDumpMessage(MessageEventArgs e)
         => DumpMessage?.Invoke(null, e);
+
+    internal static bool InvokeDump(MiniDumpEventArgs e)
+    {
+        Dump?.Invoke(null, e);
+        return e.Success;
+    }
 }
