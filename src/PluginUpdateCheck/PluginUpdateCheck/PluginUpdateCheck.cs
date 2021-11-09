@@ -88,6 +88,7 @@ public sealed partial class PluginUpdateCheck
         List<PluginUpdateCheck> pluginUpdateChecks = new();
 
         // fixup the github urls (if needed).
+        var pluginURLs1 = new string[pluginURLs.Length];
         for (var i = 0; i < pluginURLs.Length; i++)
         {
             var arg0 = pluginURLs[i].Replace(
@@ -97,11 +98,11 @@ public sealed partial class PluginUpdateCheck
             var arg1 = pluginURLs[i].EndsWith("/", StringComparison.Ordinal)
                 ? "main/plugins.xml"
                 : "/main/plugins.xml";
-            pluginURLs[i] = $"{arg0}{arg1}";
+            pluginURLs1[i] = $"{arg0}{arg1}";
         }
 
         PluginUrls ??= new();
-        foreach (var pluginURL in pluginURLs)
+        foreach (var pluginURL in pluginURLs1)
         {
             if (!PluginUrls.Contains(pluginURL))
             {

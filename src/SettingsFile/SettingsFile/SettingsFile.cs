@@ -10,7 +10,6 @@ namespace Elskom.Generic.Libs;
 /// </summary>
 public static class SettingsFile
 {
-    private static int thisProcessId;
     private static string thisProcessName;
     private static string localApplicationDataFolder;
 
@@ -55,43 +54,15 @@ public static class SettingsFile
     ///
     /// Creates the Error Log file if needed.
     /// </summary>
-    public static string ErrorLogPath { get; } = $"{LocalApplicationDataFolder}{ThisProcessName}-{ThisProcessId}.log";
+    public static string ErrorLogPath { get; } = $"{LocalApplicationDataFolder}{thisProcessName}-{ThisProcessId}.log";
 
     /// <summary>
     /// Gets the path to the Application Mini-Dump file.
     /// </summary>
     // On Non-Windows OS's all crash dumps must be named "core.{PID}"!!!
-    public static string MiniDumpPath { get; } = OperatingSystem.IsWindows() ? $"{LocalApplicationDataFolder}{ThisProcessName}-{ThisProcessId}.mdmp" : $"{LocalApplicationDataFolder}core.{ThisProcessId}";
+    public static string MiniDumpPath { get; } = OperatingSystem.IsWindows() ? $"{LocalApplicationDataFolder}{thisProcessName}-{ThisProcessId}.mdmp" : $"{LocalApplicationDataFolder}core.{ThisProcessId}";
 
-    internal static int ThisProcessId
-    {
-        get
-        {
-            if (!thisProcessId.Equals(0))
-            {
-                return thisProcessId;
-            }
-
-            using var thisProcess = Process.GetCurrentProcess();
-            thisProcessId = thisProcess.Id;
-            return thisProcessId;
-        }
-    }
-
-    private static string ThisProcessName
-    {
-        get
-        {
-            if (!string.IsNullOrEmpty(thisProcessName))
-            {
-                return thisProcessName;
-            }
-
-            using var thisProcess = Process.GetCurrentProcess();
-            thisProcessName = thisProcess.ProcessName;
-            return thisProcessName;
-        }
-    }
+    internal static int ThisProcessId { get; private set; }
 
     private static string LocalApplicationDataFolder
     {
@@ -102,18 +73,30 @@ public static class SettingsFile
                 return localApplicationDataFolder;
             }
 
+            SetProcessNameAndId();
+
             // We cannot use System.Windows.Forms.Application.LocalUserAppDataPath as it would
             // Create annoying folders, and throw annoying Exceptions making it harder to
             // debug as it spams the debugger. Also then we would not need to Replace
             // everything added to the path obtained from System.Environment.GetFolderPath.
             // Also trap devenv if it is detected as well and use the provided ApplicationName instead.
-            localApplicationDataFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify)}{Path.DirectorySeparatorChar}{(ThisProcessName == "devenv" ? ApplicationName : ThisProcessName)}{Path.DirectorySeparatorChar}";
+            localApplicationDataFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify)}{Path.DirectorySeparatorChar}{(thisProcessName.Equals("devenv", StringComparison.Ordinal) ? ApplicationName : thisProcessName)}{Path.DirectorySeparatorChar}";
             if (!Directory.Exists(localApplicationDataFolder))
             {
                 _ = Directory.CreateDirectory(localApplicationDataFolder);
             }
 
             return localApplicationDataFolder;
+        }
+    }
+
+    private static void SetProcessNameAndId()
+    {
+        if (string.IsNullOrEmpty(thisProcessName) && ThisProcessId.Equals(0))
+        {
+            using var thisProcess = Process.GetCurrentProcess();
+            thisProcessName = thisProcess.ProcessName;
+            ThisProcessId = thisProcess.Id;
         }
     }
 }

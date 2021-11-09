@@ -11,12 +11,6 @@ namespace Elskom.Generic.Libs;
 public class JsonSettings
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsonSettings"/> class.
-    /// </summary>
-    public JsonSettings()
-        => throw null!;
-
-    /// <summary>
     /// Gets or sets the icon to use.
     /// </summary>
     [JsonPropertyName(nameof(WindowIcon))]

@@ -11,23 +11,6 @@ namespace Elskom.Generic.Libs;
 public class JsonSettings
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsonSettings"/> class.
-    /// </summary>
-    public JsonSettings()
-    {
-        this.ElsDir = string.Empty;
-        this.Sources = Array.Empty<string>();
-        this.SaveToZip = default;
-        this.ShowTestMessages = default;
-        this.UseNotifications = default;
-
-        // default these to -1 to loop them back to their default value in Els_kom.
-        this.WindowIcon = -1;
-        this.IconWhileElsNotRunning = -1;
-        this.IconWhileElsRunning = -1;
-    }
-
-    /// <summary>
     /// Gets or sets the icon to use.
     /// </summary>
     [JsonPropertyName(nameof(WindowIcon))]
@@ -123,7 +106,19 @@ public class JsonSettings
     public static JsonSettings OpenFile()
         => File.Exists(SettingsFile.SettingsPath)
             ? Deserialize(File.ReadAllText(SettingsFile.SettingsPath))
-            : new();
+            : new()
+            {
+                ElsDir = string.Empty,
+                Sources = Array.Empty<string>(),
+                SaveToZip = default,
+                ShowTestMessages = default,
+                UseNotifications = default,
+
+                // default these to -1 to loop them back to their default value in Els_kom.
+                WindowIcon = -1,
+                IconWhileElsNotRunning = -1,
+                IconWhileElsRunning = -1,
+            };
 
     /// <summary>
     /// Returns a new instance of this type so this one can be discarded.
