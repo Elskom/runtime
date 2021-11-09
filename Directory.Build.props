@@ -8,7 +8,6 @@
     <Serviceable>true</Serviceable>
     <!-- suppress message when using the .NET Preview SDKs. -->
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
-    <UseElskomSdk>true</UseElskomSdk>
     <ElskomSdkDisableImplicitFrameworkReference>true</ElskomSdkDisableImplicitFrameworkReference>
     <ElskomSdkDevBuild>true</ElskomSdkDevBuild>
     <!--
@@ -50,11 +49,5 @@
     <OutputPath Condition="'$(IsPackageProject)' == 'true' AND !$(MSBuildProjectName.EndsWith('.Ref'))">$(MSBuildThisFileDirectory)bin\$(Configuration)\pkg\runtime\</OutputPath>
     <OutputPath Condition="'$(IsPackageProject)' == 'true' AND $(MSBuildProjectName.EndsWith('.Ref'))">$(MSBuildThisFileDirectory)bin\$(Configuration)\pkg\ref\</OutputPath>
   </PropertyGroup>
-
-  <!--
-      Import the Sdk.props from this project to simplify this file and the setups on all
-      the other projects (set defaults that would normally not be set).
-  -->
-  <Import Project="$(MSBuildThisFileDirectory)Sdk/Sdk/Sdk.props" />
 
 </Project>
