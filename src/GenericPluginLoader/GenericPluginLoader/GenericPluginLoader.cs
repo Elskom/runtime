@@ -14,7 +14,7 @@ namespace Elskom.Generic.Libs;
 /// A generic loader for plugins.
 /// </summary>
 /// <typeparam name="T">The type to look for when loading plugins.</typeparam>
-public class GenericPluginLoader<T>
+public sealed class GenericPluginLoader<T>
 {
     /// <summary>
     /// Triggers when the Plugin Loader has a message to send to the application.

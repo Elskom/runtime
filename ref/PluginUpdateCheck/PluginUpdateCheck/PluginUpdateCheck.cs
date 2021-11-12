@@ -22,7 +22,7 @@ public sealed class PluginUpdateCheck : IDisposable
     /// <summary>
     /// Gets the plugin urls used in all instances.
     /// </summary>
-    public static List<string> PluginUrls
+    public List<string> PluginUrls
         => throw null!;
 
     /// <summary>
@@ -32,33 +32,9 @@ public sealed class PluginUpdateCheck : IDisposable
         => throw null!;
 
     /// <summary>
-    /// Gets the plugin name this instance is pointing to.
+    /// Gets a list of <see cref="PluginUpdateData"/> instances representing the plugins that needs updating or are to be installed.
     /// </summary>
-    public string PluginName
-        => throw null!;
-
-    /// <summary>
-    /// Gets the current version of the plugin that is pointed to by this instance.
-    /// </summary>
-    public string CurrentVersion
-        => throw null!;
-
-    /// <summary>
-    /// Gets the installed version of the plugin that is pointed to by this instance.
-    /// </summary>
-    public string InstalledVersion
-        => throw null!;
-
-    /// <summary>
-    /// Gets the url to download the files to the plugin from.
-    /// </summary>
-    public Uri DownloadUrl
-        => throw null!;
-
-    /// <summary>
-    /// Gets the files to the plugin to download.
-    /// </summary>
-    public List<string> DownloadFiles
+    public List<PluginUpdateData> PluginUpdateDatas
         => throw null!;
 
     /// <summary>
@@ -66,26 +42,28 @@ public sealed class PluginUpdateCheck : IDisposable
     /// </summary>
     /// <param name="pluginURLs">The repository urls to the plugins.</param>
     /// <param name="pluginTypes">A list of types to the plugins to check for updates to.</param>
-    /// <param name="serviceprovider">The <see cref="IServiceProvider"/> to use.</param>
-    /// <returns>A list of <see cref="PluginUpdateCheck"/> instances representing the plugins that needs updating or are to be installed.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="pluginURLs"/> or <paramref name="pluginTypes"/> are <see langword="null"/>.</exception>
+    /// <returns>A value indicating if the operation was successful or not.</returns>
     // catches the plugin urls and uses that cache to detect added urls, and only appends those to the list.
-    public static List<PluginUpdateCheck> CheckForUpdates(string[] pluginURLs, List<Type> pluginTypes, IServiceProvider serviceprovider)
+    public bool CheckForUpdates(string[] pluginURLs, List<Type> pluginTypes)
         => throw null!;
 
     /// <summary>
-    /// Installs the files to the plugin pointed to by this instance.
+    /// Installs the files to the plugin pointed to by the passed in plugin update data.
     /// </summary>
+    /// <param name="pluginUpdateData">The plugin update data for the plugin to install.</param>
     /// <param name="saveToZip">A bool indicating if the file should be installed to a zip file instead of a folder.</param>
     /// <returns>A bool indicating if anything changed.</returns>
-    public bool Install(bool saveToZip)
+    public bool Install(PluginUpdateData pluginUpdateData, bool saveToZip)
         => throw null!;
 
     /// <summary>
-    /// Uninstalls the files to the plugin pointed to by this instance.
+    /// Uninstalls the files to the plugin pointed to by the passed in plugin update data.
     /// </summary>
+    /// <param name="pluginUpdateData">The plugin update data for the plugin to uninstall.</param>
     /// <param name="saveToZip">A bool indicating if the file should be uninstalled from a zip file instead of a folder. If the zip file after the operation becomes empty it is also deleted automatically.</param>
     /// <returns>A bool indicating if anything changed.</returns>
-    public bool Uninstall(bool saveToZip)
+    public bool Uninstall(PluginUpdateData pluginUpdateData, bool saveToZip)
         => throw null!;
 
     /// <summary>

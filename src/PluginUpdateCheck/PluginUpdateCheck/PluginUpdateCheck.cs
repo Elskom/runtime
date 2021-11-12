@@ -11,10 +11,13 @@ namespace Elskom.Generic.Libs;
 [GenerateDispose(false)]
 public sealed partial class PluginUpdateCheck
 {
-    private readonly IServiceProvider serviceProvider;
+    private readonly ServiceProvider serviceProvider;
 
-    internal PluginUpdateCheck(IServiceProvider serviceprovider)
-        => this.serviceProvider = serviceprovider;
+    internal PluginUpdateCheck(ServiceProvider serviceprovider)
+    {
+        this.serviceProvider = serviceprovider;
+        this.PluginUpdateDatas = new List<PluginUpdateData>();
+    }
 
     /// <summary>
     /// Event that fires when a new message should show up.
@@ -24,7 +27,8 @@ public sealed partial class PluginUpdateCheck
     /// <summary>
     /// Gets the plugin urls used in all instances.
     /// </summary>
-    public static List<string> PluginUrls { get; private set; }
+    [SetNullOnDispose]
+    public List<string> PluginUrls { get; private set; }
 
     /// <summary>
     /// Gets a value indicating whether there are any pending updates and displays a message if there is.
@@ -33,59 +37,60 @@ public sealed partial class PluginUpdateCheck
     {
         get
         {
-            if (!string.Equals(this.InstalledVersion, this.CurrentVersion, StringComparison.Ordinal) && !string.IsNullOrEmpty(this.InstalledVersion))
+            if (this.isDisposed)
             {
-                MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_ShowMessage_Update_for_plugin_is_availible!, this.CurrentVersion, this.PluginName), Resources.PluginUpdateCheck_ShowMessage_New_plugin_update, ErrorLevel.Info));
-                return true;
+                throw new ObjectDisposedException(nameof(PluginUpdateCheck));
             }
 
-            return false;
+            var result = false;
+            if (!this.PluginUpdateDatas.Any())
+            {
+                return false;
+            }
+
+            foreach (var pluginUpdateData in this.PluginUpdateDatas.Where(
+                         pluginUpdateData =>
+                             !string.Equals(
+                                 pluginUpdateData.InstalledVersion,
+                                 pluginUpdateData.CurrentVersion,
+                                 StringComparison.Ordinal)
+                             && !string.IsNullOrEmpty(pluginUpdateData.InstalledVersion)))
+            {
+                MessageEvent?.Invoke(
+                    null,
+                    new(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            Resources.PluginUpdateCheck_ShowMessage_Update_for_plugin_is_availible!,
+                            pluginUpdateData.CurrentVersion,
+                            pluginUpdateData.PluginName),
+                        Resources.PluginUpdateCheck_ShowMessage_New_plugin_update!,
+                        ErrorLevel.Info));
+                result = true;
+            }
+
+            return result;
         }
     }
 
     /// <summary>
-    /// Gets the plugin name this instance is pointing to.
+    /// Gets a list of <see cref="PluginUpdateData"/> instances representing the plugins that needs updating or are to be installed.
     /// </summary>
     [SetNullOnDispose]
-    public string PluginName { get; private set; }
-
-    /// <summary>
-    /// Gets the current version of the plugin that is pointed to by this instance.
-    /// </summary>
-    [SetNullOnDispose]
-    public string CurrentVersion { get; private set; }
-
-    /// <summary>
-    /// Gets the installed version of the plugin that is pointed to by this instance.
-    /// </summary>
-    [SetNullOnDispose]
-    public string InstalledVersion { get; private set; }
-
-    /// <summary>
-    /// Gets the url to download the files to the plugin from.
-    /// </summary>
-    [SetNullOnDispose]
-    public Uri DownloadUrl { get; private set; }
-
-    /// <summary>
-    /// Gets the files to the plugin to download.
-    /// </summary>
-    [SetNullOnDispose]
-    public List<string> DownloadFiles { get; private set; }
+    public List<PluginUpdateData> PluginUpdateDatas { get; private set; }
 
     /// <summary>
     /// Checks for plugin updates from the provided plugin source urls.
     /// </summary>
     /// <param name="pluginURLs">The repository urls to the plugins.</param>
     /// <param name="pluginTypes">A list of types to the plugins to check for updates to.</param>
-    /// <param name="serviceprovider">The <see cref="IServiceProvider"/> to use.</param>
-    /// <returns>A list of <see cref="PluginUpdateCheck"/> instances representing the plugins that needs updating or are to be installed.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="pluginURLs"/> or <paramref name="pluginTypes"/> are <see langword="null"/>.</exception>
+    /// <returns>A value indicating if the operation was successful or not.</returns>
     // catches the plugin urls and uses that cache to detect added urls, and only appends those to the list.
-    public static List<PluginUpdateCheck> CheckForUpdates(string[] pluginURLs, List<Type> pluginTypes, IServiceProvider serviceprovider)
+    public bool CheckForUpdates(string[] pluginURLs, List<Type> pluginTypes)
     {
         _ = pluginURLs ?? throw new ArgumentNullException(nameof(pluginURLs));
         _ = pluginTypes ?? throw new ArgumentNullException(nameof(pluginTypes));
-        List<PluginUpdateCheck> pluginUpdateChecks = new();
 
         // fixup the github urls (if needed).
         var pluginURLs1 = new string[pluginURLs.Length];
@@ -101,82 +106,84 @@ public sealed partial class PluginUpdateCheck
             pluginURLs1[i] = $"{arg0}{arg1}";
         }
 
-        PluginUrls ??= new();
+        this.PluginUrls ??= new();
         foreach (var pluginURL in pluginURLs1)
         {
-            if (!PluginUrls.Contains(pluginURL))
+            if (!this.PluginUrls.Contains(pluginURL))
             {
                 try
                 {
-                    var doc = XDocument.Parse(((HttpClient)serviceprovider.GetService(typeof(HttpClient)))?.GetStringAsync(pluginURL).GetAwaiter().GetResult());
-                    var elements = doc.Root.Elements("Plugin");
+                    var doc = XDocument.Parse(this.serviceProvider.GetRequiredService<HttpClient>()?.GetStringAsync(pluginURL).GetAwaiter().GetResult()!);
+                    var elements = doc.Root!.Elements("Plugin");
                     foreach (var element in elements)
                     {
-                        var currentVersion = element.Attribute("Version").Value;
-                        var pluginName = element.Attribute("Name").Value;
+                        var currentVersion = element.Attribute("Version")!.Value;
+                        var pluginName = element.Attribute("Name")!.Value;
                         var found = false;
                         foreach (var pluginType in pluginTypes.Where(
                             pluginType => pluginName.Equals(pluginType.Namespace, StringComparison.Ordinal)))
                         {
                             found = true;
-                            var installedVersion = pluginType.Assembly.GetName().Version.ToString();
-                            PluginUpdateCheck pluginUpdateCheck = new(serviceprovider)
+                            var installedVersion = pluginType.Assembly.GetName().Version!.ToString();
+                            PluginUpdateData pluginUpdateData = new()
                             {
                                 CurrentVersion = currentVersion,
                                 InstalledVersion = installedVersion,
                                 PluginName = pluginName,
-                                DownloadUrl = new($"{element.Attribute("DownloadUrl").Value}/{currentVersion}/"),
+                                DownloadUrl = new($"{element.Attribute("DownloadUrl")!.Value}/{currentVersion}/"),
                                 DownloadFiles = element.Descendants("DownloadFile").Select(y => y.Attribute("Name")?.Value).ToList(),
                             };
-                            pluginUpdateChecks.Add(pluginUpdateCheck);
+                            this.PluginUpdateDatas.Add(pluginUpdateData);
                         }
 
                         if (!found)
                         {
-                            PluginUpdateCheck pluginUpdateCheck = new(serviceprovider)
+                            PluginUpdateData pluginUpdateData = new()
                             {
                                 CurrentVersion = currentVersion,
                                 InstalledVersion = string.Empty,
                                 PluginName = pluginName,
-                                DownloadUrl = new($"{element.Attribute("DownloadUrl").Value}/{currentVersion}/"),
+                                DownloadUrl = new($"{element.Attribute("DownloadUrl")!.Value}/{currentVersion}/"),
                                 DownloadFiles = element.Descendants("DownloadFile").Select(y => y.Attribute("Name")?.Value).ToList(),
                             };
-                            pluginUpdateChecks.Add(pluginUpdateCheck);
+                            this.PluginUpdateDatas.Add(pluginUpdateData);
                         }
                     }
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_CheckForUpdates_Failed_to_download_the_plugins_sources_list_Reason, Environment.NewLine, ex.Message), Resources.PluginUpdateCheck_CheckForUpdates_Error, ErrorLevel.Error));
+                    MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_CheckForUpdates_Failed_to_download_the_plugins_sources_list_Reason!, Environment.NewLine, ex.Message), Resources.PluginUpdateCheck_CheckForUpdates_Error!, ErrorLevel.Error));
+                    return false;
                 }
-            }
 
-            // append the string to the cache.
-            PluginUrls.Add(pluginURL);
+                // append the string to the cache.
+                this.PluginUrls.Add(pluginURL);
+            }
         }
 
-        return pluginUpdateChecks;
+        return true;
     }
 
     /// <summary>
-    /// Installs the files to the plugin pointed to by this instance.
+    /// Installs the files to the plugin pointed to by the passed in plugin update data.
     /// </summary>
+    /// <param name="pluginUpdateData">The plugin update data for the plugin to install.</param>
     /// <param name="saveToZip">A bool indicating if the file should be installed to a zip file instead of a folder.</param>
     /// <returns>A bool indicating if anything changed.</returns>
-    public bool Install(bool saveToZip)
+    public bool Install(PluginUpdateData pluginUpdateData, bool saveToZip)
     {
         if (this.isDisposed)
         {
             throw new ObjectDisposedException(nameof(PluginUpdateCheck));
         }
 
-        foreach (var downloadFile in this.DownloadFiles)
+        foreach (var downloadFile in pluginUpdateData.DownloadFiles)
         {
             try
             {
                 var path = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}plugins{Path.DirectorySeparatorChar}{downloadFile}";
                 using (var fs = File.Create(path))
-                using (var response = ((HttpClient)this.serviceProvider.GetService(typeof(HttpClient)))?.GetStreamAsync($"{this.DownloadUrl}{downloadFile}").GetAwaiter().GetResult())
+                using (var response = this.serviceProvider.GetRequiredService<HttpClient>()?.GetStreamAsync($"{pluginUpdateData.DownloadUrl}{downloadFile}").GetAwaiter().GetResult())
                 {
                     response?.CopyTo(fs);
                 }
@@ -199,7 +206,7 @@ public sealed partial class PluginUpdateCheck
             }
             catch (HttpRequestException ex)
             {
-                MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_Install_Failed_to_install_the_selected_plugin_Reason!, Environment.NewLine, ex.Message), Resources.PluginUpdateCheck_CheckForUpdates_Error, ErrorLevel.Error));
+                MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_Install_Failed_to_install_the_selected_plugin_Reason!, Environment.NewLine, ex.Message), Resources.PluginUpdateCheck_CheckForUpdates_Error!, ErrorLevel.Error));
             }
         }
 
@@ -207,11 +214,12 @@ public sealed partial class PluginUpdateCheck
     }
 
     /// <summary>
-    /// Uninstalls the files to the plugin pointed to by this instance.
+    /// Uninstalls the files to the plugin pointed to by the passed in plugin update data.
     /// </summary>
+    /// <param name="pluginUpdateData">The plugin update data for the plugin to uninstall.</param>
     /// <param name="saveToZip">A bool indicating if the file should be uninstalled from a zip file instead of a folder. If the zip file after the operation becomes empty it is also deleted automatically.</param>
     /// <returns>A bool indicating if anything changed.</returns>
-    public bool Uninstall(bool saveToZip)
+    public bool Uninstall(PluginUpdateData pluginUpdateData, bool saveToZip)
     {
         if (this.isDisposed)
         {
@@ -220,7 +228,7 @@ public sealed partial class PluginUpdateCheck
 
         try
         {
-            foreach (var downloadFile in this.DownloadFiles)
+            foreach (var downloadFile in pluginUpdateData.DownloadFiles)
             {
                 var path = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}plugins{Path.DirectorySeparatorChar}{downloadFile}";
                 if (File.Exists(path))
@@ -250,7 +258,7 @@ public sealed partial class PluginUpdateCheck
         }
         catch (Exception ex)
         {
-            MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_Uninstall_Failed_to_uninstall_the_selected_plugin_Reason!, Environment.NewLine, ex.Message), Resources.PluginUpdateCheck_CheckForUpdates_Error, ErrorLevel.Error));
+            MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_Uninstall_Failed_to_uninstall_the_selected_plugin_Reason!, Environment.NewLine, ex.Message), Resources.PluginUpdateCheck_CheckForUpdates_Error!, ErrorLevel.Error));
         }
 
         return false;
@@ -258,5 +266,13 @@ public sealed partial class PluginUpdateCheck
 
     [CallOnDispose]
     private void ClearDownloadFiles()
-        => this.DownloadFiles.Clear();
+    {
+        foreach (var pluginUpdateData in this.PluginUpdateDatas)
+        {
+            pluginUpdateData.DownloadFiles.Clear();
+        }
+
+        this.PluginUpdateDatas.Clear();
+        this.PluginUrls.Clear();
+    }
 }

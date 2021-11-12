@@ -10,6 +10,7 @@
     <Using Include="System.Globalization" />
     <Using Include="System.IO.Compression" />
     <Using Include="System.Xml.Linq" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
 </Project>
