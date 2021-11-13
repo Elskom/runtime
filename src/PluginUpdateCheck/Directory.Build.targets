@@ -13,6 +13,7 @@
     <Using Include="System.Xml.Linq" />
     <Using Include="Elskom.Generic.Libs.Properties" />
     <Using Include="IDisposableGenerator" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
 </Project>
