@@ -11,14 +11,13 @@ namespace Elskom.Generic.Libs;
 public static class PluginLoaderServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds an instance of <see cref="GenericPluginLoader{T}"/> to the target <see cref="IServiceCollection"/>.
+    /// Adds an instance of <see cref="GenericPluginLoader"/> to the target <see cref="IServiceCollection"/>.
     /// </summary>
     /// <param name="collection">
     /// The target <see cref="IServiceCollection"/> to add an instance of
-    /// <see cref="GenericPluginLoader{T}"/> to.
+    /// <see cref="GenericPluginLoader"/> to.
     /// </param>
-    /// <typeparam name="T">The type to use with the PluginLoader.</typeparam>
     /// <returns>The target <see cref="IServiceCollection"/> to allow call chains.</returns>
-    public static IServiceCollection AddGenericPluginLoader<T>(this IServiceCollection collection)
-        => collection.AddSingleton<GenericPluginLoader<T>>();
+    public static IServiceCollection AddGenericPluginLoader(this IServiceCollection collection)
+        => collection.AddSingleton<GenericPluginLoader>();
 }

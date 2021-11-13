@@ -13,15 +13,14 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// A generic loader for plugins.
 /// </summary>
-/// <typeparam name="T">The type to look for when loading plugins.</typeparam>
-public sealed class GenericPluginLoader<T>
+public sealed class GenericPluginLoader
 {
     /// <summary>
     /// Triggers when the Plugin Loader has a message to send to the application.
     /// </summary>
     public static event EventHandler<MessageEventArgs>? PluginLoaderMessage;
 
-    internal List<PluginLoadContext> Contexts { get; } = new();
+    internal Dictionary<string, List<PluginLoadContext>> Contexts { get; } = new();
 
     /// <summary>
     /// Loads plugins with the specified plugin interface type.
@@ -32,8 +31,9 @@ public sealed class GenericPluginLoader<T>
     /// <returns>
     /// A list of plugins loaded that derive from the specified type.
     /// </returns>
-    public ICollection<T> LoadPlugins(string path)
-        => this.LoadPlugins(path, false);
+    /// <typeparam name="T">The type to look for when loading plugins.</typeparam>
+    public ICollection<T> LoadPlugins<T>(string path)
+        => this.LoadPlugins<T>(path, false);
 
     /// <summary>
     /// Loads plugins with the specified plugin interface type.
@@ -47,7 +47,8 @@ public sealed class GenericPluginLoader<T>
     /// <returns>
     /// A list of plugins loaded that derive from the specified type.
     /// </returns>
-    public ICollection<T> LoadPlugins(string path, bool saveToZip)
+    /// <typeparam name="T">The type to look for when loading plugins.</typeparam>
+    public ICollection<T> LoadPlugins<T>(string path, bool saveToZip)
     {
         List<string>? dllFileNames = null;
         if (Directory.Exists(path))
@@ -58,6 +59,7 @@ public sealed class GenericPluginLoader<T>
         // try to load from a zip as well if plugins are installed in both places.
         var zippath = $"{path}.zip";
         List<T> plugins = new();
+        List<PluginLoadContext> contexts = new();
 
         // handle when path points to a zip file.
         if (Directory.Exists(path) || File.Exists(zippath))
@@ -73,7 +75,7 @@ public sealed class GenericPluginLoader<T>
                     context.UnloadIfNoInstances(instances);
                     if (instances.Any())
                     {
-                        this.Contexts.Add(context);
+                        contexts.Add(context);
                     }
                 }
             }
@@ -97,13 +99,24 @@ public sealed class GenericPluginLoader<T>
                     context.UnloadIfNoInstances(instances);
                     if (instances.Any())
                     {
-                        this.Contexts.Add(context);
+                        contexts.Add(context);
                     }
                 }
             }
         }
 
+        _ = this.Contexts.TryAdd(typeof(T).Name, contexts);
         return plugins;
+    }
+
+    /// <summary>
+    /// Unloads all of the loaded plugins of the input type.
+    /// </summary>
+    /// <typeparam name="T">The type to use when unloading plugins.</typeparam>
+    public void UnloadPlugins<T>()
+    {
+        this.UnloadPluginsInternal(typeof(T).Name);
+        this.Contexts.Remove(typeof(T).Name);
     }
 
     /// <summary>
@@ -111,12 +124,9 @@ public sealed class GenericPluginLoader<T>
     /// </summary>
     public void UnloadPlugins()
     {
-        foreach (var context in this.Contexts)
+        foreach (var key in this.Contexts.Keys)
         {
-            if (context.IsCollectible)
-            {
-                context.Unload();
-            }
+            this.UnloadPluginsInternal(key);
         }
 
         this.Contexts.Clear();
@@ -124,4 +134,14 @@ public sealed class GenericPluginLoader<T>
 
     internal static void InvokeLoaderMessage(MessageEventArgs args)
         => PluginLoaderMessage?.Invoke(null, args);
+
+    private void UnloadPluginsInternal(string key)
+    {
+        foreach (var context in this.Contexts[key].Where(context => context.IsCollectible))
+        {
+            context.Unload();
+        }
+
+        this.Contexts[key].Clear();
+    }
 }

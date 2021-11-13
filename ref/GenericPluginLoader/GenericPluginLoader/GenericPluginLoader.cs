@@ -13,8 +13,7 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// A generic loader for plugins.
 /// </summary>
-/// <typeparam name="T">The type to look for when loading plugins.</typeparam>
-public sealed class GenericPluginLoader<T>
+public sealed class GenericPluginLoader
 {
     /// <summary>
     /// Triggers when the Plugin Loader has a message to send to the application.
@@ -34,7 +33,8 @@ public sealed class GenericPluginLoader<T>
     /// <returns>
     /// A list of plugins loaded that derive from the specified type.
     /// </returns>
-    public ICollection<T> LoadPlugins(string path)
+    /// <typeparam name="T">The type to look for when loading plugins.</typeparam>
+    public ICollection<T> LoadPlugins<T>(string path)
         => throw null!;
 
     /// <summary>
@@ -49,7 +49,15 @@ public sealed class GenericPluginLoader<T>
     /// <returns>
     /// A list of plugins loaded that derive from the specified type.
     /// </returns>
-    public ICollection<T> LoadPlugins(string path, bool saveToZip)
+    /// <typeparam name="T">The type to look for when loading plugins.</typeparam>
+    public ICollection<T> LoadPlugins<T>(string path, bool saveToZip)
+        => throw null!;
+
+    /// <summary>
+    /// Unloads all of the loaded plugins of the input type.
+    /// </summary>
+    /// <typeparam name="T">The type to use when unloading plugins.</typeparam>
+    public void UnloadPlugins<T>()
         => throw null!;
 
     /// <summary>
