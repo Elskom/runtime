@@ -11,9 +11,13 @@ namespace Elskom.Generic.Libs;
 [GenerateDispose(false)]
 public sealed partial class PluginUpdateCheck
 {
-    private readonly ServiceProvider serviceProvider;
+    private readonly IServiceProvider serviceProvider;
 
-    internal PluginUpdateCheck(ServiceProvider serviceprovider)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PluginUpdateCheck"/> class.
+    /// </summary>
+    /// <param name="serviceprovider">The serviceprovider to use for this instance.</param>
+    public PluginUpdateCheck(IServiceProvider serviceprovider)
     {
         this.serviceProvider = serviceprovider;
         this.PluginUpdateDatas = new List<PluginUpdateData>();

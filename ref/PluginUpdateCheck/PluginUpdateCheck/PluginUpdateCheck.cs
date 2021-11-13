@@ -11,6 +11,13 @@ namespace Elskom.Generic.Libs;
 public sealed class PluginUpdateCheck : IDisposable
 {
     /// <summary>
+    /// Initializes a new instance of the <see cref="PluginUpdateCheck"/> class.
+    /// </summary>
+    /// <param name="serviceprovider">The serviceprovider to use for this instance.</param>
+    public PluginUpdateCheck(IServiceProvider serviceprovider)
+        => throw null!;
+
+    /// <summary>
     /// Event that fires when a new message should show up.
     /// </summary>
     public static event EventHandler<MessageEventArgs> MessageEvent
