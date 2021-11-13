@@ -8,7 +8,7 @@
     <SharedFrameworkName>Elskom.Sdk.App</SharedFrameworkName>
     <OverridePackageId>Elskom.Sdk.App</OverridePackageId>
     <SharedFrameworkFriendlyName>Elskom.Sdk</SharedFrameworkFriendlyName>
-    <Version>1.0.0$(VersionSuffix)</Version>
+    <Version>6.0.0$(VersionSuffix)</Version>
     <PublishReadyToRun>false</PublishReadyToRun>
     <LicenseFile>$(MSBuildThisFileDirectory)../../LICENSE</LicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
