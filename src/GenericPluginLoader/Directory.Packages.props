@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../ZipAssembly/ZipAssembly.csproj" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="*-*" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="-*" />
   </ItemGroup>
 
   <Import Project="../Directory.Packages.props" />
