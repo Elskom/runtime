@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Microsoft.DotNet.Arcade.Sdk" Version="7.0.0-beta.21602.1" />
+  <Sdk Name="Microsoft.DotNet.SharedFramework.Sdk" Version="7.0.0-beta.21602.1" />
+
+  <PropertyGroup>
+    <IsShipping Condition="'$(RuntimeIdentifier)' != 'any'">false</IsShipping>
+    <IsPackable Condition="'$(RuntimeIdentifier)' != 'any'">false</IsPackable>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <PublishReadyToRunUseCrossgen2>false</PublishReadyToRunUseCrossgen2>
+    <PublishReadyToRun Condition="'$(RuntimeIdentifier)' != 'any'">true</PublishReadyToRun>
+    <PublishReadyToRunUseCrossgen2 Condition="'$(RuntimeIdentifier)' != 'any'">true</PublishReadyToRunUseCrossgen2>
+    <!-- Generate Installers when RuntimeIdentifier is not any. -->
+    <GenerateInstallers Condition="'$(RuntimeIdentifier)' != 'any'">true</GenerateInstallers>
+    <IncludeSymbols>false</IncludeSymbols>
+    <!-- We need the symbols from crossgen2. -->
+    <IncludeSymbols Condition="'$(RuntimeIdentifier)' != 'any'">true</IncludeSymbols>
+    <ProductBrandPrefix>Elskom</ProductBrandPrefix>
+    <InstallerName>elskom-runtime</InstallerName>
+    <!-- bypass issue where the .net arcade sdk sets these to Microsoft. -->
+    <Company>$(ElskomOrgName)</Company>
+    <Authors>$(ElskomOrgName)</Authors>
+    <!-- bypass issue where the arcade sdk sets the nuget packages to an microsoft copyright. -->
+    <CopyrightMicrosoft>$(CopyrightElskom)</CopyrightMicrosoft>
+    <PackageIconFullPath>../../els_kom.png</PackageIconFullPath>
+  </PropertyGroup>
+
+</Project>
