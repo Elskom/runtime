@@ -5,18 +5,20 @@ on:
     # only run when stable release tags are made, when prerelease or rc tags are made ignore them.
     tags:
     - '*'
-    tags-ignore:
-    - '*-preview.*'
-    - '*-rc.*'
+    - '!*-preview.*'
+    - '!*-rc.*'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     env:
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_NOLOGO: true
-      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       BUILD_RERUN_COUNT: ${{ github.run_attempt }}
     steps:
     - uses: actions/checkout@main
@@ -32,4 +34,44 @@ jobs:
       with:
         RESTORE: false
         PACK: true
-        PUSH: true
+        PUSH: false
+
+    - name: Clean up temp installer files.
+      run: |
+        del artifacts/packages/Release/Shipping/*.wixpdb
+        del artifacts/packages/Release/Shipping/*-runtime-*.*
+        del artifacts/packages/Release/Shipping/*-targeting-pack-*.*
+      shell: pwsh
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@main
+      with:
+        name: Shipping
+        path: artifacts/packages/Release/Shipping/*
+
+    - name: Upload binlog on failure.
+      uses: actions/upload-artifact@main
+      if: ${{ failure() }}
+      with:
+        name: msbuild.binlog
+        path: msbuild.binlog
+
+  create_release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@main
+      with:
+        name: Shipping
+        path: artifacts/packages/Release/Shipping/
+
+    - name: Push nuget Packages to nuget.org.
+      run: dotnet nuget push **/*.nupkg -s nuget.org -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+
+    - uses: ncipollo/release-action@main
+      with:
+        artifacts: "artifacts/packages/Release/Shipping/*.exe,artifacts/packages/Release/Shipping/*.*pkg,artifacts/packages/Release/Shipping/*.zip,artifacts/packages/Release/Shipping/*.tar.gz"
+        token: ${{ secrets.GITHUB_TOKEN }}

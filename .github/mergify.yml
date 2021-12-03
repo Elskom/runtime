@@ -6,7 +6,9 @@ queue_rules:
       - -closed # filter-out closed GH PRs
       - base=main
       - label=automerge
-      - check-success=build
+      - check-success=build (windows-latest)
+      - check-success=build (ubuntu-latest)
+      - check-success=build (macos-latest)
       - check-success=Codacy Static Code Analysis
       - check-success=DCO
       - check-success=WIP
@@ -15,7 +17,9 @@ pull_request_rules:
   # for check failures / WIP pending check.
   - name: Add enhancement label
     conditions:
-      - check-pending=build
+      - check-pending=build (windows-latest)
+      - check-pending=build (ubuntu-latest)
+      - check-pending=build (macos-latest)
       - -closed
       - -label=enhancement
     actions:
@@ -25,7 +29,9 @@ pull_request_rules:
 
   - name: Add automerge label
     conditions:
-      - check-success=build
+      - check-success=build (windows-latest)
+      - check-success=build (ubuntu-latest)
+      - check-success=build (macos-latest)
       - -draft
       - -closed
       - -conflict
@@ -38,7 +44,9 @@ pull_request_rules:
 
   - name: Automatic message on build failure
     conditions:
-      - check-failure=build
+      - check-failure=build (windows-latest)
+      - check-failure=build (ubuntu-latest)
+      - check-failure=build (macos-latest)
       - -draft
       - -closed
     actions:
@@ -93,7 +101,9 @@ pull_request_rules:
       - -closed # filter-out closed GH PRs
       - base=main
       - label=automerge
-      - check-success=build
+      - check-success=build (windows-latest)
+      - check-success=build (ubuntu-latest)
+      - check-success=build (macos-latest)
       - check-success=Codacy Static Code Analysis
       - check-success=DCO
       - check-success=WIP

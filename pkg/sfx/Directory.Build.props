@@ -1,0 +1,34 @@
+<Project>
+
+  <Import Project="../../Directory.Build.props" />
+
+  <PropertyGroup>
+    <AssemblyVersion />
+    <SharedFrameworkFriendlyName>Elskom.Sdk</SharedFrameworkFriendlyName>
+    <LicenseFile>$(MSBuildThisFileDirectory)../../LICENSE</LicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <SkipValidatePackage>true</SkipValidatePackage>
+    <InstallerOverrideAuthors>true</InstallerOverrideAuthors>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <SharedFrameworkName>Elskom.Sdk.App</SharedFrameworkName>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="!$(MSBuildProjectName.Contains('.Ref'))">
+    <PlatformPackageType>RuntimePack</PlatformPackageType>
+    <ProjectReferenceBaseFolder>../../src/</ProjectReferenceBaseFolder>
+    <ArchiveName>elskom-runtime</ArchiveName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.Contains('.Ref'))">
+    <PlatformPackageType>TargetingPack</PlatformPackageType>
+    <RuntimePackProjectPath>Elskom.Sdk.App.Runtime.sfxproj</RuntimePackProjectPath>
+    <ProjectReferenceBaseFolder>../../ref/</ProjectReferenceBaseFolder>
+    <ArchiveName>elskom-targeting-pack</ArchiveName>
+  </PropertyGroup>
+
+  <Target Name="ExtractVersion" AfterTargets="Pack">
+    <WriteLinestoFile File="$(PackageOutputPath)/version.txt" Lines="$(Version)" Overwrite="true" WriteOnlyWhenDifferent="true" />
+  </Target>
+
+</Project>

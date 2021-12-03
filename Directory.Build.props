@@ -1,9 +1,11 @@
 <Project>
 
   <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
     <!-- We need to mark the sfxproj files as packaging projects to avoid changing their output directories. -->
-    <IsPackageProject Condition="'$(MSBuildProjectExtension)' == '.sfxproj'">true</IsPackageProject>
-    <IsPackageProject Condition="'$(MSBuildProjectExtension)' != '.sfxproj'">false</IsPackageProject>
+    <IsPackageProject Condition="'$(MSBuildProjectExtension)' == '.sfxproj' OR '$(MSBuildProjectExtension)' == '.bundleproj' OR '$(MSBuildProjectName)' == 'installers.csproj'">true</IsPackageProject>
+    <IsPackageProject Condition="'$(MSBuildProjectExtension)' != '.sfxproj' AND '$(MSBuildProjectExtension)' != '.bundleproj'">false</IsPackageProject>
+    <RepoRoot Condition="'$(IsPackageProject)' == 'true'">$(MSBuildThisFileDirectory)</RepoRoot>
     <!-- Mark the nuget packages as serviceable. -->
     <Serviceable>true</Serviceable>
     <!-- suppress message when using the .NET Preview SDKs. -->
@@ -17,18 +19,17 @@
         fix that is to disable package analysis for now.
     -->
     <NoPackageAnalysis Condition="'$(PublishReferenceAssemblies)' == 'true'">true</NoPackageAnalysis>
-    <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts\</PackageOutputPath>
-    <Company>Els_kom org.</Company>
-    <Authors>Els_kom org.</Authors>
+    <ElskomOrgName>Els_kom org.</ElskomOrgName>
+    <Company>$(ElskomOrgName)</Company>
+    <Authors>$(ElskomOrgName)</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Elskom/runtime/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Elskom/runtime/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Copyright (c) 2018-2021</Copyright>
-    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <CopyrightElskom>Copyright (c) 2018-2021</CopyrightElskom>
+    <Copyright Condition="'$(IsPackageProject)' == 'false'">$(CopyrightElskom)</Copyright>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(IsPackageProject)' == 'false'">true</ContinuousIntegrationBuild>
     <IsTagBuild Condition="$(GITHUB_REF.StartsWith('refs/tags/'))">true</IsTagBuild>
-    <VersionSuffix Condition="'$(IsTagBuild)' == '' AND '$(GITHUB_ACTIONS)' == ''">-dev</VersionSuffix>
-    <VersionSuffix Condition="'$(IsTagBuild)' == '' AND '$(GITHUB_ACTIONS)' == 'true'">-preview.$(GITHUB_RUN_NUMBER).$(BUILD_RERUN_COUNT)</VersionSuffix>
     <RootNamespace Condition="'$(RootNamespace)' == ''">Elskom.Generic.Libs</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Elskom.snk</AssemblyOriginatorKeyFile>
@@ -46,8 +47,56 @@
     <IntermediateOutputPath Condition="'$(IsPackageProject)' == 'true'">$(MSBuildThisFileDirectory)obj\pkg\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
     <OutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' == ''">$(MSBuildThisFileDirectory)bin\$(Configuration)\runtime\</OutputPath>
     <OutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' != ''">$(MSBuildThisFileDirectory)bin\$(Configuration)\ref\</OutputPath>
-    <OutputPath Condition="'$(IsPackageProject)' == 'true' AND !$(MSBuildProjectName.EndsWith('.Ref'))">$(MSBuildThisFileDirectory)bin\$(Configuration)\pkg\runtime\</OutputPath>
-    <OutputPath Condition="'$(IsPackageProject)' == 'true' AND $(MSBuildProjectName.EndsWith('.Ref'))">$(MSBuildThisFileDirectory)bin\$(Configuration)\pkg\ref\</OutputPath>
+    <OutputPath Condition="'$(IsPackageProject)' == 'true' AND !$(MSBuildProjectName.Contains('.Ref'))">$(MSBuildThisFileDirectory)bin\$(Configuration)\pkg\runtime\</OutputPath>
+    <OutputPath Condition="'$(IsPackageProject)' == 'true' AND $(MSBuildProjectName.Contains('.Ref'))">$(MSBuildThisFileDirectory)bin\$(Configuration)\pkg\ref\</OutputPath>
+    <_TargetFrameworkVersionWithoutV Condition="'$(IsPackageProject)' == 'true'">6.0</_TargetFrameworkVersionWithoutV>
+    <WriteWebsiteArtifactFilesAfterTargets>GenerateBundles</WriteWebsiteArtifactFilesAfterTargets>
+    <WriteWebsiteArtifactFilesAfterTargets Condition="$([MSBuild]::IsOSPlatform('Linux'))">_CreateArchive;_CreateSymbolsArchive</WriteWebsiteArtifactFilesAfterTargets>
   </PropertyGroup>
+
+  <Target Name="WriteWebsiteArtifactFiles" AfterTargets="$(WriteWebsiteArtifactFilesAfterTargets)" Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(IsPackageProject)' == 'true'">
+    <WriteLinesToFile
+      File="$(MSBuildThisFileDirectory)website\runtime\version.txt"
+      Lines="$(Version)"
+      Overwrite="true"
+      WriteOnlyWhenDifferent="true" />
+    <ItemGroup>
+      <FilesToDelete
+        Include="$(MSBuildThisFileDirectory)website\runtime\packages\$(ArchiveName)-*-$(RuntimeIdentifier).tar.gz"
+        Condition="$(RuntimeIdentifier.StartsWith('linux-')) AND $([MSBuild]::IsOSPlatform('Linux')) AND $(MSBuildProjectName.Contains('.Bundle.'))" />
+      <FilesToDelete
+        Include="$(MSBuildThisFileDirectory)website\runtime\packages\$(InstallerName)-*-$(RuntimeIdentifier).pkg"
+        Condtion="$(RuntimeIdentifier.StartsWith('osx-')) AND $([MSBuild]::IsOSPlatform('OSX')) AND $(MSBuildProjectName.Contains('.Bundle.'))" />
+      <FilesToDelete
+        Include="$(MSBuildThisFileDirectory)website\runtime\packages\$(InstallerName)-*-$(RuntimeIdentifier).exe"
+        Condition="$(RuntimeIdentifier.StartsWith('win-')) AND $([MSBuild]::IsOSPlatform('Windows')) AND $(MSBuildProjectName.Contains('.Bundle.'))" />
+      <FilesToCopy
+        Include="$(MSBuildThisFileDirectory)artifacts\packages\Release\Shipping\$(ArchiveName)-$(Version)-$(RuntimeIdentifier).tar.gz"
+        Condition="$(RuntimeIdentifier.StartsWith('linux-')) AND $([MSBuild]::IsOSPlatform('Linux')) AND $(MSBuildProjectName.Contains('.Bundle.'))" />
+      <FilesToCopy
+        Include="$(MSBuildThisFileDirectory)artifacts\packages\Release\Shipping\$(InstallerName)-$(Version)-$(RuntimeIdentifier).pkg"
+        Condition="$(RuntimeIdentifier.StartsWith('osx-')) AND $([MSBuild]::IsOSPlatform('OSX')) AND $(MSBuildProjectName.Contains('.Bundle.'))" />
+      <FilesToCopy
+        Include="$(MSBuildThisFileDirectory)artifacts\packages\Release\Shipping\$(InstallerName)-$(Version)-$(RuntimeIdentifier).exe"
+        Condition="$(RuntimeIdentifier.StartsWith('win-')) AND $([MSBuild]::IsOSPlatform('Windows')) AND $(MSBuildProjectName.Contains('.Bundle.'))" />
+    </ItemGroup>
+    <Delete Files="@(FilesToDelete)" />
+    <Copy
+      SourceFiles="@(FilesToCopy)"
+      DestinationFolder="$(MSBuildThisFileDirectory)website\runtime\packages\"
+      OverwriteReadOnlyFiles="true" />
+    <Message
+      Importance="high"
+      Text="$(ArchiveName)-$(Version)-$(RuntimeIdentifier).tar.gz -> $(MSBuildThisFileDirectory)website\runtime\packages\$(ArchiveName)-$(Version)-$(RuntimeIdentifier).tar.gz"
+      Condition="$(RuntimeIdentifier.StartsWith('linux-')) AND $([MSBuild]::IsOSPlatform('Linux')) AND $(MSBuildProjectName.Contains('.Bundle.'))" />
+    <Message
+      Importance="high"
+      Text="$(InstallerName)-$(Version)-$(RuntimeIdentifier).pkg -> $(MSBuildThisFileDirectory)website\runtime\packages\$(InstallerName)-$(Version)-$(RuntimeIdentifier).pkg"
+      Condition="$(RuntimeIdentifier.StartsWith('osx-')) AND $([MSBuild]::IsOSPlatform('OSX')) AND $(MSBuildProjectName.Contains('.Bundle.'))" />
+    <Message
+      Importance="high"
+      Text="$(InstallerName)-$(Version)-$(RuntimeIdentifier).exe -> $(MSBuildThisFileDirectory)website\runtime\packages\$(InstallerName)-$(Version)-$(RuntimeIdentifier).exe"
+      Condition="$(RuntimeIdentifier.StartsWith('win-')) AND $([MSBuild]::IsOSPlatform('Windows')) AND $(MSBuildProjectName.Contains('.Bundle.'))" />
+  </Target>
 
 </Project>
