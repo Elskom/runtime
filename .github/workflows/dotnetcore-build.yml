@@ -16,8 +16,11 @@ jobs:
     steps:
     - uses: actions/checkout@main
 
-    - name: Install latest .NET SDK
+    - name: Install latest .NET 6 SDK
       uses: Elskom/setup-latest-dotnet@main
+      with:
+        VERSION_MAJOR: '6'
+        VERSION_BAND: '2xx'
 
     - name: Install Elskom workload
       run: |
