@@ -35,9 +35,14 @@ jobs:
           VERSION_BAND: '2xx'
 
       - name: Install Elskom workload
-        run: |
-          dotnet tool restore
-          dotnet tool run elskom-check -- install # this will install the entire workload.
+        uses: nick-invision/retry@master
+        with:
+          timeout_minutes: 2
+          max_attempts: 50
+          retry_on: error
+          command: |
+            dotnet tool restore
+            dotnet tool run elskom-check -- install # this will install the entire workload.
 
       - name: Restore and Build
         uses: Elskom/build-dotnet@main
