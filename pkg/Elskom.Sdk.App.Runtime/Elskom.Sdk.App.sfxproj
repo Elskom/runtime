@@ -17,11 +17,14 @@
     <SkipValidatePackage>true</SkipValidatePackage>
     <GenerateInstallers>true</GenerateInstallers>
     <IncludeSymbols>false</IncludeSymbols>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
   <Import Project="Sdk.targets" Sdk="Microsoft.DotNet.SharedFramework.Sdk" Version="7.0.0-beta.21512.6" />
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.NETCore.App" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="../../src/GitInformation/GitInformation.csproj" />
     <ProjectReference Include="../../src/Common/Common.csproj" />
     <!-- zlib.managed has a zlib compression regression that needs fixed. -->
