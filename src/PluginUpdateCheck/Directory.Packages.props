@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../Common/Common.csproj" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="*-*" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="IDisposableGenerator" Version="*-*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; compile; analyzers; buildtransitive</IncludeAssets>
