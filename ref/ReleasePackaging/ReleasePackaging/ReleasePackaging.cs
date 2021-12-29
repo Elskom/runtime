@@ -14,6 +14,7 @@ public static class ReleasePackaging
     /// Packages an application's Release build to a zip file.
     /// </summary>
     /// <param name="args">The command line arguments passed into the calling process.</param>
-    public static void PackageRelease(string[] args)
+    /// <exception cref="ArgumentOutOfRangeException">When the length of args is greater than or less than 2.</exception>
+    public static void PackageRelease(ReadOnlySpan<string> args)
         => throw null!;
 }
