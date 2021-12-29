@@ -10,14 +10,8 @@ namespace Elskom.Generic.Libs;
 /// </summary>
 public static class ReleasePackaging
 {
-    private static ReadOnlySpan<string> ExcludeFile
-        => new[]
-    {
-        ".CodeAnalysisLog.xml",
-    };
-
-    private static ReadOnlySpan<string> Extensions
-        => new[]
+    private static List<string> Extensions
+        => new()
     {
         "*.exe", "*.dll", "*.xml", "*.txt", "*.pdb",
     };
@@ -26,41 +20,42 @@ public static class ReleasePackaging
     /// Packages an application's Release build to a zip file.
     /// </summary>
     /// <param name="args">The command line arguments passed into the calling process.</param>
-    public static void PackageRelease(string[] args)
+    /// <exception cref="ArgumentOutOfRangeException">When the length of args is greater than or less than 2.</exception>
+    public static void PackageRelease(ReadOnlySpan<string> args)
     {
-        if (args is null)
+        if (args.Length is not 2)
         {
-            throw new ArgumentNullException(nameof(args));
+            throw new ArgumentOutOfRangeException(nameof(args), "The length of the input arguments to package the release is greater than or less than 2.");
         }
 
         // Replace spaces with periods.
         var outfilename = args[1].Replace(" ", ".", StringComparison.OrdinalIgnoreCase);
-        args[1] = (
+        outfilename = (
             args[1].StartsWith(".\\", StringComparison.OrdinalIgnoreCase),
             args[1].StartsWith("./", StringComparison.OrdinalIgnoreCase)) switch
         {
             (true, false) => outfilename.Replace(".\\", $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase),
-            (false, true) =>outfilename.Replace("./", $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase),
+            (false, true) => outfilename.Replace("./", $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase),
             _ => $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}{outfilename.Replace(".", string.Empty, StringComparison.OrdinalIgnoreCase)}",
         };
-        if (args[0].Equals("-p", StringComparison.Ordinal))
+        if (args[0] is "-p")
         {
             Console.WriteLine(Resources.ReleasePackaging_Write_output!, outfilename);
-            if (File.Exists(args[1]))
+            if (File.Exists(outfilename))
             {
-                File.Delete(args[1]);
+                File.Delete(outfilename);
             }
 
-            using var zipFile = ZipFile.Open(args[1], ZipArchiveMode.Update);
+            using var zipFile = ZipFile.Open(outfilename, ZipArchiveMode.Update);
             DirectoryInfo di1 = new(Directory.GetCurrentDirectory());
-            foreach (var fi1 in GetAllFilesWithExtensions(di1, Extensions, ExcludeFile).Select(fi => fi.Name))
+            foreach (var fi1 in GetAllFilesWithExtensions(di1, Extensions).Select(fi => fi.Name))
             {
                 _ = zipFile.CreateEntryFromFile(fi1, fi1);
             }
 
             foreach (var di2 in di1.GetDirectories())
             {
-                foreach (var fi2 in GetAllFilesWithExtensions(di2, Extensions[1..], ExcludeFile).Select(fi => fi.Name))
+                foreach (var fi2 in GetAllFilesWithExtensions(di2, Extensions.GetRange(1, Extensions.Count)).Select(fi => fi.Name))
                 {
                     _ = zipFile.CreateEntryFromFile($"{di2.Name}{Path.DirectorySeparatorChar}{fi2}", $"{di2.Name}{Path.DirectorySeparatorChar}{fi2}");
                 }
@@ -68,7 +63,7 @@ public static class ReleasePackaging
         }
     }
 
-    private static List<FileInfo> GetAllFilesWithExtensions(DirectoryInfo dinfo, ReadOnlySpan<string> extensions, ReadOnlySpan<string> excludeFile)
+    private static List<FileInfo> GetAllFilesWithExtensions(DirectoryInfo dinfo, List<string> extensions)
     {
         List<FileInfo> fileInfos = new();
         foreach (var extension in extensions)
@@ -77,7 +72,7 @@ public static class ReleasePackaging
             foreach (var file in files)
             {
                 // filter out excluded files.
-                var excluded = file.Name.EndsWith(excludeFile[0], StringComparison.OrdinalIgnoreCase);
+                var excluded = file.Name.EndsWith(".CodeAnalysisLog.xml", StringComparison.OrdinalIgnoreCase);
                 if (!excluded)
                 {
                     fileInfos.Add(file);
