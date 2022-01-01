@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../ZipAssembly/ZipAssembly.csproj" />
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="*-*" />
   </ItemGroup>
 
   <Import Project="../Directory.Packages.props" />
