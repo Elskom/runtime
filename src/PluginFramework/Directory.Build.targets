@@ -7,7 +7,6 @@
     <AdditionalFiles Include="../../stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-    <AdditionalFiles Include="Properties\Resources.resx" />
     <Using Include="System.Diagnostics" />
     <Using Include="System.Text" />
     <Using Include="System.Xml.Linq" />
