@@ -3,7 +3,7 @@
   "isRoot": true,
   "tools": {
     "elskom.net.check": {
-      "version": "1.0.12",
+      "version": "1.0.13",
       "commands": [
         "elskom-check"
       ]
