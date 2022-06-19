@@ -230,7 +230,7 @@ public sealed partial class ZlibStream : Stream
             throw new NotSupportedException(!this.Compress ? "Write() should not be used to decompress. Use Read() instead. If Compressing is intended pass the output stream with a compression level argument." : "The stream cannot be Written to.");
         }
 
-        ArgumentNullException.ThrowIfNull(buffer, nameof(buffer));
+        ArgumentNullException.ThrowIfNull(buffer);
         if (count == 0)
         {
             return;

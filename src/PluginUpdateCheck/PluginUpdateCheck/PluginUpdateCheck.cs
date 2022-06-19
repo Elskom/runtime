@@ -41,11 +41,7 @@ public sealed partial class PluginUpdateCheck
     {
         get
         {
-            if (this.isDisposed)
-            {
-                throw new ObjectDisposedException(nameof(PluginUpdateCheck));
-            }
-
+            ThrowHelpers.ThrowObjectDisposed(this.isDisposed, nameof(PluginUpdateCheck));
             var result = false;
             if (!this.PluginUpdateDatas.Any())
             {
@@ -93,8 +89,8 @@ public sealed partial class PluginUpdateCheck
     // catches the plugin urls and uses that cache to detect added urls, and only appends those to the list.
     public bool CheckForUpdates(string[] pluginURLs, List<Type> pluginTypes)
     {
-        _ = pluginURLs ?? throw new ArgumentNullException(nameof(pluginURLs));
-        _ = pluginTypes ?? throw new ArgumentNullException(nameof(pluginTypes));
+        ArgumentNullException.ThrowIfNull(pluginURLs);
+        ArgumentNullException.ThrowIfNull(pluginTypes);
 
         // fixup the github urls (if needed).
         var pluginURLs1 = new string[pluginURLs.Length];
@@ -176,11 +172,7 @@ public sealed partial class PluginUpdateCheck
     /// <returns>A bool indicating if anything changed.</returns>
     public bool Install(PluginUpdateData pluginUpdateData, bool saveToZip)
     {
-        if (this.isDisposed)
-        {
-            throw new ObjectDisposedException(nameof(PluginUpdateCheck));
-        }
-
+        ThrowHelpers.ThrowObjectDisposed(this.isDisposed, nameof(PluginUpdateCheck));
         foreach (var downloadFile in pluginUpdateData.DownloadFiles)
         {
             try
@@ -225,11 +217,7 @@ public sealed partial class PluginUpdateCheck
     /// <returns>A bool indicating if anything changed.</returns>
     public bool Uninstall(PluginUpdateData pluginUpdateData, bool saveToZip)
     {
-        if (this.isDisposed)
-        {
-            throw new ObjectDisposedException(nameof(PluginUpdateCheck));
-        }
-
+        ThrowHelpers.ThrowObjectDisposed(this.isDisposed, nameof(PluginUpdateCheck));
         try
         {
             foreach (var downloadFile in pluginUpdateData.DownloadFiles)
