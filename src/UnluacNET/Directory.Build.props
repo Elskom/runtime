@@ -3,7 +3,6 @@
   <Import Project="../Directory.Build.props" />
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Elskom.Generic.Libs.UnluacNET</RootNamespace>
     <AssemblyTitle>Unluac.NET</AssemblyTitle>
