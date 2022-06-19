@@ -30,27 +30,18 @@ internal static class MiniDump
             }
 
             File.WriteAllText(MiniDumpAttribute.CurrentInstance.DumpLogFileName, exceptionData);
-            var diagnosticsClient = new DiagnosticsClient(SettingsFile.ThisProcessId);
             MessageEventArgs args;
-            try
-            {
-                diagnosticsClient.WriteDump((DumpType)MiniDumpAttribute.CurrentInstance.DumpType, MiniDumpAttribute.CurrentInstance.DumpFileName);
-                args = new(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        MiniDumpAttribute.CurrentInstance.Text,
-                        MiniDumpAttribute.CurrentInstance.DumpLogFileName),
-                    threadException ? MiniDumpAttribute.CurrentInstance.ThreadExceptionTitle : MiniDumpAttribute.CurrentInstance.ExceptionTitle,
-                    ErrorLevel.Error);
-            }
-            catch (ServerErrorException ex)
-            {
-                args = new(
-                    ex.Message,
-                    threadException ? MiniDumpAttribute.CurrentInstance.ThreadExceptionTitle : MiniDumpAttribute.CurrentInstance.ExceptionTitle,
-                    ErrorLevel.Error);
-            }
-
+            var dumpArgs = new MiniDumpEventArgs(
+                MiniDumpAttribute.CurrentInstance.DumpFileName,
+                MiniDumpAttribute.CurrentInstance.DumpType);
+            var dumpResult = MiniDumpAttribute.InvokeDump(dumpArgs);
+            args = new(
+                dumpResult ? string.Format(
+                    CultureInfo.InvariantCulture,
+                    MiniDumpAttribute.CurrentInstance.Text,
+                    MiniDumpAttribute.CurrentInstance.DumpLogFileName) : "MiniDump failed.",
+                threadException ? MiniDumpAttribute.CurrentInstance.ThreadExceptionTitle : MiniDumpAttribute.CurrentInstance.ExceptionTitle,
+                ErrorLevel.Error);
             MiniDumpAttribute.InvokeDumpMessage(args);
             return args.ExitCode;
         }
