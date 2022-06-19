@@ -19,11 +19,7 @@ public static class MemoryStreamExtensions
     /// <exception cref="ArgumentOutOfRangeException">When capacity is negative.</exception>
     public static void Clear(this MemoryStream ms, int capacity)
     {
-        if (ms == null)
-        {
-            throw new ArgumentNullException(nameof(ms));
-        }
-
+        ArgumentNullException.ThrowIfNull(ms, nameof(ms));
         if (capacity < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(capacity), "capacity must not be negative.");
