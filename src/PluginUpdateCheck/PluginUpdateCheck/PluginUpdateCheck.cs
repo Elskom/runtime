@@ -31,7 +31,7 @@ public sealed partial class PluginUpdateCheck
     /// <summary>
     /// Gets the plugin urls used in all instances.
     /// </summary>
-    [SetNullOnDispose]
+    [NullOnDispose]
     public List<string> PluginUrls { get; private set; }
 
     /// <summary>
@@ -80,7 +80,7 @@ public sealed partial class PluginUpdateCheck
     /// <summary>
     /// Gets a list of <see cref="PluginUpdateData"/> instances representing the plugins that needs updating or are to be installed.
     /// </summary>
-    [SetNullOnDispose]
+    [NullOnDispose]
     public List<PluginUpdateData> PluginUpdateDatas { get; private set; }
 
     /// <summary>

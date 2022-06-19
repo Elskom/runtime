@@ -15,21 +15,21 @@ public sealed partial class BlowFish
     private RandomNumberGenerator randomSource = RandomNumberGenerator.Create();
 
     // SBLOCKS
-    [SetNullOnDispose]
+    [NullOnDispose]
     private uint[] bfS0;
-    [SetNullOnDispose]
+    [NullOnDispose]
     private uint[] bfS1;
-    [SetNullOnDispose]
+    [NullOnDispose]
     private uint[] bfS2;
-    [SetNullOnDispose]
+    [NullOnDispose]
     private uint[] bfS3;
-    [SetNullOnDispose]
+    [NullOnDispose]
     private uint[] bfP;
 
     // HALF-BLOCKS
     private uint xlPar;
     private uint xrPar;
-    [SetNullOnDispose]
+    [NullOnDispose]
     private byte[] initVector;
     private bool iVSet;
 
