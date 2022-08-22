@@ -17,6 +17,7 @@
       <_Parameter1>Elskom.PluginFramework,PublicKey=$(SnkPublicKey)</_Parameter1>
     </AssemblyAttribute>
     <Using Include="System.Diagnostics" />
+    <Using Include="System.Runtime.InteropServices" />
     <Using Include="System.Text" /> 
   </ItemGroup>
 
