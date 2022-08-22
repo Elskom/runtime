@@ -152,3 +152,6 @@ dotnet_diagnostic.CA1303.severity = warning
 
 # S3903: Move '%s' into a named namespace.
 dotnet_diagnostic.S3903.severity = none
+
+# S2326: Unused type parameters should be removed
+dotnet_diagnostic.S2326.severity = none

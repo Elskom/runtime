@@ -63,11 +63,7 @@ public static class KOMManager
     /// <param name="destFileDir">The target to copy the kom file too.</param>
     public static void CopyKomFiles(string fileName, string origFileDir, string destFileDir)
     {
-        if (destFileDir is null)
-        {
-            throw new ArgumentNullException(nameof(destFileDir));
-        }
-
+        ArgumentNullException.ThrowIfNull(destFileDir);
         if (File.Exists($"{origFileDir}{fileName}") && Directory.Exists(destFileDir))
         {
             MoveOriginalKomFiles(fileName, destFileDir, $"{destFileDir}{Path.DirectorySeparatorChar}backup");
@@ -90,16 +86,8 @@ public static class KOMManager
     /// <exception cref="ArgumentNullException">When <paramref name="origFileDir"/> or <paramref name="destFileDir"/> are <see langword="null"/> or empty.</exception>
     public static void MoveOriginalKomFilesBack(string fileName, string origFileDir, string destFileDir)
     {
-        if (string.IsNullOrEmpty(origFileDir))
-        {
-            throw new ArgumentNullException(nameof(origFileDir));
-        }
-
-        if (string.IsNullOrEmpty(destFileDir))
-        {
-            throw new ArgumentNullException(nameof(destFileDir));
-        }
-
+        ThrowHelpers.ThrowArgumentNull(string.IsNullOrEmpty(origFileDir), nameof(origFileDir));
+        ThrowHelpers.ThrowArgumentNull(string.IsNullOrEmpty(destFileDir), nameof(destFileDir));
         if (!origFileDir.EndsWith($"{Path.DirectorySeparatorChar}", StringComparison.Ordinal))
         {
             origFileDir += Path.DirectorySeparatorChar;

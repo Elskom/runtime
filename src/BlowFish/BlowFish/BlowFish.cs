@@ -39,11 +39,7 @@ public sealed partial class BlowFish
     /// <param name="hexKey">Cipher key as a hex string.</param>
     public BlowFish(string hexKey)
     {
-        if (string.IsNullOrEmpty(hexKey))
-        {
-            throw new ArgumentNullException(nameof(hexKey));
-        }
-
+        ArgumentNullException.ThrowIfNull(hexKey);
         this.SetupKey(HexToByte(hexKey.AsSpan()));
     }
 
@@ -53,11 +49,7 @@ public sealed partial class BlowFish
     /// <param name="cipherKey">Cipher key as a byte array.</param>
     public BlowFish(byte[] cipherKey)
     {
-        if (cipherKey == null)
-        {
-            throw new ArgumentNullException(nameof(cipherKey));
-        }
-
+        ArgumentNullException.ThrowIfNull(cipherKey);
         this.SetupKey(cipherKey);
     }
 
@@ -72,15 +64,9 @@ public sealed partial class BlowFish
         get => this.initVector;
         set
         {
-            if (value.ToArray().Length == 8)
-            {
-                this.initVector = value.ToArray();
-                this.iVSet = true;
-            }
-            else
-            {
-                throw new InvalidOperationException(Resources.BlowFish_Invalid_IV_Size);
-            }
+            ThrowHelpers.ThrowInvalidOperation(value.ToArray().Length != 8, Resources.BlowFish_Invalid_IV_Size);
+            this.initVector = value.ToArray();
+            this.iVSet = true;
         }
     }
 
@@ -301,16 +287,8 @@ public sealed partial class BlowFish
     /// <param name="iv">8 bit block 2.</param>
     public static void XorBlock(Span<byte> block, Span<byte> iv)
     {
-        if (block.Length is 0)
-        {
-            throw new ArgumentNullException(nameof(block));
-        }
-
-        if (iv.Length == 0)
-        {
-            throw new ArgumentNullException(nameof(iv));
-        }
-
+        ThrowHelpers.ThrowArgumentOutOfRange(block.Length is 0, nameof(block));
+        ThrowHelpers.ThrowArgumentOutOfRange(iv.Length is 0, nameof(iv));
         XorBlock_private(block, iv);
     }
 
@@ -321,11 +299,7 @@ public sealed partial class BlowFish
     /// <param name="iv">8 bit block 2.</param>
     public static void XorBlock(Stream block, byte[] iv)
     {
-        if (block is null)
-        {
-            throw new ArgumentNullException(nameof(block));
-        }
-
+        ArgumentNullException.ThrowIfNull(block);
         if (block is MemoryStream ms)
         {
             XorBlock(ms.GetBuffer(), iv);
@@ -354,7 +328,10 @@ public sealed partial class BlowFish
     /// <param name="pt">Plaintext data to encrypt.</param>
     /// <returns>Ciphertext.</returns>
     public byte[] EncryptCBC(byte[] pt)
-        => pt == null ? throw new ArgumentNullException(nameof(pt)) : this.Crypt_CBC((byte[])pt.Clone(), false);
+    {
+        ArgumentNullException.ThrowIfNull(pt);
+        return this.Crypt_CBC((byte[])pt.Clone(), false);
+    }
 
     /// <summary>
     /// Decrypts a string in CBC mode.
@@ -363,11 +340,7 @@ public sealed partial class BlowFish
     /// <returns>Plaintext.</returns>
     public string DecryptCBC(string ct)
     {
-        if (string.IsNullOrEmpty(ct))
-        {
-            throw new ArgumentNullException(nameof(ct));
-        }
-
+        ArgumentNullException.ThrowIfNull(ct);
         this.IV = HexToByte(ct.AsSpan().Slice(0, 16));
         return Encoding.ASCII.GetString(this.DecryptCBC(HexToByte(ct.AsSpan().Slice(16))).Remove((byte)'\0'));
     }
@@ -379,7 +352,10 @@ public sealed partial class BlowFish
     /// <param name="ct">Ciphertext data to decrypt.</param>
     /// <returns>Plaintext.</returns>
     public byte[] DecryptCBC(byte[] ct)
-        => ct == null ? throw new ArgumentNullException(nameof(ct)) : this.Crypt_CBC((byte[])ct.Clone(), true);
+    {
+        ArgumentNullException.ThrowIfNull(ct);
+        return this.Crypt_CBC((byte[])ct.Clone(), true);
+    }
 
     /// <summary>
     /// Encrypt a string in ECB mode.
@@ -395,7 +371,10 @@ public sealed partial class BlowFish
     /// <param name="pt">Plaintext data.</param>
     /// <returns>Ciphertext bytes.</returns>
     public byte[] EncryptECB(byte[] pt)
-        => pt == null ? throw new ArgumentNullException(nameof(pt)) : this.Crypt_ECB((byte[])pt.Clone(), false);
+    {
+        ArgumentNullException.ThrowIfNull(pt);
+        return this.Crypt_ECB((byte[])pt.Clone(), false);
+    }
 
     /// <summary>
     /// Decrypts a string (ECB).
@@ -404,11 +383,7 @@ public sealed partial class BlowFish
     /// <returns>Plaintext ascii string.</returns>
     public string DecryptECB(string ct)
     {
-        if (string.IsNullOrEmpty(ct))
-        {
-            throw new ArgumentNullException(nameof(ct));
-        }
-
+        ArgumentNullException.ThrowIfNull(ct);
         return Encoding.ASCII.GetString(this.Decrypt_ECB(HexToByte(ct.AsSpan())).Remove((byte)'\0'));
     }
 
@@ -510,11 +485,7 @@ public sealed partial class BlowFish
         this.bfS1 = SetupS1.ToArray();
         this.bfS2 = SetupS2.ToArray();
         this.bfS3 = SetupS3.ToArray();
-        if (cipherKey.Length > 56)
-        {
-            throw new InvalidOperationException(Resources.BlowFish_Key_Too_Long);
-        }
-
+        ThrowHelpers.ThrowInvalidOperation(cipherKey.Length > 56, Resources.BlowFish_Key_Too_Long);
         var j = 0;
         for (var i = 0; i < 18; i++)
         {
@@ -588,11 +559,7 @@ public sealed partial class BlowFish
 
     private byte[] Crypt_CBC(byte[] text, bool decrypt)
     {
-        if (!this.iVSet)
-        {
-            throw new InvalidOperationException(Resources.BlowFish_IV_Not_Set);
-        }
-
+        ThrowHelpers.ThrowInvalidOperation(!this.iVSet, Resources.BlowFish_IV_Not_Set);
         var paddedLen = text.Length % 8 == 0 ? text.Length : text.Length + 8 - (text.Length % 8);
         if (paddedLen != text.Length)
         {

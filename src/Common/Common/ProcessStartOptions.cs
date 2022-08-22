@@ -78,16 +78,8 @@ public sealed class ProcessStartOptions
     /// <exception cref="FileNotFoundException">When the file to the process to execute does not exist on disk.</exception>
     public string Start(ProcessStartInfo startInfo)
     {
-        if (startInfo is null)
-        {
-            throw new InvalidOperationException("StartInfo must not be null.");
-        }
-
-        if (!File.Exists(startInfo.FileName))
-        {
-            throw new FileNotFoundException("File to execute does not exist.");
-        }
-
+        ThrowHelpers.ThrowInvalidOperation(startInfo is null, "StartInfo must not be null.");
+        ThrowHelpers.ThrowFileNotFound(!File.Exists(startInfo.FileName), "File to execute does not exist.");
         this.Executing = true;
         StringBuilder stdout = null;
         StringBuilder stderr = null;

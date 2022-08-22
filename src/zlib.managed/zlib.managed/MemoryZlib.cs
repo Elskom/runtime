@@ -240,11 +240,7 @@ public static class MemoryZlib
     /// <exception cref="ArgumentNullException">When <paramref name="stream"/> is <see langword="null" />.</exception>
     public static bool IsCompressedByZlib(Stream stream)
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
-
+        ArgumentNullException.ThrowIfNull(stream);
         var byte1 = stream.ReadByte();
         var byte2 = stream.ReadByte();
         if (byte1 is -1 || byte2 is -1)
@@ -253,7 +249,7 @@ public static class MemoryZlib
         }
 
         _ = stream.Seek(-2, SeekOrigin.Current);
-        return (byte)byte1 is 0x78 && (byte)byte2 is 0x01 or 0x5E or 0x9C or 0xDA;
+        return IsCompressedByZlib(new[] { (byte)byte1, (byte)byte2 });
     }
 
     /// <summary>
@@ -272,9 +268,10 @@ public static class MemoryZlib
     /// <returns>Returns <see langword="true" /> if data is compressed by zlib, else <see langword="false" />.</returns>
     /// <exception cref="ArgumentNullException">When <paramref name="data"/> is <see langword="null" />.</exception>
     public static bool IsCompressedByZlib(byte[] data)
-        => data == null
-            ? throw new ArgumentNullException(nameof(data))
-            : data.Length >= 2 && data[0] is 0x78 && data[1] is 0x01 or 0x5E or 0x9C or 0xDA;
+    {
+        ArgumentNullException.ThrowIfNull(data);
+        return data.Length >= 2 && data[0] is 0x78 && data[1] is 0x01 or 0x5E or 0x9C or 0xDA;
+    }
 
     // NEW: Zlib version check.
 

@@ -95,10 +95,7 @@ public class GitInformation
     /// </param>
     public static void ApplyAssemblyAttributes(Assembly assembly)
     {
-        if (assembly is null)
-        {
-            throw new ArgumentNullException(nameof(assembly));
-        }
+        ArgumentNullException.ThrowIfNull(assembly);
 
         // this check is to avoid a stack overflow exception.
         if (AppliedAssemblies.Add(assembly))
@@ -119,9 +116,10 @@ public class GitInformation
     /// or <see langword="null"/>.
     /// </returns>
     public static GitInformation GetAssemblyInstance(Type assemblyType)
-        => assemblyType is null
-            ? throw new ArgumentNullException(nameof(assemblyType))
-            : GetAssemblyInstance(assemblyType.Assembly);
+    {
+        ArgumentNullException.ThrowIfNull(assemblyType);
+        return GetAssemblyInstance(assemblyType.Assembly);
+    }
 
     /// <summary>
     /// Gets the instance of the <see cref="GitInformation"/> class for

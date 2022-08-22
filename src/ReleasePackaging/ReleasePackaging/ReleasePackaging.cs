@@ -23,10 +23,7 @@ public static class ReleasePackaging
     /// <exception cref="ArgumentOutOfRangeException">When the length of args is greater than or less than 2.</exception>
     public static void PackageRelease(ReadOnlySpan<string> args)
     {
-        if (args.Length is not 2)
-        {
-            throw new ArgumentOutOfRangeException(nameof(args), "The length of the input arguments to package the release is greater than or less than 2.");
-        }
+        ThrowHelpers.ThrowArgumentOutOfRange(args.Length is not 2, nameof(args), "The length of the input arguments to package the release is greater than or less than 2.");
 
         // Replace spaces with periods.
         var outfilename = args[1].Replace(" ", ".", StringComparison.OrdinalIgnoreCase);
