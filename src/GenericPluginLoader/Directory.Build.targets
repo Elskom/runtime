@@ -13,6 +13,7 @@
     <Using Include="System.IO.Compression" />
     <Using Include="System.Reflection" />
     <Using Include="System.Text" />
+    <Using Include="System.Runtime.InteropServices" />
     <Using Include="System.Runtime.Loader" />
     <Using Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>

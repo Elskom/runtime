@@ -53,7 +53,16 @@ public sealed class GenericPluginLoader
         List<string>? dllFileNames = null;
         if (Directory.Exists(path))
         {
-            dllFileNames = Directory.EnumerateFiles(path, "*.dll").ToList();
+            // First search for plugins under the any (universal) runtime identifier.
+            dllFileNames = Directory.EnumerateFiles(
+                    $"{path}{Path.DirectorySeparatorChar}any",
+                    "*.dll").ToList();
+
+            // Next, search for plugins under the current process's runtime identifier.
+            // This is needed as native C++ plugins are runtime identifier (and cpu) specific.
+            dllFileNames.AddRange(Directory.EnumerateFiles(
+                $"{path}{Path.DirectorySeparatorChar}{RuntimeInformation.RuntimeIdentifier}",
+                "*.dll"));
         }
 
         // try to load from a zip as well if plugins are installed in both places.
@@ -87,7 +96,11 @@ public sealed class GenericPluginLoader
                 {
                     foreach (var entry in zipFile.Entries)
                     {
-                        filesInZip.Add(entry.FullName, zipFile.Entries.IndexOf(entry));
+                        if (entry.FullName.Contains($"{RuntimeInformation.RuntimeIdentifier}{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase)
+                            || entry.FullName.Contains($"any{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+                        {
+                            filesInZip.Add(entry.FullName, zipFile.Entries.IndexOf(entry));
+                        }
                     }
                 }
 

@@ -8,13 +8,16 @@
       <_Parameter1>BlowFish,PublicKey=$(SnkPublicKey)</_Parameter1>
     </AssemblyAttribute>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Elskom.PluginFramework,PublicKey=$(SnkPublicKey)</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>GenericPluginLoader,PublicKey=$(SnkPublicKey)</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>PluginUpdateCheck,PublicKey=$(SnkPublicKey)</_Parameter1>
     </AssemblyAttribute>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>ReleasePackaging,PublicKey=$(SnkPublicKey)</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>Elskom.PluginFramework,PublicKey=$(SnkPublicKey)</_Parameter1>
     </AssemblyAttribute>
     <Using Include="System.Diagnostics" />
     <Using Include="System.Text" /> 
