@@ -1,0 +1,9 @@
+{
+  "sdk": {
+    "allowPrerelease" : true,
+    "rollForward": "latestFeature"
+  },
+  "msbuild-sdks": {
+    "Elskom.Sdk": "1.0.0"
+  }
+}
