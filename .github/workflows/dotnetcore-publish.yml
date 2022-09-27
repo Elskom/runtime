@@ -2,8 +2,12 @@ name: .NET Core (build & publish release)
 
 on:
   push:
+    # only run when stable release tags are made, when prerelease or rc tags are made ignore them.
     tags:
     - '*'
+    tags-ignore:
+    - '*-preview.*'
+    - '*-rc.*'
 
 jobs:
   build:
