@@ -7,7 +7,7 @@
     <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' == ''">false</GenerateDocumentationFile>
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <ProduceReferenceAssemblyInOutDir>false</ProduceReferenceAssemblyInOutDir>
-    <NoWarn>$(NoWarn);SA0001</NoWarn>
+    <NoWarn>$(NoWarn);SA0001;NU1507;NU5104;NU5118</NoWarn>
   </PropertyGroup>
 
   <Import Project="../Directory.Build.props" />

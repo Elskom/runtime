@@ -17,6 +17,7 @@
     <SkipValidatePackage>true</SkipValidatePackage>
     <GenerateInstallers>true</GenerateInstallers>
     <IncludeSymbols>false</IncludeSymbols>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
   </PropertyGroup>
 
   <Import Project="Sdk.targets" Sdk="Microsoft.DotNet.SharedFramework.Sdk" Version="7.0.0-beta.21512.6" />

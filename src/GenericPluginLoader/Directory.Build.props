@@ -11,7 +11,6 @@
     <PackageReleaseNotes>Removed ability to force load pdbs as it was not needed. Also loads each plugin into a separate AppDomain on .NET Standard builds, while using AssemblyLoadContexts for .NET 5 or newer builds.</PackageReleaseNotes>
     <Version>2.0.0</Version>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <NoWarn>$(NoWarn);NU5104;NU5118</NoWarn>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Elskom.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>

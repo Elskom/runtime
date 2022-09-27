@@ -10,7 +10,6 @@
     <PackageReleaseNotes>Removed the ability to force load pdbs as it was not needed. Also loads each plugin into a AppDomain passed into the ZipLoader on .NET Standard builds, while using AssemblyLoadContexts for .NET 5 or newer builds and the class is now sealed while the ZipSymbolsLoadException class was removed.</PackageReleaseNotes>
     <Version>2.0.0</Version>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <NoWarn>$(NoWarn);NU5104;NU5118</NoWarn>
     <DelaySign>false</DelaySign>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

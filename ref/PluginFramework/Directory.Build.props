@@ -11,7 +11,6 @@
     <PackageReleaseNotes>Reduced supported TargetFrameworks.</PackageReleaseNotes>
     <Version>1.0.2</Version>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <NoWarn>$(NoWarn);NU5104;NU5118</NoWarn>
     <DelaySign>false</DelaySign>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

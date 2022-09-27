@@ -1,5 +1,7 @@
 <Project>
 
+  <Import Project="../Directory.Packages.props" />
+
   <ItemGroup>
     <!-- SourceLink -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" IsImplicitlyDefined="true" Version="*-*">

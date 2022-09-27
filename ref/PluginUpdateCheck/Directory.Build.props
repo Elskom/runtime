@@ -9,7 +9,6 @@
     <PackageReleaseNotes>Added usage of ServiceProvider to provide HttpClient instances directly from applications that use the library and the class is now sealed as well.</PackageReleaseNotes>
     <Version>2.0.0</Version>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <NoWarn>$(NoWarn);NU5104;NU5118</NoWarn>
     <DelaySign>false</DelaySign>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

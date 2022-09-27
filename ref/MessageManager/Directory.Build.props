@@ -9,7 +9,6 @@
     <PackageReleaseNotes>Reduced supported TargetFrameworks and changed a few methods from static to non-static as well as removed things specific to making a notification icon.</PackageReleaseNotes>
     <Version>2.0.0</Version>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <NoWarn>$(NoWarn);NU5104;NU5118</NoWarn>
     <DelaySign>false</DelaySign>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

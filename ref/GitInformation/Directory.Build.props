@@ -12,7 +12,6 @@
     <PackageReleaseNotes>Fixed bug in GitInformation.IsTag where it will never be true even when it should be.</PackageReleaseNotes>
     <Version>1.0.1</Version>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <NoWarn>$(NoWarn);NU5104;NU5118</NoWarn>
     <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <GitBuildInfoAssemblyType>GitInformation</GitBuildInfoAssemblyType>

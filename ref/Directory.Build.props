@@ -6,6 +6,7 @@
     <ProduceOnlyReferenceAssembly Condition="'$(ProduceReferenceAssembly)' == ''">true</ProduceOnlyReferenceAssembly>
     <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' == ''">true</GenerateDocumentationFile>
     <GenerateDependencyFile>false</GenerateDependencyFile>
+    <NoWarn>$(NoWarn);NU1507;NU5104;NU5118</NoWarn>
   </PropertyGroup>
 
   <Import Project="../Directory.Build.props" />

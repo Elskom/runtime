@@ -1,0 +1,13 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Diagnostics.NetCore.Client" Version="0.2.328102" />
+    <PackageVersion Include="IDisposableGenerator" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>
