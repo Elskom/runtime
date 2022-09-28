@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Microsoft.Build.NoTargets" />
+  <Sdk Name="Microsoft.DotNet.Arcade.Sdk" />
+
+  <PropertyGroup>
+    <AssemblyVersion />
+    <!--
+      Name, used to generate the bundle upgrade code. Must stay the same to allow bundles in a given
+      product band to upgrade in place.
+    -->
+    <BundleInstallerUpgradeCodeSeed>Elskom Shared Framework Bundle Installer</BundleInstallerUpgradeCodeSeed>
+    <BundleThemeDirectory>$(MSBuildProjectDirectory)</BundleThemeDirectory>
+    <ArchiveName>elskom-shared-framework</ArchiveName>
+    <InstallerName>elskom-shared-framework</InstallerName>
+    <BundleNameSuffix>Shared Framework</BundleNameSuffix>
+    <ProductBrandPrefix>Elskom</ProductBrandPrefix>
+    <!-- MacOS installers only!!! -->
+    <MacOSBundleTemplate Condition="$(RuntimeIdentifier.StartsWith('osx-'))">$(MSBuildProjectDirectory)/shared-framework-distribution-template-arm64.xml</MacOSBundleTemplate>
+    <MacOSBundleIdentifierName Condition="$(RuntimeIdentifier.StartsWith('osx-'))">com.elskom.dotnet.Elskom.Sdk.App.$(ProductVersion).osx.arm64</MacOSBundleIdentifierName>
+    <MacOSBundleResourcesPath Condition="$(RuntimeIdentifier.StartsWith('osx-'))">osx_resources</MacOSBundleResourcesPath>
+    <!-- bypass issue where the .net arcade sdk sets these to Microsoft. -->
+    <Company>$(ElskomOrgName)</Company>
+    <Authors>$(ElskomOrgName)</Authors>
+    <!-- bypass issue where the arcade sdk sets the nuget packages to an microsoft copyright. -->
+    <CopyrightMicrosoft>$(CopyrightElskom)</CopyrightMicrosoft>
+    <PackageIconFullPath>../../els_kom.png</PackageIconFullPath>
+    <WixInstallerBackgroundFile Condition="$(RuntimeIdentifier.StartsWith('win-'))">$(MSBuildThisFileDirectory)osx_resources\elskombackground.png</WixInstallerBackgroundFile>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CandleVariables Include="Manufacturer" Value="$(Company)" />
+    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Installers" Condition="$([MSBuild]::IsOSPlatform('Windows')) OR $([MSBuild]::IsOSPlatform('OSX'))" />
+    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Archives"> <!-- Condition="$([MSBuild]::IsOSPlatform('Linux'))"> -->
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <BundleComponentReference Include="../sfx/Elskom.Sdk.App.Runtime.sfxproj">
+      <AdditionalProperties>RuntimeIdentifier=$(RuntimeIdentifier)</AdditionalProperties>
+    </BundleComponentReference>
+    <BundleComponentReference Include="../sfx/Elskom.Sdk.App.Ref.sfxproj">
+      <AdditionalProperties>RuntimeIdentifier=$(RuntimeIdentifier)</AdditionalProperties>
+    </BundleComponentReference>
+  </ItemGroup>
+
+  <Target Name="PublishToDisk">
+    <Error Condition="'$(OutputPath)' == ''" Text="Publishing to disk requires the OutputPath to be set to the root of the path to write to." />
+    <MSBuild Projects="@(BundleComponentReference)" Targets="PublishToDisk;Pack" Properties="OutputPath=$(OutputPath)" />
+  </Target>
+
+  <Target Name="PublishSymbolsToDisk">
+    <Error Condition="'$(SymbolsOutputPath)' == ''" Text="Publishing to disk requires the SymbolsOutputPath to be set to the root of the path to write to." />
+    <MSBuild Projects="@(BundleComponentReference)" Targets="PublishSymbolsToDisk" Properties="SymbolsOutputPath=$(SymbolsOutputPath)" />
+  </Target>
+
+</Project>

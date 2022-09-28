@@ -1,0 +1,31 @@
+<Project>
+
+  <Import Project="../../Directory.Packages.props" />
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.NETCore.App" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)GitInformation/GitInformation.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)Common/Common.csproj" />
+    <!-- zlib.managed has a zlib compression regression that needs fixed. -->
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)zlib.managed/zlib.managed.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)BlowFish/BlowFish.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)MessageManager/MessageManager.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)PluginUpdateCheck/PluginUpdateCheck.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)ReleasePackaging/ReleasePackaging.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)SettingsFile/SettingsFile.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)UnluacNET/UnluacNET.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)ZipAssembly/ZipAssembly.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)GenericPluginLoader/GenericPluginLoader.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)MiniDump/MiniDump.csproj" />
+    <ProjectReference Include="$(ProjectReferenceBaseFolder)PluginFramework/PluginFramework.csproj" />
+    <!-- SourceLink -->
+    <PackageReference Remove="Microsoft.SourceLink.AzureRepos.Git" />
+    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Archives" Condition="$(RuntimeIdentifier.StartsWith('linux-')) AND $([MSBuild]::IsOSPlatform('Linux'))">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Installers" Condition="$([MSBuild]::IsOSPlatform('Windows')) OR $([MSBuild]::IsOSPlatform('OSX'))">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

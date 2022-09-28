@@ -1,0 +1,25 @@
+<Project>
+
+  <UsingTask TaskName="WriteLinetoFile"
+    TaskFactory="RoslynCodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <_File ParameterType="System.String" Required="true" />
+      <_Line ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          File.WriteAllText(_File, _Line);
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="ExtractVersion" AfterTargets="Pack">
+    <WriteLinetoFile _File="$(PackageOutputPath)/version.txt" _Line="$(Version)" />
+  </Target>
+
+</Project>

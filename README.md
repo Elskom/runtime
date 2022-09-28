@@ -5,14 +5,21 @@ Runtime for the Elskom .NET SDK workload.
 
 | Package | Version |
 |:-------:|:-------:|
-| Elskom.Sdk.App | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App/) |
+| Elskom.Sdk.App.Runtime.win-x86 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.win-x86?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.win-x86/) |
+| Elskom.Sdk.App.Runtime.win-x64 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.win-x64?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.win-x64/) |
+| Elskom.Sdk.App.Runtime.win-arm64 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.win-arm64?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.win-arm64/) |
+| Elskom.Sdk.App.Runtime.linux-x64 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.linux-x64?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.linux-x64/) |
+| Elskom.Sdk.App.Runtime.linux-arm | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.linux-arm?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.linux-arm/) |
+| Elskom.Sdk.App.Runtime.linux-arm64 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.linux-arm64?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.linux-arm64/) |
+| Elskom.Sdk.App.Runtime.osx-x64 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.osx-x64?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.osx-x64/) |
+| Elskom.Sdk.App.Runtime.osx-arm64 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.osx-arm64?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.osx-arm64/) |
 | Elskom.Sdk.App.Ref | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Ref?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Ref/) |
 
 # Build Status
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/602ea77e56864263b58c05c7beaadf5f)](https://app.codacy.com/gh/Elskom/runtime?utm_source=github.com&utm_medium=referral&utm_content=Elskom/runtime&utm_campaign=Badge_Grade_Settings)
 ![Build Status](https://github.com/Elskom/runtime/workflows/.NET%20Core%20%28build%29/badge.svg)
-![Build Status](https://github.com/Elskom/runtime/workflows/.NET%20Core%20%28build%20%26%20publish%20release%29/badge.svg)
+![Build Status](https://github.com/Elskom/runtime/workflows/.NET%20Core%20(build%20%26%20publish%20release)/badge.svg)
 [![GitHub release](https://img.shields.io/github/release/Elskom/runtime.svg)](https://GitHub.com/Elskom/runtime/releases/)
 [![GitHub repo size](https://img.shields.io/github/repo-size/Elskom/runtime)](https://github.com/Elskom/runtime)
 [![GitHub issues-opened](https://img.shields.io/github/issues/Elskom/runtime.svg)](https://GitHub.com/Elskom/runtime/issues?q=is%3Aissue+is%3Aopened)

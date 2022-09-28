@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.Build.NoTargets">
+
+  <PropertyGroup>
+    <!-- This project must never be attepted to be packed into a nuget package. -->
+    <IsPackable>false</IsPackable>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+    <!-- We must include any for restore rids to not break build.-->
+    <RestoreRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Windows'))">any;win-x86;win-x64;win-arm64</RestoreRuntimeIdentifiers>
+    <RestoreRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Linux'))">any;linux-x64;linux-arm;linux-arm64</RestoreRuntimeIdentifiers>
+    <RestoreRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('OSX'))">any;osx-x64;osx-arm64</RestoreRuntimeIdentifiers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <BundleRestoreReference Include="../bundle/Elskom.Sdk.App.Bundle.bundleproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifiers=$(RestoreRuntimeIdentifiers)</AdditionalProperties>
+    </BundleRestoreReference>
+    <!-- We need to restore these as well so building the installers will not fail. -->
+    <BundleRestoreReference Include="../sfx/Elskom.Sdk.App.Runtime.sfxproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifiers=$(RestoreRuntimeIdentifiers)</AdditionalProperties>
+    </BundleRestoreReference>
+    <BundleRestoreReference Include="../sfx/Elskom.Sdk.App.Ref.sfxproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifiers=$(RestoreRuntimeIdentifiers)</AdditionalProperties>
+    </BundleRestoreReference>
+    <!-- For building the nuget packages for platform specific RIDs. -->
+    <!-- <BundleRIDReference Include="../sfx/Elskom.Sdk.App.Runtime.sfxproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifiers=$(PackageRuntimeIdentifiers)</AdditionalProperties>
+      <Targets>Pack</Targets>
+    </BundleRIDReference> -->
+    <!-- For building the nuget packages for the Any RID.-->
+    <!-- <BundleRIDReference Include="../sfx/Elskom.Sdk.App.Ref.sfxproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=any</AdditionalProperties>
+      <Targets>Pack</Targets>
+    </BundleRIDReference> -->
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+    <!-- Use these when OS is Windows. -->
+    <BundleRIDReference Include="../bundle/Elskom.Sdk.App.Bundle.bundleproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=win-x86</AdditionalProperties>
+      <Targets>GenerateInstallers</Targets>
+    </BundleRIDReference>
+    <BundleRIDReference Include="../bundle/Elskom.Sdk.App.Bundle.bundleproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=win-x64</AdditionalProperties>
+      <Targets>GenerateInstallers</Targets>
+    </BundleRIDReference>
+    <BundleRIDReference Include="../bundle/Elskom.Sdk.App.Bundle.bundleproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=win-arm64</AdditionalProperties>
+      <Targets>GenerateInstallers</Targets>
+    </BundleRIDReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+    <!-- Use these when OS is Linux. -->
+    <BundleRIDReference Include="../bundle/Elskom.Sdk.App.Bundle.bundleproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=linux-x64</AdditionalProperties>
+    </BundleRIDReference>
+    <BundleRIDReference Include="../bundle/Elskom.Sdk.App.Bundle.bundleproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=linux-arm</AdditionalProperties>
+    </BundleRIDReference>
+    <BundleRIDReference Include="../bundle/Elskom.Sdk.App.Bundle.bundleproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=linux-arm64</AdditionalProperties>
+    </BundleRIDReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+    <!-- Use these when OS is MacOS. -->
+    <BundleRIDReference Include="../bundle/Elskom.Sdk.App.Bundle.bundleproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=osx-x64</AdditionalProperties>
+      <Targets>GenerateInstallers</Targets>
+    </BundleRIDReference>
+    <BundleRIDReference Include="../bundle/Elskom.Sdk.App.Bundle.bundleproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=osx-arm64</AdditionalProperties>
+      <Targets>GenerateInstallers</Targets>
+    </BundleRIDReference>
+  </ItemGroup>
+
+  <Target Name="BuildInstallerProjects" BeforeTargets="Build">
+    <Message Importance="high" Text="Building Installers for Windows." Condition="$([MSBuild]::IsOSPlatform('Windows'))" />
+    <Message Importance="high" Text="Building Installers for Linux." Condition="$([MSBuild]::IsOSPlatform('Linux'))" />
+    <Message Importance="high" Text="Building Installers for MacOS." Condition="$([MSBuild]::IsOSPlatform('OSX'))" />
+    <!-- Restore the bundle projects. -->
+    <MSBuild Projects="@(BundleRestoreReference)" Targets="restore" />
+    <!-- Generate installers with the RIDs specified above for the target platforms. -->
+    <MSBuild Projects="@(BundleRIDReference)" />
+  </Target>
+
+</Project>

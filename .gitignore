@@ -11,6 +11,7 @@ obj
 XmlAbstraction/
 *.binlog
 GitInfo.json
+website/
 
 # opening Finder on mac inside the repository creates these.
 .DS_Store

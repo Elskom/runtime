@@ -1,0 +1,17 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- This repo version -->
+    <MajorVersion>6</MajorVersion>
+    <MinorVersion>0</MinorVersion>
+    <PatchVersion>0</PatchVersion>
+    <VersionPrefix>$(MajorVersion).$(MinorVersion).$(PatchVersion)</VersionPrefix>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <DotNetFinalVersionKind Condition="$(GITHUB_REF.StartsWith('refs/tags/'))">release</DotNetFinalVersionKind>
+    <PreReleaseVersionLabel Condition="'$(GITHUB_ACTIONS)' == 'true'">preview</PreReleaseVersionLabel>
+    <PreReleaseVersionIteration Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(DotNetFinalVersionKind)' != 'release'">$(GITHUB_RUN_NUMBER)</PreReleaseVersionIteration>
+    <OfficialBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</OfficialBuild>
+    <ProductVersion>$(VersionPrefix)-$(VersionSuffix)</ProductVersion>
+  </PropertyGroup>
+
+</Project>
