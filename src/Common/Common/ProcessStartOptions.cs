@@ -79,7 +79,7 @@ public sealed class ProcessStartOptions
     public string Start(ProcessStartInfo startInfo)
     {
         ThrowHelpers.ThrowInvalidOperation(startInfo is null, "StartInfo must not be null.");
-        ThrowHelpers.ThrowFileNotFound(!File.Exists(startInfo.FileName), "File to execute does not exist.");
+        ThrowHelpers.ThrowFileNotFound(!File.Exists(startInfo!.FileName), "File to execute does not exist.");
         this.Executing = true;
         StringBuilder stdout = null;
         StringBuilder stderr = null;

@@ -88,12 +88,12 @@ public static class KOMManager
     {
         ThrowHelpers.ThrowArgumentNull(string.IsNullOrEmpty(origFileDir), nameof(origFileDir));
         ThrowHelpers.ThrowArgumentNull(string.IsNullOrEmpty(destFileDir), nameof(destFileDir));
-        if (!origFileDir.EndsWith($"{Path.DirectorySeparatorChar}", StringComparison.Ordinal))
+        if (!origFileDir!.EndsWith($"{Path.DirectorySeparatorChar}", StringComparison.Ordinal))
         {
             origFileDir += Path.DirectorySeparatorChar;
         }
 
-        if (!destFileDir.EndsWith($"{Path.DirectorySeparatorChar}", StringComparison.Ordinal))
+        if (!destFileDir!.EndsWith($"{Path.DirectorySeparatorChar}", StringComparison.Ordinal))
         {
             destFileDir += Path.DirectorySeparatorChar;
         }
