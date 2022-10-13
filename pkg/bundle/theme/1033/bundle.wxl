@@ -59,8 +59,8 @@ Ready? Set? Let's go!</String>
   <String Id="FilesInUseOkButton">&amp;OK</String>
   <String Id="FilesInUseCancelButton">&amp;Cancel</String>
   <String Id="WelcomeHeaderMessage">Elskom Shared Framework</String>
-  <String Id="WelcomeDescription">The Elskom Shared Framework is used to run .NET applications that targets the Elskom Sdk Workload, on your Windows computer. The Elskom Sdk Workload is open source, cross platform, and supported by the Els_kom org. We hope you enjoy it!</String>
-  <String Id="LearnMoreTitle">Learn more about the Elskom Sdk Workload</String>
+  <String Id="WelcomeDescription">The Elskom Shared Framework is used to run .NET applications that targets the Elskom Runtime, on your Windows computer. The Elskom Runtime is open source, cross platform, and supported by the Els_kom org. We hope you enjoy it!</String>
+  <String Id="LearnMoreTitle">Learn more about the Elskom Shared Framework</String>
   <String Id="SuccessInstallLocation">The following was installed at [DOTNETHOME]</String>
   <String Id="SuccessInstallProductName"> - [BUNDLEMONIKER] </String>
   <String Id="ResourcesHeader">Resources</String>
@@ -69,6 +69,6 @@ Ready? Set? Let's go!</String>
   <String Id="TutorialLink">&lt;A HREF=&quot;https://aka.ms/dotnet-tutorials&quot;&gt;Tutorials&lt;/A&gt;</String>
   <String Id="TelemetryLink">&lt;A HREF=&quot;https://aka.ms/dotnet-cli-telemetry&quot;&gt;.NET Telemetry&lt;/A&gt;</String>
   <String Id="PrivacyStatementLink">&lt;A HREF=&quot;https://aka.ms/dev-privacy&quot;&gt;Privacy Statement&lt;/A&gt;</String>
-  <String Id="EulaLink">&lt;A HREF=&quot;https://github.com/Elskom/runtime/blob/main/LICENSE&quot;&gt;Licensing Information for the Elskom Sdk Workload&lt;/A&gt;</String>
+  <String Id="EulaLink">&lt;A HREF=&quot;https://github.com/Elskom/runtime/blob/main/LICENSE&quot;&gt;Licensing Information for the Elskom Shared Framework&lt;/A&gt;</String>
   <String Id="LicenseAssent">By clicking Install, you agree to the following terms.</String>
 </WixLocalization>
