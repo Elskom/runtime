@@ -8,7 +8,7 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Diagnostics.NetCore.Client" Version="0.2.328102" />
     <PackageVersion Include="IDisposableGenerator" Version="1.1.0" />
-    <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Installers" Version="7.0.0-beta.22511.2" />
+    <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Installers" Version="7.0.0-beta.22512.4" />
     <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Archives" Version="7.0.0-beta.22512.4" />
   </ItemGroup>
 
