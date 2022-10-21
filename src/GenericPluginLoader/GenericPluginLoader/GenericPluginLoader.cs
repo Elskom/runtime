@@ -60,9 +60,13 @@ public sealed class GenericPluginLoader
 
             // Next, search for plugins under the current process's runtime identifier.
             // This is needed as native C++ plugins are runtime identifier (and cpu) specific.
-            dllFileNames.AddRange(Directory.EnumerateFiles(
-                $"{path}{Path.DirectorySeparatorChar}{RuntimeHelpers.GetCurrentRuntimeIdentifier()}",
-                "*.dll"));
+            // Provided that the folder to look for actually exists.
+            if (Directory.Exists($"{path}{Path.DirectorySeparatorChar}{RuntimeHelpers.GetCurrentRuntimeIdentifier()}"))
+            {
+                dllFileNames.AddRange(Directory.EnumerateFiles(
+                    $"{path}{Path.DirectorySeparatorChar}{RuntimeHelpers.GetCurrentRuntimeIdentifier()}",
+                    "*.dll"));
+            }
         }
 
         // try to load from a zip as well if plugins are installed in both places.
