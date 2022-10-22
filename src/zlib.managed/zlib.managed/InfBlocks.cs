@@ -77,8 +77,6 @@ internal sealed class InfBlocks
             case 6:
                 InfCodes.Free();
                 break;
-            default:
-                throw new InvalidOperationException();
         }
 
         this.mode = 0;
