@@ -47,8 +47,8 @@ internal sealed class Inflate
 
                     z.AvailIn--;
                     z.TotalIn++;
-                    z.IState.Method = z.NextIn[z.NextInIndex++] & 0xf;
-                    if (z.IState.Method is not 8)
+                    z.IState.Method = z.NextIn[z.NextInIndex++];
+                    if ((z.IState.Method & 0xf) is not 8)
                     {
                         z.IState.Mode = 13;
                         z.Msg = "unknown compression method";
