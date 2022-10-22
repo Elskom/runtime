@@ -88,6 +88,7 @@ public sealed class GenericPluginLoader
                     context.UnloadIfNoInstances(instances);
                     if (instances.Any())
                     {
+                        plugins.AddRange(instances);
                         contexts.Add(context);
                     }
                 }
@@ -116,6 +117,7 @@ public sealed class GenericPluginLoader
                     context.UnloadIfNoInstances(instances);
                     if (instances.Any())
                     {
+                        plugins.AddRange(instances);
                         contexts.Add(context);
                     }
                 }
