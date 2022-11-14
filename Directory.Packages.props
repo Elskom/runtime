@@ -9,7 +9,7 @@
     <PackageVersion Include="Microsoft.Diagnostics.NetCore.Client" Version="0.2.328102" />
     <PackageVersion Include="IDisposableGenerator" Version="1.1.0" />
     <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Installers" Version="7.0.0-beta.22514.3" />
-    <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Archives" Version="7.0.0-beta.22514.3" />
+    <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Archives" Version="7.0.0-beta.22561.2" />
   </ItemGroup>
 
 </Project>
