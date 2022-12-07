@@ -11,6 +11,7 @@
     <Using Include="System.Text" />
     <Using Include="System.Xml.Linq" />
     <Using Include="Elskom.Generic.Libs.Properties" />
+    <Using Include="ZlibSharp" />
   </ItemGroup>
 
 </Project>
