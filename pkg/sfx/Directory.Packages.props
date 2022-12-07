@@ -6,8 +6,6 @@
     <FrameworkReference Include="Microsoft.NETCore.App" />
     <ProjectReference Include="$(ProjectReferenceBaseFolder)GitInformation/GitInformation.csproj" />
     <ProjectReference Include="$(ProjectReferenceBaseFolder)Common/Common.csproj" />
-    <!-- zlib.managed has a zlib compression regression that needs fixed. -->
-    <ProjectReference Include="$(ProjectReferenceBaseFolder)zlib.managed/zlib.managed.csproj" />
     <ProjectReference Include="$(ProjectReferenceBaseFolder)BlowFish/BlowFish.csproj" />
     <ProjectReference Include="$(ProjectReferenceBaseFolder)MessageManager/MessageManager.csproj" />
     <ProjectReference Include="$(ProjectReferenceBaseFolder)PluginUpdateCheck/PluginUpdateCheck.csproj" />

@@ -10,6 +10,7 @@
     <Using Include="System.Diagnostics" />
     <Using Include="System.Text" />
     <Using Include="System.Xml.Linq" />
+    <Using Include="ZlibSharp" />
   </ItemGroup>
 
 </Project>

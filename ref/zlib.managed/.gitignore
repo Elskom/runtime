@@ -1,8 +1,0 @@
-.vs
-bin
-obj
-.idea/
-GitInfo.json
-
-# opening Finder on mac inside the repository creates these.
-.DS_Store
