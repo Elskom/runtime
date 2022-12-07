@@ -36,6 +36,6 @@ public sealed class ZipAssembly : Assembly
     /// Any other exception not documented here indirectly thrown by this
     /// If any other exceptions other than the ones above is thrown from a call to this, it exposes a bug.
     /// </exception>
-    public static ZipAssembly LoadFromZip(string zipFileName, string assemblyName, AssemblyLoadContext context)
+    public static ZipAssembly? LoadFromZip(string zipFileName, string assemblyName, AssemblyLoadContext context)
         => throw null!;
 }

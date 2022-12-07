@@ -47,6 +47,6 @@ internal static class RuntimeHelpers
             (false, false, false, false, false, false, false, false, false, true) => "browser-wasm",
 
             // The WatchOS operating system does not seem to have an RID.
-            _ => null,
+            _ => string.Empty,
         };
 }

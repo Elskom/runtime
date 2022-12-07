@@ -16,21 +16,21 @@ public sealed partial class BlowFish
 
     // SBLOCKS
     [NullOnDispose]
-    private uint[] bfS0;
+    private uint[] bfS0 = null!;
     [NullOnDispose]
-    private uint[] bfS1;
+    private uint[] bfS1 = null!;
     [NullOnDispose]
-    private uint[] bfS2;
+    private uint[] bfS2 = null!;
     [NullOnDispose]
-    private uint[] bfS3;
+    private uint[] bfS3 = null!;
     [NullOnDispose]
-    private uint[] bfP;
+    private uint[] bfP = null!;
 
     // HALF-BLOCKS
     private uint xlPar;
     private uint xrPar;
     [NullOnDispose]
-    private byte[] initVector;
+    private byte[] initVector = null!;
     private bool iVSet;
 
     /// <summary>
@@ -64,7 +64,7 @@ public sealed partial class BlowFish
         get => this.initVector;
         set
         {
-            ThrowHelpers.ThrowInvalidOperation(value.ToArray().Length != 8, Resources.BlowFish_Invalid_IV_Size);
+            ThrowHelpers.ThrowInvalidOperation(value.ToArray().Length != 8, Resources.BlowFish_Invalid_IV_Size!);
             this.initVector = value.ToArray();
             this.iVSet = true;
         }
@@ -393,7 +393,7 @@ public sealed partial class BlowFish
     /// <param name="cipherText">Ciphertext byte array.</param>
     /// <param name="mode">Cipher mode.</param>
     /// <returns>Plaintext or <see langword="null"/> if mode is not <see cref="CipherMode.ECB"/>.</returns>
-    public byte[] Decrypt(byte[] cipherText, CipherMode mode)
+    public byte[]? Decrypt(byte[] cipherText, CipherMode mode)
         => mode switch
         {
             CipherMode.ECB => this.Decrypt_ECB(cipherText),
@@ -485,7 +485,7 @@ public sealed partial class BlowFish
         this.bfS1 = SetupS1.ToArray();
         this.bfS2 = SetupS2.ToArray();
         this.bfS3 = SetupS3.ToArray();
-        ThrowHelpers.ThrowInvalidOperation(cipherKey.Length > 56, Resources.BlowFish_Key_Too_Long);
+        ThrowHelpers.ThrowInvalidOperation(cipherKey.Length > 56, Resources.BlowFish_Key_Too_Long!);
         var j = 0;
         for (var i = 0; i < 18; i++)
         {
@@ -559,7 +559,7 @@ public sealed partial class BlowFish
 
     private byte[] Crypt_CBC(byte[] text, bool decrypt)
     {
-        ThrowHelpers.ThrowInvalidOperation(!this.iVSet, Resources.BlowFish_IV_Not_Set);
+        ThrowHelpers.ThrowInvalidOperation(!this.iVSet, Resources.BlowFish_IV_Not_Set!);
         var paddedLen = text.Length % 8 == 0 ? text.Length : text.Length + 8 - (text.Length % 8);
         if (paddedLen != text.Length)
         {
@@ -567,7 +567,7 @@ public sealed partial class BlowFish
         }
 
         var plainText = text.AsSpan();
-        byte[] preblock = null;
+        byte[]? preblock = null;
         var iv = this.initVector.AsSpan().Slice(0, 8);
         for (var i = 0; i < plainText.Length; i += 8)
         {

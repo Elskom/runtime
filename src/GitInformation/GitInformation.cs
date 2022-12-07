@@ -115,7 +115,7 @@ public class GitInformation
     /// The <see cref="GitInformation"/> class instance to the specified <see cref="Type"/>
     /// or <see langword="null"/>.
     /// </returns>
-    public static GitInformation GetAssemblyInstance(Type assemblyType)
+    public static GitInformation? GetAssemblyInstance(Type assemblyType)
     {
         ArgumentNullException.ThrowIfNull(assemblyType);
         return GetAssemblyInstance(assemblyType.Assembly);
@@ -132,7 +132,7 @@ public class GitInformation
     /// The <see cref="GitInformation"/> class instance to the specified <see cref="Assembly"/>
     /// or <see langword="null"/>.
     /// </returns>
-    public static GitInformation GetAssemblyInstance(Assembly assembly)
+    public static GitInformation? GetAssemblyInstance(Assembly assembly)
         => AssemblyInstances.TryGetValue(assembly, out var gitInformation) ? gitInformation : null;
 
     internal static void GetOrCreateAssemblyInstance(string headdesc, string commit, string branchname, Assembly assembly)

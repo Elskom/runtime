@@ -95,7 +95,7 @@ public class JsonSettings
     /// </summary>
     /// <param name="json">The json data to Deserialize.</param>
     /// <returns>The target type instance for the settings file.</returns>
-    public static JsonSettings Deserialize(string json)
+    public static JsonSettings? Deserialize(string json)
         => throw null!;
 
     /// <summary>
@@ -104,7 +104,7 @@ public class JsonSettings
     /// <param name="json">The json data to Deserialize.</param>
     /// <param name="options">The options to deserialize with.</param>
     /// <returns>The target type instance for the settings file.</returns>
-    public static JsonSettings Deserialize(string json, JsonSerializerOptions options)
+    public static JsonSettings? Deserialize(string json, JsonSerializerOptions? options)
         => throw null!;
 
     /// <summary>
@@ -121,7 +121,7 @@ public class JsonSettings
     /// <param name="value">The object for which holds the data to the input type instance.</param>
     /// <param name="options">The options to serialize with.</param>
     /// <returns>The json string to the input type instance's data.</returns>
-    public static string Serialize(JsonSettings value, JsonSerializerOptions options)
+    public static string Serialize(JsonSettings value, JsonSerializerOptions? options)
         => throw null!;
 
     /// <summary>
@@ -129,14 +129,14 @@ public class JsonSettings
     /// from the settings file or with default settings to create a settings file.
     /// </summary>
     /// <returns>A new instance of this type.</returns>
-    public static JsonSettings OpenFile()
+    public static JsonSettings? OpenFile()
         => throw null!;
 
     /// <summary>
     /// Returns a new instance of this type so this one can be discarded.
     /// </summary>
     /// <returns>A new instance of this type.</returns>
-    public JsonSettings ReopenFile()
+    public JsonSettings? ReopenFile()
         => throw null!;
 
     /// <summary>

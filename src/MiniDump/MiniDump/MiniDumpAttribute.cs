@@ -37,12 +37,12 @@ public sealed class MiniDumpAttribute : Attribute
     /// <summary>
     /// Occurs when a mini-dump is generated or fails.
     /// </summary>
-    public static event EventHandler<MessageEventArgs> DumpMessage;
+    public static event EventHandler<MessageEventArgs>? DumpMessage;
 
     /// <summary>
     /// Gets the current instance of this attribute.
     /// </summary>
-    public static MiniDumpAttribute CurrentInstance { get; private set; }
+    public static MiniDumpAttribute? CurrentInstance { get; private set; }
 
     /// <summary>
     /// Gets a value indicating whether the application should force close.
@@ -55,7 +55,7 @@ public sealed class MiniDumpAttribute : Attribute
     /// <summary>
     /// Gets or sets the Exception message text.
     /// </summary>
-    public string Text { get; set; }
+    public string Text { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets the mini-dump type.

@@ -20,7 +20,7 @@ public sealed class PluginUpdateCheck : IDisposable
     /// <summary>
     /// Event that fires when a new message should show up.
     /// </summary>
-    public static event EventHandler<MessageEventArgs> MessageEvent
+    public static event EventHandler<MessageEventArgs>? MessageEvent
     {
         add => throw null!;
         remove => throw null!;
@@ -29,7 +29,7 @@ public sealed class PluginUpdateCheck : IDisposable
     /// <summary>
     /// Gets the plugin urls used in all instances.
     /// </summary>
-    public List<string> PluginUrls
+    public List<string>? PluginUrls
         => throw null!;
 
     /// <summary>

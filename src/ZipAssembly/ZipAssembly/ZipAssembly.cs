@@ -43,7 +43,7 @@ public sealed class ZipAssembly : Assembly
     /// Any other exception not documented here indirectly thrown by this
     /// If any other exceptions other than the ones above is thrown from a call to this, it exposes a bug.
     /// </exception>
-    public static ZipAssembly LoadFromZip(string zipFileName, string assemblyName, AssemblyLoadContext context)
+    public static ZipAssembly? LoadFromZip(string zipFileName, string assemblyName, AssemblyLoadContext context)
     {
         if (string.IsNullOrWhiteSpace(zipFileName))
         {
@@ -73,8 +73,8 @@ public sealed class ZipAssembly : Assembly
         bool found;
         string zipAssemblyName;
         var pdbAssemblyName = string.Empty;
-        byte[] asmbytes;
-        byte[] pdbbytes = null;
+        byte[]? asmbytes;
+        byte[]? pdbbytes = null;
         using (var zipFile = ZipFile.OpenRead(zipFileName))
         {
             GetBytesFromZipFile(assemblyName, zipFile, out asmbytes, out found, out zipAssemblyName);
@@ -87,7 +87,7 @@ public sealed class ZipAssembly : Assembly
 
         if (!found)
         {
-            throw new ZipAssemblyLoadException(Resources.ZipAssembly_Assembly_specified_not_found);
+            throw new ZipAssemblyLoadException(Resources.ZipAssembly_Assembly_specified_not_found!);
         }
 
         // always load pdb when debugging (automatically loaded when embedded however).
@@ -95,8 +95,8 @@ public sealed class ZipAssembly : Assembly
         // and really *should* always be present unless embedded inside of the dll file.
         try
         {
-            using MemoryStream ms1 = new(asmbytes);
-            MemoryStream ms2 = pdbbytes is not null ? new(pdbbytes) : null;
+            using MemoryStream ms1 = new(asmbytes!);
+            MemoryStream? ms2 = pdbbytes is not null ? new(pdbbytes) : null;
             var zipassembly = Debugger.IsAttached && pdbbytes is not null ?
                 (ZipAssembly)context.LoadFromStream(ms1, ms2) :
                 (ZipAssembly)context.LoadFromStream(ms1);
@@ -114,7 +114,7 @@ public sealed class ZipAssembly : Assembly
             var tmpDir = Path.GetTempPath();
             using (var dllfs = File.Create($"{tmpDir}{zipAssemblyName}"))
             {
-                dllfs.Write(asmbytes, 0, asmbytes.Length);
+                dllfs.Write(asmbytes!, 0, asmbytes!.Length);
             }
 
             if (Debugger.IsAttached && pdbbytes is not null)
@@ -129,7 +129,7 @@ public sealed class ZipAssembly : Assembly
         }
     }
 
-    private static void GetBytesFromZipFile(string entryName, ZipArchive zipFile, out byte[] bytes, out bool found, out string assemblyName)
+    private static void GetBytesFromZipFile(string entryName, ZipArchive zipFile, out byte[]? bytes, out bool found, out string assemblyName)
     {
         var assemblyEntry = zipFile.Entries.FirstOrDefault(e => e.FullName.Equals(entryName, StringComparison.OrdinalIgnoreCase));
         assemblyName = string.Empty;

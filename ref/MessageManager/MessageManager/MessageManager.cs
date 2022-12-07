@@ -13,7 +13,7 @@ public static class MessageManager
     /// <summary>
     /// Occurs when the ShowError(), ShowInfo(), or ShowWarning() methods is told to use Notifications.
     /// </summary>
-    public static event EventHandler<NotificationEventArgs> Notification
+    public static event EventHandler<NotificationEventArgs>? Notification
     {
         add => throw null!;
         remove => throw null!;

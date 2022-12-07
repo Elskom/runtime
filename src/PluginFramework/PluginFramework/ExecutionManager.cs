@@ -35,6 +35,7 @@ public static class ExecutionManager
             false,
             false,
             false,
+            false,
             ProcessWindowStyle.Normal,
             $"{ElsDir}\\data\\");
 
@@ -49,8 +50,9 @@ public static class ExecutionManager
             false,
             false,
             false,
+            false,
             ProcessWindowStyle.Normal,
-            ElsDir);
+            ElsDir!);
 
     private static ProcessStartOptions LauncherStartOptions { get; }
         = new ProcessStartOptions
@@ -63,8 +65,9 @@ public static class ExecutionManager
             false,
             false,
             false,
+            false,
             ProcessWindowStyle.Normal,
-            ElsDir);
+            ElsDir!);
 
     /// <summary>
     /// Gets if Els_kom.exe is already Running. If So, Helps with Closing any new Instances.
@@ -77,9 +80,10 @@ public static class ExecutionManager
     }
 
     /// <summary>
-    /// Gets if Elsword or the launcher is currently executing.
+    /// Gets if Elsword or the launcher is currently running.
     /// </summary>
-    /// <returns>Boolean.</returns>
+    /// <param name="launcher">Get if the launcher is currently running.</param>
+    /// <returns>If the specified program is currently running.</returns>
     public static bool IsExecuting(bool launcher)
         => (launcher, File.Exists($"{ElsDir}\\voidels.exe")) switch
         {
