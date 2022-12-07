@@ -19,7 +19,7 @@ internal static class MiniDump
                 MiniDumpAttribute.ForceClose = true;
             }
 
-            if (string.IsNullOrEmpty(MiniDumpAttribute.CurrentInstance.DumpLogFileName))
+            if (string.IsNullOrEmpty(MiniDumpAttribute.CurrentInstance!.DumpLogFileName))
             {
                 MiniDumpAttribute.CurrentInstance.DumpLogFileName = SettingsFile.ErrorLogPath;
             }

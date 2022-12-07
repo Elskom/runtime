@@ -10,8 +10,8 @@ namespace Elskom.Generic.Libs;
 /// </summary>
 public static class SettingsFile
 {
-    private static string thisProcessName;
-    private static string localApplicationDataFolder;
+    private static string thisProcessName = null!;
+    private static string localApplicationDataFolder = null!;
 
     static SettingsFile()
     {
@@ -29,7 +29,7 @@ public static class SettingsFile
     /// This is designed so there is globally only
     /// a single instance to save time, and memory.
     /// </value>
-    public static JsonSettings SettingsJson { get; set; } = JsonSettings.OpenFile();
+    public static JsonSettings? SettingsJson { get; set; } = JsonSettings.OpenFile();
 
     /// <summary>
     /// Gets or sets the Application's name to use for Resolving the paths for the

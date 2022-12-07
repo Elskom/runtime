@@ -19,6 +19,7 @@
         fix that is to disable package analysis for now.
     -->
     <NoPackageAnalysis Condition="'$(PublishReferenceAssemblies)' == 'true'">true</NoPackageAnalysis>
+    <Nullable>enable</Nullable>
     <ElskomOrgName>Els_kom org.</ElskomOrgName>
     <Company>$(ElskomOrgName)</Company>
     <Authors>$(ElskomOrgName)</Authors>

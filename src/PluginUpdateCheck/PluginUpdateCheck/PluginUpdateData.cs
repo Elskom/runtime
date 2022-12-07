@@ -33,5 +33,5 @@ public struct PluginUpdateData
     /// <summary>
     /// Gets the files to the plugin to download.
     /// </summary>
-    public List<string> DownloadFiles { get; internal set; }
+    public List<string?> DownloadFiles { get; internal set; }
 }

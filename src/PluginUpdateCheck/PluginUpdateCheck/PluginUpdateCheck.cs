@@ -26,13 +26,13 @@ public sealed partial class PluginUpdateCheck
     /// <summary>
     /// Event that fires when a new message should show up.
     /// </summary>
-    public static event EventHandler<MessageEventArgs> MessageEvent;
+    public static event EventHandler<MessageEventArgs>? MessageEvent;
 
     /// <summary>
     /// Gets the plugin urls used in all instances.
     /// </summary>
     [NullOnDispose]
-    public List<string> PluginUrls { get; private set; }
+    public List<string>? PluginUrls { get; private set; }
 
     /// <summary>
     /// Gets a value indicating whether there are any pending updates and displays a message if there is.
@@ -265,6 +265,6 @@ public sealed partial class PluginUpdateCheck
         }
 
         this.PluginUpdateDatas.Clear();
-        this.PluginUrls.Clear();
+        this.PluginUrls?.Clear();
     }
 }

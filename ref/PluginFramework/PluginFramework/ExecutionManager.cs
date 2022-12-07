@@ -32,9 +32,10 @@ public static class ExecutionManager
         => throw null!;
 
     /// <summary>
-    /// Gets if Elsword or the launcher is currently executing.
+    /// Gets if Elsword or the launcher is currently running.
     /// </summary>
-    /// <returns>Boolean.</returns>
+    /// <param name="launcher">Get if the launcher is currently running.</param>
+    /// <returns>If the specified program is currently running.</returns>
     public static bool IsExecuting(bool launcher)
         => throw null!;
 

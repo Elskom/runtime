@@ -25,7 +25,7 @@ public sealed class ProcessStartOptions
     /// <summary>
     /// Gets a value indicating whether the process start information to use when executing the process.
     /// </summary>
-    public ProcessStartInfo StartInfo { get; private set; }
+    public ProcessStartInfo StartInfo { get; private set; } = null!;
 
     /// <summary>
     /// Gets or sets a value indicating whether the process should wait indefinitely until exited.
@@ -33,23 +33,40 @@ public sealed class ProcessStartOptions
     public bool WaitForProcessExit { get; set; }
 
     /// <summary>
+    /// Gets where the standard input of the process is streamed to.
+    /// </summary>
+    public StreamWriter? Stdin { get; private set; }
+
+    /// <summary>
+    /// Gets or sets where the standard output of the process is stream to.
+    /// </summary>
+    public StringBuilder? Stdout { get; set; }
+
+    /// <summary>
+    /// Gets or sets where the standard error of the process is stream to.
+    /// </summary>
+    public StringBuilder? Stderr { get; set; }
+
+    /// <summary>
     /// Adds start information to this process options instance.
     /// </summary>
     /// <param name="fileName">The file name to execute.</param>
     /// <param name="arguments">The arguments to execute the file with.</param>
-    /// <param name="redirectStandardOutput">Redirect standard output on the executed file.</param>
-    /// <param name="redirectStandardError">Redirect standard error on the executed file.</param>
+    /// <param name="redirectStandardInput">Redirect standard input on the executed process.</param>
+    /// <param name="redirectStandardOutput">Redirect standard output on the executed process.</param>
+    /// <param name="redirectStandardError">Redirect standard error on the executed process.</param>
     /// <param name="useShellExecute">To optionally use shell execute to execute the process.</param>
     /// <param name="createNoWindow">To optionally create no Window on the executed process.</param>
     /// <param name="windowStyle">The window style to use on the executed process.</param>
     /// <param name="workingDirectory">The working directory of the executed process.</param>
     /// <returns>This instance of <see cref="ProcessStartOptions" />.</returns>
-    public ProcessStartOptions WithStartInformation(string fileName, string arguments, bool redirectStandardOutput, bool redirectStandardError, bool useShellExecute, bool createNoWindow, ProcessWindowStyle windowStyle, string workingDirectory)
+    public ProcessStartOptions WithStartInformation(string fileName, string arguments, bool redirectStandardInput, bool redirectStandardOutput, bool redirectStandardError, bool useShellExecute, bool createNoWindow, ProcessWindowStyle windowStyle, string workingDirectory)
     {
         this.StartInfo = new ProcessStartInfo
         {
             FileName = fileName,
             Arguments = arguments,
+            RedirectStandardInput = redirectStandardInput,
             RedirectStandardOutput = redirectStandardOutput,
             RedirectStandardError = redirectStandardError,
             UseShellExecute = useShellExecute,
@@ -81,39 +98,42 @@ public sealed class ProcessStartOptions
         ThrowHelpers.ThrowInvalidOperation(startInfo is null, "StartInfo must not be null.");
         ThrowHelpers.ThrowFileNotFound(!File.Exists(startInfo!.FileName), "File to execute does not exist.");
         this.Executing = true;
-        StringBuilder stdout = null;
-        StringBuilder stderr = null;
         using var proc = new Process();
         proc.StartInfo = startInfo;
         _ = proc.Start();
         proc.OutputDataReceived += (_, e) =>
         {
-            if (stdout is null)
+            if (this.Stdout is null)
             {
-                stdout = new StringBuilder();
-                stdout.Append(e.Data);
-                stdout.AppendLine();
+                this.Stdout = new StringBuilder();
+                this.Stdout.Append(e.Data);
+                this.Stdout.AppendLine();
             }
             else
             {
-                stdout.AppendLine(e.Data);
+                this.Stdout.AppendLine(e.Data);
             }
         };
         proc.ErrorDataReceived += (_, e) =>
         {
-            if (stderr is null)
+            if (this.Stderr is null)
             {
-                stderr = new StringBuilder();
-                stderr.Append(e.Data);
-                stderr.AppendLine();
+                this.Stderr = new StringBuilder();
+                this.Stderr.Append(e.Data);
+                this.Stderr.AppendLine();
             }
             else
             {
-                stderr.AppendLine(e.Data);
+                this.Stderr.AppendLine(e.Data);
             }
         };
         this.Running = true;
         this.Executing = false;
+        if (this.StartInfo.RedirectStandardInput)
+        {
+            this.Stdin = proc.StandardInput;
+        }
+
         if (this.StartInfo.RedirectStandardOutput)
         {
             proc.BeginOutputReadLine();
@@ -130,13 +150,24 @@ public sealed class ProcessStartOptions
         }
 
         this.Running = false;
-        return (stdout is not null, stderr is not null) switch
-        {
-            (true, false) => $"{stdout}",
-            (true, true) => $@"{stdout}
-{stderr}",
-            (false, false) => string.Empty,
-            (false, true) => $"{stderr}",
-        };
+        var output = this.ToString();
+        this.Stdin = null;
+        this.Stdout = null;
+        this.Stderr = null;
+        return output;
     }
+
+    /// <summary>
+    /// The string representation of the current output and/or error results from the process.
+    /// </summary>
+    /// <returns>string representation of the current output and/or error results from the process.</returns>
+    public override string ToString()
+        => (this.Stdout is not null, this.Stderr is not null) switch
+        {
+            (true, false) => $"{this.Stdout}",
+            (true, true) => $@"{this.Stdout}
+{this.Stderr}",
+            (false, false) => string.Empty,
+            (false, true) => $"{this.Stderr}",
+    };
 }

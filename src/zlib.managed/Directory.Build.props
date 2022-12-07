@@ -4,6 +4,7 @@
 
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
     <AssemblyName>zlib.managed</AssemblyName>
     <PackageTags>zlib</PackageTags>
     <RepositoryUrl>https://github.com/Elskom/runtime/</RepositoryUrl>

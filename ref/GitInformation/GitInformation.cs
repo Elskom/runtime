@@ -103,7 +103,7 @@ public class GitInformation
     /// The <see cref="GitInformation"/> class instance to the specified <see cref="Type"/>
     /// or <see langword="null"/>.
     /// </returns>
-    public static GitInformation GetAssemblyInstance(Type assemblyType)
+    public static GitInformation? GetAssemblyInstance(Type assemblyType)
         => throw null!;
 
     /// <summary>
@@ -117,6 +117,6 @@ public class GitInformation
     /// The <see cref="GitInformation"/> class instance to the specified <see cref="Assembly"/>
     /// or <see langword="null"/>.
     /// </returns>
-    public static GitInformation GetAssemblyInstance(Assembly assembly)
+    public static GitInformation? GetAssemblyInstance(Assembly assembly)
         => throw null!;
 }

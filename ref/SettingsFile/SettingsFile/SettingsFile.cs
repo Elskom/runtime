@@ -25,7 +25,7 @@ public static class SettingsFile
     /// This is designed so there is globally only
     /// a single instance to save time, and memory.
     /// </value>
-    public static JsonSettings SettingsJson
+    public static JsonSettings? SettingsJson
     {
         get => throw null!;
         set => throw null!;
