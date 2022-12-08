@@ -266,7 +266,7 @@ public class EntryVer
     /// <value>
     /// Entry file data for packing.
     /// </value>
-    public IEnumerable<byte> Entrydata { get; private set; }
+    public IEnumerable<byte>? Entrydata { get; private set; }
 
     // KOM V3 Members.
 
@@ -302,7 +302,7 @@ public class EntryVer
     /// <value>
     /// Entry Mapped ID.
     /// </value>
-    public string MappedID { get; private set; }
+    public string? MappedID { get; private set; }
 
     /// <summary>
     /// Gets entry KOM Version number.

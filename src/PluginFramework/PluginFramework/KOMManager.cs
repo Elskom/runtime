@@ -10,14 +10,14 @@ namespace Elskom.Generic.Libs;
 /// </summary>
 public static class KOMManager
 {
-    private static List<IKomPlugin> komplugins;
-    private static List<IEncryptionPlugin> encryptionplugins;
-    private static List<ICallbackPlugin> callbackplugins;
+    private static List<IKomPlugin>? komplugins;
+    private static List<IEncryptionPlugin>? encryptionplugins;
+    private static List<ICallbackPlugin>? callbackplugins;
 
     /// <summary>
     /// The event to which allows getting the message to do stuff with.
     /// </summary>
-    public static event EventHandler<MessageEventArgs> MessageEvent;
+    public static event EventHandler<MessageEventArgs>? MessageEvent;
 
     /// <summary>
     /// Gets a value indicating whether the current state on packing KOM files.
@@ -155,8 +155,8 @@ public static class KOMManager
                     {
                         // do not delete kom file.
                         MessageEventArgs args = new(
-                            Resources.KOMManager_Unpacking_KOM_File_Failed,
-                            Resources.Error,
+                            Resources.KOMManager_Unpacking_KOM_File_Failed!,
+                            Resources.Error!,
                             ErrorLevel.Error);
                         InvokeMessageEvent(args);
                     }
@@ -166,7 +166,7 @@ public static class KOMManager
                             string.Format(
                                 Resources.KOMManager_Plugin_No_Unpacker_Function!,
                                 komplugin.SupportedKOMVersion),
-                            Resources.Error,
+                            Resources.Error!,
                             ErrorLevel.Error);
                         InvokeMessageEvent(args);
                     }
@@ -175,8 +175,8 @@ public static class KOMManager
             else
             {
                 MessageEventArgs args = new(
-                    Resources.KOMManager_Unkown_KOM_Version,
-                    Resources.Error,
+                    Resources.KOMManager_Unkown_KOM_Version!,
+                    Resources.Error!,
                     ErrorLevel.Error);
                 InvokeMessageEvent(args);
             }
@@ -225,8 +225,8 @@ public static class KOMManager
                             }
 
                             MessageEventArgs args = new(
-                                Resources.KOMManager_Packing_KOM_File_Failed,
-                                Resources.Error,
+                                Resources.KOMManager_Packing_KOM_File_Failed!,
+                                Resources.Error!,
                                 ErrorLevel.Error);
                             InvokeMessageEvent(args);
                         }
@@ -241,7 +241,7 @@ public static class KOMManager
                                 string.Format(
                                     Resources.KOMManager_Plugin_No_Packer_Function!,
                                     komplugin.SupportedKOMVersion),
-                                Resources.Error,
+                                Resources.Error!,
                                 ErrorLevel.Error);
                             InvokeMessageEvent(args);
                         }
@@ -250,8 +250,8 @@ public static class KOMManager
                 else
                 {
                     MessageEventArgs args = new(
-                        Resources.KOMManager_Folder_Version_Check_Error,
-                        Resources.Error,
+                        Resources.KOMManager_Folder_Version_Check_Error!,
+                        Resources.Error!,
                         ErrorLevel.Error);
                     InvokeMessageEvent(args);
                 }
@@ -259,8 +259,8 @@ public static class KOMManager
             else
             {
                 MessageEventArgs args = new(
-                    Resources.KOMManager_Unkown_KOM_Version,
-                    Resources.Error,
+                    Resources.KOMManager_Unkown_KOM_Version!,
+                    Resources.Error!,
                     ErrorLevel.Error);
                 InvokeMessageEvent(args);
             }
