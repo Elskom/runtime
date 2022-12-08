@@ -5,7 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-public class LuaDecompileStream : Stream
+/// <summary>
+/// A stream that can decompile Lua files.
+/// </summary>
+[GenerateDispose(true)]
+public partial class LuaDecompileStream : Stream
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="LuaDecompileStream"/> class.
@@ -39,7 +43,7 @@ public class LuaDecompileStream : Stream
     /// Initializes a new instance of the <see cref="LuaDecompileStream"/> class.
     /// </summary>
     public LuaDecompileStream()
-        : this(new MemoryStream(), false)
+        : this(new MemoryStream())
         => this.InputNoData = true;
 
     /// <inheritdoc/>
@@ -65,13 +69,10 @@ public class LuaDecompileStream : Stream
         set => throw new NotSupportedException();
     }
 
+    [DisposeField(true)]
     private Stream BaseStream { get; set; }
 
     private bool InputNoData { get; }
-
-    private bool KeepOpen { get; }
-
-    private bool IsDisposed { get; set; }
 
     /// <summary>
     /// Decompiles Lua bytecode based on the data Read from the input stream.
@@ -105,30 +106,17 @@ public class LuaDecompileStream : Stream
         _ = this.DecompileLuaWithStreamBuffer();
     }
 
+    /// <inheritdoc/>
     public override long Seek(long offset, SeekOrigin origin)
         => throw new NotSupportedException();
 
+    /// <inheritdoc/>
     public override void SetLength(long value)
         => throw new NotSupportedException();
 
+    /// <inheritdoc/>
     public override void Flush()
         => throw new NotSupportedException();
-
-    protected override void Dispose(bool disposing)
-    {
-        if (!this.IsDisposed && disposing)
-        {
-            if (!this.KeepOpen)
-            {
-                this.BaseStream.Dispose();
-                this.BaseStream = null;
-            }
-
-            this.IsDisposed = true;
-        }
-
-        base.Dispose(disposing);
-    }
 
     private int DecompileLuaWithStreamBuffer()
     {
