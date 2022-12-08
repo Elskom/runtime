@@ -2,6 +2,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+    <PackageReference Include="IDisposableGenerator">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; compile; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <Import Project="../Directory.Packages.props" />

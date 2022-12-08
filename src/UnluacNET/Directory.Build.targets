@@ -9,6 +9,7 @@
     </AdditionalFiles>
     <Using Include="System.Diagnostics" />
     <Using Include="System.Text" />
+    <Using Include="IDisposableGenerator" />
     <Using Include="Elskom.Generic.Libs.UnluacNET.IO" />
   </ItemGroup>
 
