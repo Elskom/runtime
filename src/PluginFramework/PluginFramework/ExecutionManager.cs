@@ -22,7 +22,7 @@ public static class ExecutionManager
     /// <returns>A value indicating if Elsword is running directly.</returns>
     public static bool RunningElswordDirectly { get; private set; }
 
-    private static string ElsDir { get; set; }
+    private static string? ElsDir { get; set; }
 
     private static ProcessStartOptions GameStartOptions { get; }
         = new ProcessStartOptions
@@ -99,8 +99,8 @@ public static class ExecutionManager
     /// </summary>
     public static void RunElswordDirectly()
     {
-        SettingsFile.SettingsJson = SettingsFile.SettingsJson.ReopenFile();
-        ElsDir = SettingsFile.SettingsJson.ElsDir;
+        SettingsFile.SettingsJson = SettingsFile.SettingsJson?.ReopenFile();
+        ElsDir = SettingsFile.SettingsJson?.ElsDir;
         if (!string.IsNullOrEmpty(ElsDir))
         {
             RunningElswordDirectly = true;
@@ -117,7 +117,7 @@ public static class ExecutionManager
                         Resources.ExecutionManager_Cannot_Find_x2_exe!,
                         ElsDir,
                         Path.DirectorySeparatorChar),
-                    Resources.Error,
+                    Resources.Error!,
                     ErrorLevel.Error);
                 KOMManager.InvokeMessageEvent(args);
             }
@@ -130,7 +130,7 @@ public static class ExecutionManager
                 string.Format(
                     Resources.ExecutionManager_ElsDir_Not_Set!,
                     "Test your mods"),
-                Resources.Error,
+                Resources.Error!,
                 ErrorLevel.Error);
             KOMManager.InvokeMessageEvent(args);
         }
@@ -145,8 +145,8 @@ public static class ExecutionManager
     {
         // for the sake of sanity and the need to disable the pack, unpack, and test mods
         // buttons in UI while updating game.
-        SettingsFile.SettingsJson = SettingsFile.SettingsJson.ReopenFile();
-        ElsDir = SettingsFile.SettingsJson.ElsDir;
+        SettingsFile.SettingsJson = SettingsFile.SettingsJson?.ReopenFile();
+        ElsDir = SettingsFile.SettingsJson?.ElsDir;
         if (!string.IsNullOrEmpty(ElsDir))
         {
             RunningElsword = true;
@@ -171,7 +171,7 @@ public static class ExecutionManager
                             Resources.ExecutionManager_Cannot_Find_elsword_exe!,
                             ElsDir,
                             Path.DirectorySeparatorChar),
-                        Resources.Error,
+                        Resources.Error!,
                         ErrorLevel.Error);
                     KOMManager.InvokeMessageEvent(args);
                 }
@@ -185,7 +185,7 @@ public static class ExecutionManager
                 string.Format(
                     Resources.ExecutionManager_ElsDir_Not_Set!,
                     "update Elsword"),
-                Resources.Error,
+                Resources.Error!,
                 ErrorLevel.Error);
             KOMManager.InvokeMessageEvent(args);
         }

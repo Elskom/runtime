@@ -4,6 +4,7 @@
 
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
     <RootNamespace>Elskom.Generic.Libs.UnluacNET</RootNamespace>
     <AssemblyTitle>Unluac.NET</AssemblyTitle>
     <Product>Unluac.NET</Product>
