@@ -30,10 +30,10 @@ public interface IEncryptionPlugin
     /// When the KOM file algorithm is not suppoted by the curently installed
     /// encryption plugin.
     /// </exception>
-    /// <param name="input">The input data to Decrypt output replaces everything in the Stream.</param>
+    /// <param name="input">The input data to Decrypt. Output replaces everything in the Span.</param>
     /// <param name="kOMFileName">The file name the entry is from.</param>
     /// <param name="algorithm">The algorithm the entry is.</param>
-    void DecryptEntry(Stream input, string kOMFileName, uint algorithm);
+    void DecryptEntry(Span<byte> input, string kOMFileName, uint algorithm);
 
     /// <summary>
     /// Encrypts an KOM file entry. If KOM file algorithm is not supported
@@ -43,8 +43,8 @@ public interface IEncryptionPlugin
     /// When the KOM file algorithm is not suppoted by the curently installed
     /// encryption plugin.
     /// </exception>
-    /// <param name="input">The input data to Encrypt output replaces everything in the Stream.</param>
+    /// <param name="input">The input data to Encrypt. Output replaces everything in the Span.</param>
     /// <param name="kOMFileName">The file name the entry is from.</param>
     /// <param name="algorithm">The algorithm the entry is.</param>
-    void EncryptEntry(Stream input, string kOMFileName, uint algorithm);
+    void EncryptEntry(Span<byte> input, string kOMFileName, uint algorithm);
 }
