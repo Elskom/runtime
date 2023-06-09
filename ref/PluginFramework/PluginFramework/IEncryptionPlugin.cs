@@ -23,28 +23,16 @@ public interface IEncryptionPlugin
     string PluginName { get; }
 
     /// <summary>
-    /// Decrypts an KOM file entry. If KOM file algorithm is not supported
-    /// throw <see cref="NotUnpackableException"/>.
-    /// </summary>
-    /// <exception cref="NotUnpackableException">
-    /// When the KOM file algorithm is not suppoted by the curently installed
-    /// encryption plugin.
-    /// </exception>
-    /// <param name="input">The input data to Decrypt. Output replaces everything in the Span.</param>
-    /// <param name="kOMFileName">The file name the entry is from.</param>
-    /// <param name="algorithm">The algorithm the entry is.</param>
-    void DecryptEntry(Span<byte> input, string kOMFileName, uint algorithm);
-
-    /// <summary>
-    /// Encrypts an KOM file entry. If KOM file algorithm is not supported
-    /// throw <see cref="NotPackableException"/>.
+    /// Gets the encryption key to use for decrypting a KOM file entry.
+    /// If KOM file algorithm is not supported throw <see cref="NotPackableException"/>.
     /// </summary>
     /// <exception cref="NotPackableException">
     /// When the KOM file algorithm is not suppoted by the curently installed
     /// encryption plugin.
     /// </exception>
-    /// <param name="input">The input data to Encrypt. Output replaces everything in the Span.</param>
-    /// <param name="kOMFileName">The file name the entry is from.</param>
     /// <param name="algorithm">The algorithm the entry is.</param>
-    void EncryptEntry(Span<byte> input, string kOMFileName, uint algorithm);
+    /// <param name="encrypt"><see langword="true"/> if the key is used for encrypting,
+    /// <see langword="false"/> for decryption.</param>
+    /// <returns>The encrpytion key, in bytes.</returns>
+    byte[] GetEncryptionKey(uint algorithm, bool encrypt);
 }

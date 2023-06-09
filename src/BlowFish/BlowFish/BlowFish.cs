@@ -285,11 +285,14 @@ public sealed partial class BlowFish
     /// </summary>
     /// <param name="block">8 bit block 1.</param>
     /// <param name="iv">8 bit block 2.</param>
-    public static void XorBlock(Span<byte> block, Span<byte> iv)
+    public static void XorBlock(ref byte[] block, byte[] iv)
     {
         ThrowHelpers.ThrowArgumentOutOfRange(block.Length is 0, nameof(block));
         ThrowHelpers.ThrowArgumentOutOfRange(iv.Length is 0, nameof(iv));
-        XorBlock_private(block, iv);
+        for (var i = 0; i < block.Length; i++)
+        {
+            block[i] ^= iv[i];
+        }
     }
 
     /// <summary>
@@ -302,7 +305,8 @@ public sealed partial class BlowFish
         ArgumentNullException.ThrowIfNull(block);
         if (block is MemoryStream ms)
         {
-            XorBlock(ms.GetBuffer(), iv);
+            var block1 = ms.GetBuffer();
+            XorBlock(ref block1, iv);
         }
     }
 
@@ -465,14 +469,6 @@ public sealed partial class BlowFish
             _ => 0,
         };
 
-    private static void XorBlock_private(Span<byte> block, Span<byte> iv)
-    {
-        for (var i = 0; i < block.Length; i++)
-        {
-            block[i] ^= iv[i];
-        }
-    }
-
     private byte[] Decrypt_ECB(byte[] ct)
         => this.Crypt_ECB(ct, true);
 
@@ -578,7 +574,11 @@ public sealed partial class BlowFish
                 this.BlockDecrypt(block);
             }
 
-            XorBlock_private(block, iv);
+            for (var v = 0; v < block.Length; v++)
+            {
+                block[v] ^= iv[v];
+            }
+
             if (!decrypt)
             {
                 this.BlockEncrypt(block);

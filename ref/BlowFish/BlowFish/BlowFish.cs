@@ -53,7 +53,7 @@ public sealed class BlowFish : IDisposable
     /// </summary>
     /// <param name="block">8 bit block 1.</param>
     /// <param name="iv">8 bit block 2.</param>
-    public static void XorBlock(Span<byte> block, Span<byte> iv)
+    public static void XorBlock(ref byte[] block, byte[] iv)
         => throw null!;
 
     /// <summary>
