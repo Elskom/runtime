@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2018-2022, Els_kom org.
+﻿// Copyright (c) 2018-2023, Els_kom org.
 // https://github.com/Elskom/
 // All rights reserved.
 // license: MIT, see LICENSE for more details.
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LFunction : BObject
+internal class LFunction : IBObject
 {
     public LFunction(BHeader header, int[] code, LLocal[] locals, LObject[] constants, LUpvalue[] upvalues, LFunction[] functions, int maximumStackSize, int numUpValues, int numParams, int vararg)
     {

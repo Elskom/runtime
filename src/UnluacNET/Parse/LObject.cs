@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2018-2022, Els_kom org.
+﻿// Copyright (c) 2018-2023, Els_kom org.
 // https://github.com/Elskom/
 // All rights reserved.
 // license: MIT, see LICENSE for more details.
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal abstract class LObject : BObject, IEqualityComparer<LObject>
+internal abstract class LObject : IBObject, IEqualityComparer<LObject>
 {
     public abstract new bool Equals(object obj);
 

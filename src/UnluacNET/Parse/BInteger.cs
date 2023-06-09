@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2018-2022, Els_kom org.
+﻿// Copyright (c) 2018-2023, Els_kom org.
 // https://github.com/Elskom/
 // All rights reserved.
 // license: MIT, see LICENSE for more details.
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class BInteger : BObject
+internal class BInteger : IBObject
 {
     private static readonly long MAX_INT = int.MaxValue;
     private static readonly long MIN_INT = int.MinValue;

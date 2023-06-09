@@ -1,12 +1,12 @@
-﻿// Copyright (c) 2018-2022, Els_kom org.
+﻿// Copyright (c) 2018-2023, Els_kom org.
 // https://github.com/Elskom/
 // All rights reserved.
 // license: MIT, see LICENSE for more details.
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class BList<T> : BObject
-    where T : BObject
+internal class BList<T> : IBObject
+    where T : IBObject
 {
     private readonly List<T> m_values;
 

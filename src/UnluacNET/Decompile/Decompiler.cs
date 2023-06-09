@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2022, Els_kom org.
+﻿// Copyright (c) 2018-2023, Els_kom org.
 // https://github.com/Elskom/
 // All rights reserved.
 // license: MIT, see LICENSE for more details.
@@ -92,11 +92,7 @@ internal class Decompiler
     public Branch PopCondition(Stack<Branch> stack)
     {
         var branch = stack.Pop();
-        if (m_backup != null)
-        {
-            m_backup.Push(branch);
-        }
-
+        m_backup?.Push(branch);
         if (branch is TestSetNode)
         {
             throw new InvalidOperationException();
@@ -290,26 +286,21 @@ internal class Decompiler
             }
 
             var delete = new LinkedList<Block>();
-            foreach (var block in this.blocks)
+            foreach (var (block, block2) in from block in this.blocks
+                                            where block is AlwaysLoop
+                                            from block2 in this.blocks
+                                            where block != block2 && block.Begin == block2.Begin
+                                            select (block, block2))
             {
-                if (block is AlwaysLoop)
+                if (block.End < block2.End)
                 {
-                    foreach (var block2 in this.blocks)
-                    {
-                        if (block != block2 && block.Begin == block2.Begin)
-                        {
-                            if (block.End < block2.End)
-                            {
-                                delete.AddLast(block);
-                                loopRemoved[block.End - 1] = true;
-                            }
-                            else
-                            {
-                                delete.AddLast(block2);
-                                loopRemoved[block2.End - 1] = true;
-                            }
-                        }
-                    }
+                    delete.AddLast(block);
+                    loopRemoved[block.End - 1] = true;
+                }
+                else
+                {
+                    delete.AddLast(block2);
+                    loopRemoved[block2.End - 1] = true;
                 }
             }
 
@@ -807,7 +798,7 @@ internal class Decompiler
             {
                 /* !!!HACK ALERT!!! */
                 // scope fix should have fixed this problem
-                var needsDoEnd = this.blocks.All(
+                var needsDoEnd = this.blocks.TrueForAll(
                     block => !block.Contains(decl.Begin) /*&& !(block.ScopeEnd >= decl.End)*/);
                 if (needsDoEnd)
                 {

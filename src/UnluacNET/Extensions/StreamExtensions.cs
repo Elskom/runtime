@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2022, Els_kom org.
+﻿// Copyright (c) 2018-2023, Els_kom org.
 // https://github.com/Elskom/
 // All rights reserved.
 // license: MIT, see LICENSE for more details.
@@ -121,22 +121,5 @@ internal static class StreamExtensions
         }
 
         return BitConverter.ToDouble(buffer.ToArray(), 0);
-    }
-
-    private static int Read(this Stream stream, Span<byte> buffer)
-    {
-        var cnt = 0;
-        while (cnt < buffer.Length)
-        {
-            buffer[cnt] = (byte)stream.ReadByte();
-            if (buffer[cnt] is unchecked((byte)-1))
-            {
-                break;
-            }
-
-            cnt++;
-        }
-
-        return cnt;
     }
 }

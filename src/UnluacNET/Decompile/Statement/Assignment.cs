@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2022, Els_kom org.
+﻿// Copyright (c) 2018-2023, Els_kom org.
 // https://github.com/Elskom/
 // All rights reserved.
 // license: MIT, see LICENSE for more details.
@@ -47,17 +47,11 @@ internal class Assignment : Statement
     }
 
     public bool AssignListEquals(List<Declaration> decls)
-    {
-        if (decls.Count != this.m_targets.Count)
-        {
-            return false;
-        }
-
-        return this.m_targets.Select(target => decls.Any(target.IsDeclaration)).All(found => found);
-    }
+        => decls.Count == this.m_targets.Count
+        && this.m_targets.Select(target => decls.Exists(target.IsDeclaration)).All(found => found);
 
     public bool AssignsTarget(Declaration decl)
-        => this.m_targets.Any(target => target.IsDeclaration(decl));
+        => this.m_targets.Exists(target => target.IsDeclaration(decl));
 
     public void Declare(int declareStart)
     {
