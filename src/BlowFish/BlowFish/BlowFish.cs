@@ -291,7 +291,7 @@ public sealed partial class BlowFish
         ThrowHelpers.ThrowArgumentOutOfRange(iv.Length is 0, nameof(iv));
         for (var i = 0; i < block.Length; i++)
         {
-            block[i] ^= iv[i];
+            block[i] ^= iv[i % iv.Length];
         }
     }
 
@@ -576,7 +576,7 @@ public sealed partial class BlowFish
 
             for (var v = 0; v < block.Length; v++)
             {
-                block[v] ^= iv[v];
+                block[v] ^= iv[v % iv.Length];
             }
 
             if (!decrypt)
