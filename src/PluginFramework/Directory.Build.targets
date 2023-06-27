@@ -12,6 +12,7 @@
     <Using Include="System.Xml.Linq" />
     <Using Include="Elskom.Generic.Libs.Properties" />
     <Using Include="ZlibSharp" />
+    <Using Include="ZlibSharp.Exceptions" />
   </ItemGroup>
 
 </Project>
