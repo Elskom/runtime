@@ -53,7 +53,7 @@ public class EntryVer
     /// <param name="checksum">The input file crc32 checksum.</param>
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
-    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint checksum, long filetime, uint algorithm)
+    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint checksum, uint filetime, uint algorithm)
     {
         this.Version = 3;
         this.Name = name;
@@ -74,7 +74,7 @@ public class EntryVer
     /// <param name="checksum">The input file crc32 checksum.</param>
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
-    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint checksum, long filetime, uint algorithm)
+    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint checksum, uint filetime, uint algorithm)
     {
         this.Version = 3;
         this.Entrydata = entrydata;
@@ -96,7 +96,7 @@ public class EntryVer
     /// <param name="checksum">The input file crc32 checksum.</param>
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
-    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, long filetime, uint algorithm)
+    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, uint filetime, uint algorithm)
     {
         this.Version = 3;
         this.Name = name;
@@ -119,7 +119,7 @@ public class EntryVer
     /// <param name="checksum">The input file crc32 checksum.</param>
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
-    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, long filetime, uint algorithm)
+    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, uint filetime, uint algorithm)
     {
         this.Version = 3;
         this.Entrydata = entrydata;
@@ -142,7 +142,7 @@ public class EntryVer
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
     /// <param name="mappedID">The input file's mapped id.</param>
-    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint checksum, long filetime, uint algorithm, string mappedID)
+    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint checksum, uint filetime, uint algorithm, string mappedID)
     {
         this.Version = 4;
         this.Name = name;
@@ -165,7 +165,7 @@ public class EntryVer
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
     /// <param name="mappedID">The input file's mapped id.</param>
-    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint checksum, long filetime, uint algorithm, string mappedID)
+    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint checksum, uint filetime, uint algorithm, string mappedID)
     {
         this.Version = 4;
         this.Entrydata = entrydata;
@@ -189,7 +189,7 @@ public class EntryVer
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
     /// <param name="mappedID">The input file's mapped id.</param>
-    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, long filetime, uint algorithm, string mappedID)
+    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, uint filetime, uint algorithm, string mappedID)
     {
         this.Version = 4;
         this.Name = name;
@@ -214,7 +214,7 @@ public class EntryVer
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
     /// <param name="mappedID">The input file's mapped id.</param>
-    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, long filetime, uint algorithm, string mappedID)
+    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, uint filetime, uint algorithm, string mappedID)
     {
         this.Version = 4;
         this.Entrydata = entrydata;
@@ -284,7 +284,7 @@ public class EntryVer
     /// <value>
     /// Entry File time.
     /// </value>
-    public long FileTime { get; private set; }
+    public uint FileTime { get; private set; }
 
     /// <summary>
     /// Gets entry Algorithm.

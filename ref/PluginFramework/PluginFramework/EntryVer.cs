@@ -40,7 +40,7 @@ public class EntryVer
     /// <param name="checksum">The input file crc32 checksum.</param>
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
-    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint checksum, long filetime, uint algorithm)
+    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint checksum, uint filetime, uint algorithm)
         => throw null!;
 
     /// <summary>
@@ -53,7 +53,7 @@ public class EntryVer
     /// <param name="checksum">The input file crc32 checksum.</param>
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
-    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint checksum, long filetime, uint algorithm)
+    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint checksum, uint filetime, uint algorithm)
         => throw null!;
 
     /// <summary>
@@ -66,7 +66,7 @@ public class EntryVer
     /// <param name="checksum">The input file crc32 checksum.</param>
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
-    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, long filetime, uint algorithm)
+    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, uint filetime, uint algorithm)
         => throw null!;
 
     /// <summary>
@@ -80,7 +80,7 @@ public class EntryVer
     /// <param name="checksum">The input file crc32 checksum.</param>
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
-    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, long filetime, uint algorithm)
+    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, uint filetime, uint algorithm)
         => throw null!;
 
     /// <summary>
@@ -93,7 +93,7 @@ public class EntryVer
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
     /// <param name="mappedID">The input file's mapped id.</param>
-    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint checksum, long filetime, uint algorithm, string mappedID)
+    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint checksum, uint filetime, uint algorithm, string mappedID)
         => throw null!;
 
     /// <summary>
@@ -107,7 +107,7 @@ public class EntryVer
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
     /// <param name="mappedID">The input file's mapped id.</param>
-    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint checksum, long filetime, uint algorithm, string mappedID)
+    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint checksum, uint filetime, uint algorithm, string mappedID)
         => throw null!;
 
     /// <summary>
@@ -121,7 +121,7 @@ public class EntryVer
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
     /// <param name="mappedID">The input file's mapped id.</param>
-    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, long filetime, uint algorithm, string mappedID)
+    public EntryVer(string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, uint filetime, uint algorithm, string mappedID)
         => throw null!;
 
     /// <summary>
@@ -136,7 +136,7 @@ public class EntryVer
     /// <param name="filetime">The input file time.</param>
     /// <param name="algorithm">The input file's compression algorithm.</param>
     /// <param name="mappedID">The input file's mapped id.</param>
-    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, long filetime, uint algorithm, string mappedID)
+    public EntryVer(byte[] entrydata, string name, uint uncompressedsize, uint compressedsize, uint relativeoffset, uint checksum, uint filetime, uint algorithm, string mappedID)
         => throw null!;
 
     /// <summary>
@@ -201,7 +201,7 @@ public class EntryVer
     /// <value>
     /// Entry File time.
     /// </value>
-    public long FileTime
+    public uint FileTime
         => throw null!;
 
     /// <summary>
