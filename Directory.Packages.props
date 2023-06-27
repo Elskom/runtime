@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageVersion Include="ZlibSharp" Version="1.2.13" />
+    <PackageVersion Include="ZlibSharp" Version="1.2.13.2" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Diagnostics.NetCore.Client" Version="0.2.328102" />
     <PackageVersion Include="IDisposableGenerator" Version="1.1.1" />
