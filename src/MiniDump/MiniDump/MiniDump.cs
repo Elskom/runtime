@@ -51,7 +51,7 @@ internal static class MiniDump
                     ErrorLevel.Error);
             }
 
-            MiniDumpAttribute.InvokeDumpMessage(args);
+            MiniDumpAttribute.InvokeDumpMessage(ref args);
             return args.ExitCode;
         }
 

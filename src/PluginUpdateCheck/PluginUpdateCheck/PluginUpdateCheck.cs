@@ -26,7 +26,7 @@ public sealed partial class PluginUpdateCheck
     /// <summary>
     /// Event that fires when a new message should show up.
     /// </summary>
-    public static event EventHandler<MessageEventArgs>? MessageEvent;
+    public static event MessageEventHandler? MessageEvent;
 
     /// <summary>
     /// Gets the plugin urls used in all instances.
@@ -56,16 +56,15 @@ public sealed partial class PluginUpdateCheck
                                  StringComparison.Ordinal)
                              && !string.IsNullOrEmpty(pluginUpdateData.InstalledVersion)))
             {
-                MessageEvent?.Invoke(
-                    null,
-                    new(
+                var args = new MessageEventArgs(
                         string.Format(
                             CultureInfo.InvariantCulture,
                             Resources.PluginUpdateCheck_ShowMessage_Update_for_plugin_is_availible!,
                             pluginUpdateData.CurrentVersion,
                             pluginUpdateData.PluginName),
                         Resources.PluginUpdateCheck_ShowMessage_New_plugin_update!,
-                        ErrorLevel.Info));
+                        ErrorLevel.Info);
+                MessageEvent?.Invoke(null, ref args);
                 result = true;
             }
 
@@ -82,10 +81,18 @@ public sealed partial class PluginUpdateCheck
     /// <summary>
     /// Checks for plugin updates from the provided plugin source urls.
     /// </summary>
-    /// <param name="pluginURLs">The repository urls to the plugins.</param>
-    /// <param name="pluginTypes">A list of types to the plugins to check for updates to.</param>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="pluginURLs"/> or <paramref name="pluginTypes"/> are <see langword="null"/>.</exception>
-    /// <returns>A value indicating if the operation was successful or not.</returns>
+    /// <param name="pluginURLs">
+    /// The repository urls to the plugins.
+    /// </param>
+    /// <param name="pluginTypes">
+    /// A list of types to the plugins to check for updates to.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="pluginURLs"/> or <paramref name="pluginTypes"/> are <see langword="null"/>.
+    /// </exception>
+    /// <returns>
+    /// A value indicating if the operation was successful or not.
+    /// </returns>
     // catches the plugin urls and uses that cache to detect added urls, and only appends those to the list.
     public bool CheckForUpdates(string[] pluginURLs, List<Type> pluginTypes)
     {
@@ -152,7 +159,15 @@ public sealed partial class PluginUpdateCheck
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_CheckForUpdates_Failed_to_download_the_plugins_sources_list_Reason!, Environment.NewLine, ex.Message), Resources.PluginUpdateCheck_CheckForUpdates_Error!, ErrorLevel.Error));
+                    var args = new MessageEventArgs(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            Resources.PluginUpdateCheck_CheckForUpdates_Failed_to_download_the_plugins_sources_list_Reason!,
+                            Environment.NewLine,
+                            ex.Message),
+                        Resources.PluginUpdateCheck_CheckForUpdates_Error!,
+                        ErrorLevel.Error);
+                    MessageEvent?.Invoke(null, ref args);
                     return false;
                 }
 
@@ -167,9 +182,15 @@ public sealed partial class PluginUpdateCheck
     /// <summary>
     /// Installs the files to the plugin pointed to by the passed in plugin update data.
     /// </summary>
-    /// <param name="pluginUpdateData">The plugin update data for the plugin to install.</param>
-    /// <param name="saveToZip">A bool indicating if the file should be installed to a zip file instead of a folder.</param>
-    /// <returns>A bool indicating if anything changed.</returns>
+    /// <param name="pluginUpdateData">
+    /// The plugin update data for the plugin to install.
+    /// </param>
+    /// <param name="saveToZip">
+    /// A bool indicating if the file should be installed to a zip file instead of a folder.
+    /// </param>
+    /// <returns>
+    /// A bool indicating if anything changed.
+    /// </returns>
     public bool Install(PluginUpdateData pluginUpdateData, bool saveToZip)
     {
         ThrowHelpers.ThrowObjectDisposed(this.isDisposed, nameof(PluginUpdateCheck));
@@ -179,7 +200,8 @@ public sealed partial class PluginUpdateCheck
             {
                 var path = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}plugins{Path.DirectorySeparatorChar}{downloadFile}";
                 using (var fs = File.Create(path))
-                using (var response = this.serviceProvider.GetRequiredService<HttpClient>()?.GetStreamAsync($"{pluginUpdateData.DownloadUrl}{downloadFile}").GetAwaiter().GetResult())
+                using (var response = this.serviceProvider.GetRequiredService<HttpClient>()?.GetStreamAsync(
+                    $"{pluginUpdateData.DownloadUrl}{downloadFile}").GetAwaiter().GetResult())
                 {
                     response?.CopyTo(fs);
                 }
@@ -202,7 +224,15 @@ public sealed partial class PluginUpdateCheck
             }
             catch (HttpRequestException ex)
             {
-                MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_Install_Failed_to_install_the_selected_plugin_Reason!, Environment.NewLine, ex.Message), Resources.PluginUpdateCheck_CheckForUpdates_Error!, ErrorLevel.Error));
+                var args = new MessageEventArgs(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        Resources.PluginUpdateCheck_Install_Failed_to_install_the_selected_plugin_Reason!,
+                        Environment.NewLine,
+                        ex.Message),
+                    Resources.PluginUpdateCheck_CheckForUpdates_Error!,
+                    ErrorLevel.Error);
+                MessageEvent?.Invoke(null, ref args);
             }
         }
 
@@ -212,9 +242,16 @@ public sealed partial class PluginUpdateCheck
     /// <summary>
     /// Uninstalls the files to the plugin pointed to by the passed in plugin update data.
     /// </summary>
-    /// <param name="pluginUpdateData">The plugin update data for the plugin to uninstall.</param>
-    /// <param name="saveToZip">A bool indicating if the file should be uninstalled from a zip file instead of a folder. If the zip file after the operation becomes empty it is also deleted automatically.</param>
-    /// <returns>A bool indicating if anything changed.</returns>
+    /// <param name="pluginUpdateData">
+    /// The plugin update data for the plugin to uninstall.
+    /// </param>
+    /// <param name="saveToZip">
+    /// A bool indicating if the file should be uninstalled from a zip file instead of a folder.
+    /// If the zip file after the operation becomes empty it is also deleted automatically.
+    /// </param>
+    /// <returns>
+    /// A bool indicating if anything changed.
+    /// </returns>
     public bool Uninstall(PluginUpdateData pluginUpdateData, bool saveToZip)
     {
         ThrowHelpers.ThrowObjectDisposed(this.isDisposed, nameof(PluginUpdateCheck));
@@ -250,7 +287,15 @@ public sealed partial class PluginUpdateCheck
         }
         catch (Exception ex)
         {
-            MessageEvent?.Invoke(null, new(string.Format(CultureInfo.InvariantCulture, Resources.PluginUpdateCheck_Uninstall_Failed_to_uninstall_the_selected_plugin_Reason!, Environment.NewLine, ex.Message), Resources.PluginUpdateCheck_CheckForUpdates_Error!, ErrorLevel.Error));
+            var args = new MessageEventArgs(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    Resources.PluginUpdateCheck_Uninstall_Failed_to_uninstall_the_selected_plugin_Reason!,
+                    Environment.NewLine,
+                    ex.Message),
+                Resources.PluginUpdateCheck_CheckForUpdates_Error!,
+                ErrorLevel.Error);
+            MessageEvent?.Invoke(null, ref args);
         }
 
         return false;

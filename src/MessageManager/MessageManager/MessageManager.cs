@@ -13,7 +13,7 @@ public static class MessageManager
     /// <summary>
     /// Occurs when the ShowError(), ShowInfo(), or ShowWarning() methods is told to use Notifications.
     /// </summary>
-    public static event EventHandler<NotificationEventArgs>? Notification;
+    public static event NotificationEventHandler? Notification;
 
     /// <summary>
     /// Shows an MessageBox that is for an Question.
@@ -65,7 +65,7 @@ public static class MessageManager
             useNotifications,
             messageBoxButtons,
             messageBoxIcon);
-        Notification?.Invoke(null, args);
+        Notification?.Invoke(null, ref args);
         return args.Result;
     }
 }

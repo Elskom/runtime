@@ -119,7 +119,7 @@ public static class ExecutionManager
                         Path.DirectorySeparatorChar),
                     Resources.Error!,
                     ErrorLevel.Error);
-                KOMManager.InvokeMessageEvent(args);
+                KOMManager.InvokeMessageEvent(ref args);
             }
 
             RunningElswordDirectly = false;
@@ -132,7 +132,7 @@ public static class ExecutionManager
                     "Test your mods"),
                 Resources.Error!,
                 ErrorLevel.Error);
-            KOMManager.InvokeMessageEvent(args);
+            KOMManager.InvokeMessageEvent(ref args);
         }
     }
 
@@ -173,7 +173,7 @@ public static class ExecutionManager
                             Path.DirectorySeparatorChar),
                         Resources.Error!,
                         ErrorLevel.Error);
-                    KOMManager.InvokeMessageEvent(args);
+                    KOMManager.InvokeMessageEvent(ref args);
                 }
             }
 
@@ -187,7 +187,7 @@ public static class ExecutionManager
                     "update Elsword"),
                 Resources.Error!,
                 ErrorLevel.Error);
-            KOMManager.InvokeMessageEvent(args);
+            KOMManager.InvokeMessageEvent(ref args);
         }
     }
 }

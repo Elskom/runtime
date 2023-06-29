@@ -17,7 +17,7 @@ public static class KOMManager
     /// <summary>
     /// The event to which allows getting the message to do stuff with.
     /// </summary>
-    public static event EventHandler<MessageEventArgs>? MessageEvent;
+    public static event MessageEventHandler? MessageEvent;
 
     /// <summary>
     /// Gets a value indicating whether the current state on packing KOM files.
@@ -158,7 +158,7 @@ public static class KOMManager
                             Resources.KOMManager_Unpacking_KOM_File_Failed!,
                             Resources.Error!,
                             ErrorLevel.Error);
-                        InvokeMessageEvent(args);
+                        InvokeMessageEvent(ref args);
                     }
                     catch (NotImplementedException)
                     {
@@ -168,7 +168,7 @@ public static class KOMManager
                                 komplugin.SupportedKOMVersion),
                             Resources.Error!,
                             ErrorLevel.Error);
-                        InvokeMessageEvent(args);
+                        InvokeMessageEvent(ref args);
                     }
                 }
             }
@@ -178,7 +178,7 @@ public static class KOMManager
                     Resources.KOMManager_Unkown_KOM_Version!,
                     Resources.Error!,
                     ErrorLevel.Error);
-                InvokeMessageEvent(args);
+                InvokeMessageEvent(ref args);
             }
         }
 
@@ -228,7 +228,7 @@ public static class KOMManager
                                 Resources.KOMManager_Packing_KOM_File_Failed!,
                                 Resources.Error!,
                                 ErrorLevel.Error);
-                            InvokeMessageEvent(args);
+                            InvokeMessageEvent(ref args);
                         }
                         catch (NotImplementedException)
                         {
@@ -243,7 +243,7 @@ public static class KOMManager
                                     komplugin.SupportedKOMVersion),
                                 Resources.Error!,
                                 ErrorLevel.Error);
-                            InvokeMessageEvent(args);
+                            InvokeMessageEvent(ref args);
                         }
                     }
                 }
@@ -253,7 +253,7 @@ public static class KOMManager
                         Resources.KOMManager_Folder_Version_Check_Error!,
                         Resources.Error!,
                         ErrorLevel.Error);
-                    InvokeMessageEvent(args);
+                    InvokeMessageEvent(ref args);
                 }
             }
             else
@@ -262,7 +262,7 @@ public static class KOMManager
                     Resources.KOMManager_Unkown_KOM_Version!,
                     Resources.Error!,
                     ErrorLevel.Error);
-                InvokeMessageEvent(args);
+                InvokeMessageEvent(ref args);
             }
         }
 
@@ -395,8 +395,8 @@ public static class KOMManager
         return result;
     }
 
-    internal static void InvokeMessageEvent(MessageEventArgs e)
-        => MessageEvent?.Invoke(null, e);
+    internal static void InvokeMessageEvent(ref MessageEventArgs e)
+        => MessageEvent?.Invoke(null, ref e);
 
     private static void MoveOriginalKomFiles(string fileName, string origFileDir, string destFileDir)
     {

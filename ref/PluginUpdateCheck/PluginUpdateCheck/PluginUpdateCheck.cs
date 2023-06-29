@@ -20,7 +20,7 @@ public sealed class PluginUpdateCheck : IDisposable
     /// <summary>
     /// Event that fires when a new message should show up.
     /// </summary>
-    public static event EventHandler<MessageEventArgs>? MessageEvent
+    public static event MessageEventHandler? MessageEvent
     {
         add => throw null!;
         remove => throw null!;

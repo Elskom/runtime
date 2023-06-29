@@ -18,7 +18,7 @@ public sealed class GenericPluginLoader
     /// <summary>
     /// Triggers when the Plugin Loader has a message to send to the application.
     /// </summary>
-    public static event EventHandler<MessageEventArgs>? PluginLoaderMessage
+    public static event MessageEventHandler? PluginLoaderMessage
     {
         add => throw null!;
         remove => throw null!;

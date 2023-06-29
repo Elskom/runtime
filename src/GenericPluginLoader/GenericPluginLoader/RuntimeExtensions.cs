@@ -44,7 +44,8 @@ internal static class RuntimeExtensions
                 var types = assembly.GetTypes();
                 if (typeof(T).FullName is null)
                 {
-                    GenericPluginLoader.InvokeLoaderMessage(new("Type name cannot be null.", "Error!", ErrorLevel.Error));
+                    var args = new MessageEventArgs("Type name cannot be null.", "Error!", ErrorLevel.Error);
+                    GenericPluginLoader.InvokeLoaderMessage(ref args);
                 }
 
                 instances.AddRange(types.Where(type =>
@@ -57,11 +58,13 @@ internal static class RuntimeExtensions
                 StringBuilder exMsg = new();
                 foreach (var exceptions in ex.LoaderExceptions)
                 {
-                    exMsg.Append(
-                        $"{ex.GetType()}: {exceptions?.Message}{Environment.NewLine}{exceptions?.StackTrace}{Environment.NewLine}");
+                    _ = exMsg.AppendLine(
+                        $"{ex.GetType()}: {exceptions?.Message}");
+                    _ = exMsg.AppendLine(exceptions?.StackTrace);
                 }
 
-                GenericPluginLoader.InvokeLoaderMessage(new(exMsg.ToString(), "Error!", ErrorLevel.Error));
+                var args = new MessageEventArgs(exMsg.ToString(), "Error!", ErrorLevel.Error);
+                GenericPluginLoader.InvokeLoaderMessage(ref args);
             }
             catch (MissingMethodException)
             {
