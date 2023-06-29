@@ -29,7 +29,7 @@ public sealed class MiniDumpAttribute : Attribute
     /// <summary>
     /// Occurs when a mini-dump is generated or fails.
     /// </summary>
-    public static event EventHandler<MessageEventArgs>? DumpMessage
+    public static event MessageEventHandler? DumpMessage
     {
         add => throw null!;
         remove => throw null!;

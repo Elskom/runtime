@@ -13,7 +13,7 @@ public static class KOMManager
     /// <summary>
     /// The event to which allows getting the message to do stuff with.
     /// </summary>
-    public static event EventHandler<MessageEventArgs> MessageEvent
+    public static event MessageEventHandler? MessageEvent
     {
         add => throw null!;
         remove => throw null!;

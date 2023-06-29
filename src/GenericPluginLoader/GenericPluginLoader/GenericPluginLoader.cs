@@ -18,7 +18,7 @@ public sealed class GenericPluginLoader
     /// <summary>
     /// Triggers when the Plugin Loader has a message to send to the application.
     /// </summary>
-    public static event EventHandler<MessageEventArgs>? PluginLoaderMessage;
+    public static event MessageEventHandler? PluginLoaderMessage;
 
     internal Dictionary<string, List<PluginLoadContext>> Contexts { get; } = new();
 
@@ -151,8 +151,8 @@ public sealed class GenericPluginLoader
         this.Contexts.Clear();
     }
 
-    internal static void InvokeLoaderMessage(MessageEventArgs args)
-        => PluginLoaderMessage?.Invoke(null, args);
+    internal static void InvokeLoaderMessage(ref MessageEventArgs args)
+        => PluginLoaderMessage?.Invoke(null, ref args);
 
     private void UnloadPluginsInternal(string key)
     {
