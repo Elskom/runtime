@@ -35,6 +35,38 @@ public sealed class MiniDumpAttribute : Attribute
     }
 
     /// <summary>
+    /// Occurs when a mini-dump needs to be generated.
+    ///
+    /// This event *should* generate the dumps and return
+    /// if they was successfully generated.
+    /// </summary>
+    /// <remarks>
+    /// <code>
+    /// using Microsoft.Diagnostics.NETCore.Client;
+    /// ...
+    /// MiniDumpAttribute.Dump += MiniDump_Dump;
+    /// ...
+    /// private static void MiniDump_Dump(object? sender, ref MiniDumpEventArgs e)
+    /// {
+    ///     var diagnosticsClient = new DiagnosticsClient(e.ProcessId);
+    ///     try
+    ///     {
+    ///         diagnosticsClient.WriteDump(
+    ///             (DumpType)MiniDumpAttribute.CurrentInstance!.DumpType,
+    ///             MiniDumpAttribute.CurrentInstance!.DumpFileName);
+    ///         e.Success = true;
+    ///     }
+    ///     catch (ServerErrorException ex)
+    ///     {
+    ///         e.ErrorMessage = ex.Message;
+    ///         e.Success = false;
+    ///     }
+    /// }
+    /// </code>
+    /// </remarks>
+    public static event MiniDumpEventHandler? Dump;
+
+    /// <summary>
     /// Occurs when a mini-dump is generated or fails.
     /// </summary>
     public static event MessageEventHandler? DumpMessage;
@@ -97,4 +129,10 @@ public sealed class MiniDumpAttribute : Attribute
 
     internal static void InvokeDumpMessage(ref MessageEventArgs e)
         => DumpMessage?.Invoke(null, ref e);
+
+    internal static bool InvokeDump(ref MiniDumpEventArgs e)
+    {
+        Dump?.Invoke(null, ref e);
+        return e.Success;
+    }
 }
