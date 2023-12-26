@@ -13,12 +13,13 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// A generic loader for plugins.
 /// </summary>
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ref assembly which must match ABI of runtime.")]
 public sealed class GenericPluginLoader
 {
     /// <summary>
     /// Triggers when the Plugin Loader has a message to send to the application.
     /// </summary>
-    public static event MessageEventHandler? PluginLoaderMessage
+    public static event EventHandler<MessageEventArgs>? PluginLoaderMessage
     {
         add => throw null!;
         remove => throw null!;

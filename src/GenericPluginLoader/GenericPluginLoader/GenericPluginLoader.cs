@@ -18,7 +18,7 @@ public sealed class GenericPluginLoader
     /// <summary>
     /// Triggers when the Plugin Loader has a message to send to the application.
     /// </summary>
-    public static event MessageEventHandler? PluginLoaderMessage;
+    public static event EventHandler<MessageEventArgs>? PluginLoaderMessage;
 
     internal Dictionary<string, List<PluginLoadContext>> Contexts { get; } = new();
 
@@ -86,7 +86,7 @@ public sealed class GenericPluginLoader
                         dllFile,
                         dllFile.Replace(".dll", ".pdb", StringComparison.InvariantCulture));
                     context.UnloadIfNoInstances(instances);
-                    if (instances.Any())
+                    if (instances.Count != 0)
                     {
                         plugins.AddRange(instances);
                         contexts.Add(context);
@@ -115,7 +115,7 @@ public sealed class GenericPluginLoader
                     PluginLoadContext context = new($"ZipPlugin#{filesInZip[entry]}", path);
                     var instances = RuntimeExtensions.CreateInstancesFromInterface<T>(ZipAssembly.LoadFromZip(zippath, entry, context));
                     context.UnloadIfNoInstances(instances);
-                    if (instances.Any())
+                    if (instances.Count != 0)
                     {
                         plugins.AddRange(instances);
                         contexts.Add(context);
@@ -152,7 +152,7 @@ public sealed class GenericPluginLoader
     }
 
     internal static void InvokeLoaderMessage(ref MessageEventArgs args)
-        => PluginLoaderMessage?.Invoke(null, ref args);
+        => PluginLoaderMessage?.Invoke(null, args);
 
     private void UnloadPluginsInternal(string key)
     {

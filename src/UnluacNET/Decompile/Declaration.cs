@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Declaration
+internal sealed class Declaration
 {
     public Declaration(LLocal local)
     {

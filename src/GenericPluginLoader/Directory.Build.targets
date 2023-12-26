@@ -10,6 +10,7 @@
     <Using Include="System" />
     <Using Include="System.Collections.Generic" />
     <Using Include="System.Diagnostics" />
+    <Using Include="System.Globalization" />
     <Using Include="System.IO.Compression" />
     <Using Include="System.Reflection" />
     <Using Include="System.Text" />

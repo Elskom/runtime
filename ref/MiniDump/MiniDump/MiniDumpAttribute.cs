@@ -18,6 +18,7 @@ namespace Elskom.Generic.Libs;
 /// targeting Windows Forms to bring thread exception support and making build harder to maintain.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Assembly | AttributeTargets.Method)]
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ref assembly which must match ABI of runtime.")]
 public sealed class MiniDumpAttribute : Attribute
 {
     /// <summary>
@@ -56,7 +57,7 @@ public sealed class MiniDumpAttribute : Attribute
     /// }
     /// </code>
     /// </remarks>
-    public static event MiniDumpEventHandler? Dump
+    public static event EventHandler<MiniDumpEventArgs>? Dump
     {
         add => throw null!;
         remove => throw null!;
@@ -65,7 +66,7 @@ public sealed class MiniDumpAttribute : Attribute
     /// <summary>
     /// Occurs when a mini-dump is generated or fails.
     /// </summary>
-    public static event MessageEventHandler? DumpMessage
+    public static event EventHandler<MessageEventArgs>? DumpMessage
     {
         add => throw null!;
         remove => throw null!;

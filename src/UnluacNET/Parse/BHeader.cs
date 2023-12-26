@@ -5,9 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class BHeader
+internal sealed class BHeader
 {
-    private static readonly int Signature = 0x61754C1B; // '\x1B\Lua'
+    private const int Signature = 0x61754C1B; // '\x1B\Lua'
 
     public BHeader(Stream stream)
     {

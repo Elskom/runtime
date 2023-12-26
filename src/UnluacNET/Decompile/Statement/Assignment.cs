@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Assignment : Statement
+internal sealed class Assignment : Statement
 {
     private readonly List<Target> m_targets = new(5);
     private readonly List<Expression> m_values = new(5);

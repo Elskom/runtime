@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class TableLiteral : Expression
+internal sealed class TableLiteral : Expression
 {
     private readonly List<Entry> m_entries;
     private readonly int m_capacity;
@@ -180,6 +180,7 @@ internal class TableLiteral : Expression
         public int CompareTo(Entry other)
             => this.Timestamp.CompareTo(other.Timestamp);
 
+        [SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "False Positive.")]
         public override bool Equals(object obj)
             => ReferenceEquals(this, obj) && obj is not null && this.CompareTo((Entry)obj) == 0;
 

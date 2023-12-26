@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LNil : LObject
+internal sealed class LNil : LObject
 {
     public static readonly LNil NIL = new();
 

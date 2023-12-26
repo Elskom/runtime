@@ -12,9 +12,9 @@ internal static class RuntimeExtensions
         List<T> instances = new();
         try
         {
-            var asmFiles = OpenAssemblyFiles(dllFile, pdbFile);
-            using MemoryStream ms1 = new(asmFiles.AsmBytes!);
-            MemoryStream? ms2 = Debugger.IsAttached && asmFiles.PdbBytes is not null ? new(asmFiles.PdbBytes) : null;
+            var (asmBytes, pdbBytes) = OpenAssemblyFiles(dllFile, pdbFile);
+            using MemoryStream ms1 = new(asmBytes!);
+            MemoryStream? ms2 = Debugger.IsAttached && pdbBytes is not null ? new(pdbBytes) : null;
             instances.AddRange(context.CreateInstancesFromInterface<T>(ms1, ms2));
             ms2?.Dispose();
         }
@@ -59,6 +59,7 @@ internal static class RuntimeExtensions
                 foreach (var exceptions in ex.LoaderExceptions)
                 {
                     _ = exMsg.AppendLine(
+                        CultureInfo.InvariantCulture,
                         $"{ex.GetType()}: {exceptions?.Message}");
                     _ = exMsg.AppendLine(exceptions?.StackTrace);
                 }
@@ -78,7 +79,7 @@ internal static class RuntimeExtensions
 
     public static void UnloadIfNoInstances<T>(this AssemblyLoadContext context, List<T> instances)
     {
-        if (!instances.Any() && context.IsCollectible)
+        if (instances.Count == 0 && context.IsCollectible)
         {
             context.Unload();
         }

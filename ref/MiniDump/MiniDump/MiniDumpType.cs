@@ -8,6 +8,7 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// Represents the type of dump that can be requested.
 /// </summary>
+[SuppressMessage("Design", "CA1008:Enums should have zero value", Justification = "Controls MiniDump Types.")]
 public enum MiniDumpType
 {
     /// <summary>

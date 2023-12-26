@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LUpvalueType : BObjectType<LUpvalue>
+internal sealed class LUpvalueType : BObjectType<LUpvalue>
 {
     public override LUpvalue Parse(Stream stream, BHeader header)
         => new()

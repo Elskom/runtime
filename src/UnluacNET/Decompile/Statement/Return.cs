@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Return : Statement
+internal sealed class Return : Statement
 {
     private readonly Expression[] values;
 

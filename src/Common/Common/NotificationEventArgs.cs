@@ -8,7 +8,7 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// Event that holds that data to call the apis for notifications.
 /// </summary>
-public class NotificationEventArgs
+public class NotificationEventArgs : EventArgs
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="NotificationEventArgs"/> class.

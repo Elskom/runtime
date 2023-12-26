@@ -22,7 +22,7 @@ jobs:
     - name: Install latest .NET SDK
       uses: Elskom/setup-latest-dotnet@main
       with:
-        SDK_VERSION: '7.0.302'
+        SDK_VERSION: '8.0.100'
         RUNTIME_VERSIONS: ''
 
     - name: Restore, Build, and pack
@@ -42,7 +42,7 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@main
       with:
-        name: Shipping
+        name: Shipping-${{ runner.os }}
         path: artifacts/packages/Release/Shipping/*
 
     - name: Upload binlog on failure.
@@ -63,8 +63,9 @@ jobs:
     - name: Download artifacts
       uses: actions/download-artifact@main
       with:
-        name: Shipping
+        pattern: Shipping-*
         path: artifacts/packages/Release/Shipping/
+        merge-multiple: true
 
     - name: Push nuget Packages to nuget.org.
       run: dotnet nuget push **/*.nupkg -s nuget.org -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate

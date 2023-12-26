@@ -7,51 +7,31 @@ namespace Elskom.Generic.Libs;
 
 internal static class ThrowHelpers
 {
-    internal static void ThrowArgumentNull(bool value, string paramName)
-    {
-        if (value)
-        {
-            throw new ArgumentNullException(paramName);
-        }
-    }
-
+    [StackTraceHidden]
     internal static void ThrowInvalidOperation(bool value, string message)
     {
         if (value)
         {
-            throw new InvalidOperationException(message);
+            ThrowInvalidOperationCore(message);
         }
     }
 
-    internal static void ThrowArgumentOutOfRange(bool value, string paramName)
-    {
-        if (value)
-        {
-            throw new ArgumentOutOfRangeException(paramName);
-        }
-    }
-
-    internal static void ThrowArgumentOutOfRange(bool value, string paramName, string message)
-    {
-        if (value)
-        {
-            throw new ArgumentOutOfRangeException(paramName, message);
-        }
-    }
-
+    [StackTraceHidden]
     internal static void ThrowFileNotFound(bool value, string message)
     {
         if (value)
         {
-            throw new FileNotFoundException(message);
+            ThrowFileNotFoundCore(message);
         }
     }
 
-    internal static void ThrowObjectDisposed(bool value, string objectName)
-    {
-        if (value)
-        {
-            throw new ObjectDisposedException(objectName);
-        }
-    }
+    [StackTraceHidden]
+    [DoesNotReturn]
+    private static void ThrowInvalidOperationCore(string message)
+        => throw new InvalidOperationException(message);
+
+    [StackTraceHidden]
+    [DoesNotReturn]
+    private static void ThrowFileNotFoundCore(string message)
+        => throw new FileNotFoundException(message);
 }

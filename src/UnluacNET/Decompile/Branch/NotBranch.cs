@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class NotBranch : Branch
+internal sealed class NotBranch : Branch
 {
     private readonly Branch m_branch;
 

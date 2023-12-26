@@ -7,8 +7,10 @@
     <AdditionalFiles Include="../../stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
+    <Using Include="System.Diagnostics.CodeAnalysis" />
     <Using Include="System.Globalization" />
     <Using Include="System.IO.Compression" />
+    <Using Include="System.Text" />
     <Using Include="System.Xml.Linq" />
     <Using Include="Elskom.Generic.Libs.Properties" />
     <Using Include="IDisposableGenerator" />

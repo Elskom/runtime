@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LDoubleNumber : LNumber
+internal sealed class LDoubleNumber : LNumber
 {
     public LDoubleNumber(double number)
         => this.Number = number;
@@ -21,5 +21,7 @@ internal class LDoubleNumber : LNumber
         => throw new NotImplementedException();
 
     public override string ToString()
-        => this.Number == Math.Round(this.Number) ? ((long)this.Number).ToString() : this.Number.ToString();
+        => this.Number == Math.Round(this.Number)
+        ? ((long)this.Number).ToString(CultureInfo.InvariantCulture)
+        : this.Number.ToString(CultureInfo.InvariantCulture);
 }

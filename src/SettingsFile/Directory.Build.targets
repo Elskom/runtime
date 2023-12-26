@@ -11,6 +11,7 @@
       <_Parameter1>MiniDump,PublicKey=$(SnkPublicKey)</_Parameter1>
     </AssemblyAttribute>
     <Using Include="System.Diagnostics" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
     <Using Include="System.Text.Json" />
     <Using Include="System.Text.Json.Serialization" />
   </ItemGroup>

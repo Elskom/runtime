@@ -8,6 +8,7 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// A generic plugin update checker.
 /// </summary>
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ref assembly which must match ABI of runtime.")]
 public sealed class PluginUpdateCheck : IDisposable
 {
     /// <summary>
@@ -20,7 +21,7 @@ public sealed class PluginUpdateCheck : IDisposable
     /// <summary>
     /// Event that fires when a new message should show up.
     /// </summary>
-    public static event MessageEventHandler? MessageEvent
+    public static event EventHandler<MessageEventArgs>? MessageEvent
     {
         add => throw null!;
         remove => throw null!;
@@ -29,7 +30,7 @@ public sealed class PluginUpdateCheck : IDisposable
     /// <summary>
     /// Gets the plugin urls used in all instances.
     /// </summary>
-    public List<string>? PluginUrls
+    public IList<string>? PluginUrls
         => throw null!;
 
     /// <summary>
@@ -41,7 +42,7 @@ public sealed class PluginUpdateCheck : IDisposable
     /// <summary>
     /// Gets a list of <see cref="PluginUpdateData"/> instances representing the plugins that needs updating or are to be installed.
     /// </summary>
-    public List<PluginUpdateData> PluginUpdateDatas
+    public IList<PluginUpdateData> PluginUpdateDatas
         => throw null!;
 
     /// <summary>
@@ -52,7 +53,7 @@ public sealed class PluginUpdateCheck : IDisposable
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="pluginURLs"/> or <paramref name="pluginTypes"/> are <see langword="null"/>.</exception>
     /// <returns>A value indicating if the operation was successful or not.</returns>
     // catches the plugin urls and uses that cache to detect added urls, and only appends those to the list.
-    public bool CheckForUpdates(string[] pluginURLs, List<Type> pluginTypes)
+    public bool CheckForUpdates(string[] pluginURLs, IList<Type> pluginTypes)
         => throw null!;
 
     /// <summary>

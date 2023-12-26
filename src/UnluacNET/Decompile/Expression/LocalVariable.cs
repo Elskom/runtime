@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LocalVariable : Expression
+internal sealed class LocalVariable : Expression
 {
     public LocalVariable(Declaration decl)
         : base(PRECEDENCE_ATOMIC)

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Decompiler
+internal sealed class Decompiler
 {
     private static Stack<Branch> m_backup;
     private readonly int registers;
@@ -16,7 +16,7 @@ internal class Decompiler
     private readonly int vararg;
     private readonly Op tForTarget;
     private Registers r;
-    private Block outer;
+    private OuterBlock outer;
     private List<Block> blocks;
     private bool[] skip;
     private bool[] reverseTarget;
@@ -42,7 +42,7 @@ internal class Decompiler
             this.DeclList = new Declaration[function.NumParams];
             for (var i = 0; i < this.DeclList.Length; i++)
             {
-                var name = string.Format("_ARG_{0}_", i);
+                var name = $"_ARG_{i}_";
                 this.DeclList[i] = new Declaration(name, 0, this.length - 1);
             }
         }
@@ -59,9 +59,9 @@ internal class Decompiler
     public Declaration[] DeclList { get; private set; }
 
     // TODO: Pick better names
-    protected Function F { get; set; }
+    public Function F { get; set; }
 
-    protected LFunction Function { get; set; }
+    public LFunction Function { get; set; }
 
     public void Decompile()
     {

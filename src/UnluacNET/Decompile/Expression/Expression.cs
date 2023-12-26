@@ -7,18 +7,18 @@ namespace Elskom.Generic.Libs.UnluacNET;
 
 internal abstract class Expression
 {
-    public static readonly int PRECEDENCE_OR = 1;
-    public static readonly int PRECEDENCE_AND = 2;
-    public static readonly int PRECEDENCE_COMPARE = 3;
-    public static readonly int PRECEDENCE_CONCAT = 4;
-    public static readonly int PRECEDENCE_ADD = 5;
-    public static readonly int PRECEDENCE_MUL = 6;
-    public static readonly int PRECEDENCE_UNARY = 7;
-    public static readonly int PRECEDENCE_POW = 8;
-    public static readonly int PRECEDENCE_ATOMIC = 9;
-    public static readonly int ASSOCIATIVITY_NONE = 0;
-    public static readonly int ASSOCIATIVITY_LEFT = 1;
-    public static readonly int ASSOCIATIVITY_RIGHT = 2;
+    public const int PRECEDENCE_OR = 1;
+    public const int PRECEDENCE_AND = 2;
+    public const int PRECEDENCE_COMPARE = 3;
+    public const int PRECEDENCE_CONCAT = 4;
+    public const int PRECEDENCE_ADD = 5;
+    public const int PRECEDENCE_MUL = 6;
+    public const int PRECEDENCE_UNARY = 7;
+    public const int PRECEDENCE_POW = 8;
+    public const int PRECEDENCE_ATOMIC = 9;
+    public const int ASSOCIATIVITY_NONE = 0;
+    public const int ASSOCIATIVITY_LEFT = 1;
+    public const int ASSOCIATIVITY_RIGHT = 2;
     public static readonly Expression NIL = new ConstantExpression(new(LNil.NIL), -1);
 
     protected Expression(int precedence)

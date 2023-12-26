@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LStringType : BObjectType<LString>
+internal sealed class LStringType : BObjectType<LString>
 {
     public override LString Parse(Stream stream, BHeader header)
     {

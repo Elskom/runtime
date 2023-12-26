@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class TableSet : Operation
+internal sealed class TableSet : Operation
 {
     private readonly Expression m_table;
     private readonly Expression m_index;

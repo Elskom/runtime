@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class BooleanIndicator : Block
+internal sealed class BooleanIndicator : Block
 {
     public BooleanIndicator(LFunction function, int line)
         : base(function, line, line)

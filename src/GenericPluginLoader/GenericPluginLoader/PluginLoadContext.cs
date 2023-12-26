@@ -6,7 +6,7 @@
 namespace Elskom.Generic.Libs;
 
 /// <inheritdoc/>
-internal class PluginLoadContext : AssemblyLoadContext
+internal sealed class PluginLoadContext : AssemblyLoadContext
 {
     private readonly AssemblyDependencyResolver resolver;
 

@@ -8,6 +8,7 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// Json Setting file data.
 /// </summary>
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ref assembly which must match ABI of runtime.")]
 public class JsonSettings
 {
     /// <summary>
@@ -84,6 +85,7 @@ public class JsonSettings
     /// Gets or sets the sources to use to install plugins from.
     /// </summary>
     [JsonPropertyName(nameof(Sources))]
+    [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Needed for settings json file.")]
     public string[] Sources
     {
         get => throw null!;

@@ -8,6 +8,8 @@
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <Using Include="System.Diagnostics" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Globalization" />
     <Using Include="System.Text" />
     <Using Include="IDisposableGenerator" />
     <Using Include="Elskom.Generic.Libs.UnluacNET.IO" />

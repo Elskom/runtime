@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class RegisterSet : Operation
+internal sealed class RegisterSet : Operation
 {
     public RegisterSet(int line, int register, Expression value)
         : base(line)

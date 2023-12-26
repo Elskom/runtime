@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class SetBlock : Block
+internal sealed class SetBlock : Block
 {
     private readonly bool m_empty;
     private readonly Registers m_r;

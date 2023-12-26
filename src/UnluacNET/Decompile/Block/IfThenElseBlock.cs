@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class IfThenElseBlock : Block
+internal sealed class IfThenElseBlock : Block
 {
     private readonly Branch m_branch;
     private readonly int m_loopback;

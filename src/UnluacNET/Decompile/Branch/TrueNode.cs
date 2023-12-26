@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class TrueNode : Branch
+internal sealed class TrueNode : Branch
 {
     public TrueNode(int register, bool inverted, int line, int begin, int end)
         : base(line, begin, end)
@@ -34,5 +34,5 @@ internal class TrueNode : Branch
     }
 
     public override string ToString()
-        => string.Format("TrueNode[register={0};inverted={1};line={2};begin={3};end={4}]", this.Register, this.Inverted, this.Line, this.Begin, this.End);
+        => $"TrueNode[register={this.Register};inverted={this.Inverted};line={this.Line};begin={this.Begin};end={this.End}]";
 }

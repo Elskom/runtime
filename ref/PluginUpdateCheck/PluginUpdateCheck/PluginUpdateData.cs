@@ -8,7 +8,8 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// The Plugin Update data for a plugin.
 /// </summary>
-public struct PluginUpdateData
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ref assembly which must match ABI of runtime.")]
+public struct PluginUpdateData : IEquatable<PluginUpdateData>
 {
     /// <summary>
     /// Gets the plugin name this instance is pointing to.
@@ -37,6 +38,24 @@ public struct PluginUpdateData
     /// <summary>
     /// Gets the files to the plugin to download.
     /// </summary>
-    public List<string?> DownloadFiles
+    public IList<string?> DownloadFiles
+        => throw null!;
+
+    public static bool operator ==(PluginUpdateData left, PluginUpdateData right)
+        => throw null!;
+
+    public static bool operator !=(PluginUpdateData left, PluginUpdateData right)
+        => throw null!;
+
+    /// <inheritdoc/>
+    public override readonly bool Equals(object? obj)
+        => throw null!;
+
+    /// <inheritdoc/>
+    public readonly bool Equals(PluginUpdateData other)
+        => throw null!;
+
+    /// <inheritdoc/>
+    public override readonly int GetHashCode()
         => throw null!;
 }

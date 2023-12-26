@@ -5,28 +5,28 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Code
+internal sealed class Code
 {
     /*
     ** Size and position of opcode arguments
     */
-    private static readonly int SIZE_C = 9;
-    private static readonly int SIZE_B = 9;
-    private static readonly int SIZE_Bx = SIZE_C + SIZE_B;
-    private static readonly int SIZE_A = 8;
-    private static readonly int SIZE_OP = 6;
-    private static readonly int POS_OP = 0;
-    private static readonly int POS_A = POS_OP + SIZE_OP;
-    private static readonly int POS_C = POS_A + SIZE_A;
-    private static readonly int POS_B = POS_C + SIZE_C;
-    private static readonly int POS_Bx = POS_C;
+    private const int SIZE_C = 9;
+    private const int SIZE_B = 9;
+    private const int SIZE_Bx = SIZE_C + SIZE_B;
+    private const int SIZE_A = 8;
+    private const int SIZE_OP = 6;
+    private const int POS_OP = 0;
+    private const int POS_A = POS_OP + SIZE_OP;
+    private const int POS_C = POS_A + SIZE_A;
+    private const int POS_B = POS_C + SIZE_C;
+    private const int POS_Bx = POS_C;
 
     /*
     ** Limits for opcode arguments
     ** (signed) int used to manipulate most arguments
     */
-    private static readonly int MAXARG_Bx = (1 << SIZE_Bx) - 1;
-    private static readonly int MAXARG_sBx = MAXARG_Bx >> 1;
+    private const int MAXARG_Bx = (1 << SIZE_Bx) - 1;
+    private const int MAXARG_sBx = MAXARG_Bx >> 1;
 
     /*
      ** Macros to operate RK indices

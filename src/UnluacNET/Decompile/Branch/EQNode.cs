@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class EQNode : Branch
+internal sealed class EQNode : Branch
 {
     private readonly int m_left;
     private readonly int m_right;

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class BSizeTType : BObjectType<BSizeT>
+internal sealed class BSizeTType : BObjectType<BSizeT>
 {
     private readonly BIntegerType integerType;
 

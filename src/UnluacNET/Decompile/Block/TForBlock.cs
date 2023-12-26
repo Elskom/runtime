@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class TForBlock : Block
+internal sealed class TForBlock : Block
 {
     private readonly int m_register;
     private readonly int m_length;

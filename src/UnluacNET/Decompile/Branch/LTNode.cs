@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LTNode : Branch
+internal sealed class LTNode : Branch
 {
     private readonly int m_left;
     private readonly int m_right;

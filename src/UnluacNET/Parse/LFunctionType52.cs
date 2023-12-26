@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LFunctionType52 : LFunctionType
+internal sealed class LFunctionType52 : LFunctionType
 {
     protected override void ParseDebug(Stream stream, BHeader header, LFunctionParseState s)
     {

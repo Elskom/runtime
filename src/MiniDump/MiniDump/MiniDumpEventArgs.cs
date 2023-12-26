@@ -8,7 +8,7 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// Event that holds the information needed to create a dump.
 /// </summary>
-public class MiniDumpEventArgs
+public class MiniDumpEventArgs : EventArgs
 {
     internal MiniDumpEventArgs(int processId, string fileName, MiniDumpType dumpType)
     {

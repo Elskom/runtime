@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Constant
+internal sealed class Constant
 {
     public const int CONST_NIL = 0;
     public const int CONST_BOOL = 1;
@@ -178,8 +178,8 @@ internal class Constant
                     }
                 }
 
-                if (unprinttable is 0 && !this.m_string.Contains("[[") &&
-                    (newLines > 1 || newLines is 1) && this.m_string.IndexOf('\n') != this.m_string.Length - 1)
+                if (unprinttable is 0 && !this.m_string.Contains("[[", StringComparison.Ordinal) &&
+                    (newLines > 1 || newLines is 1) && this.m_string.IndexOf('\n', StringComparison.Ordinal) != this.m_string.Length - 1)
                 {
                     var pipe = 0;
                     var pipeString = new StringBuilder();
@@ -236,7 +236,7 @@ internal class Constant
                             }
                             else
                             {
-                                var dec = cx.ToString();
+                                var dec = cx.ToString(CultureInfo.InvariantCulture);
                                 var len = dec.Length;
                                 output.Print("\\");
                                 while (len++ < 3)

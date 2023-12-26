@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LLongNumber : LNumber
+internal sealed class LLongNumber : LNumber
 {
     public LLongNumber(long number)
         => this.Number = number;
@@ -21,5 +21,5 @@ internal class LLongNumber : LNumber
         => throw new NotImplementedException();
 
     public override string ToString()
-        => this.Number.ToString();
+        => this.Number.ToString(CultureInfo.InvariantCulture);
 }

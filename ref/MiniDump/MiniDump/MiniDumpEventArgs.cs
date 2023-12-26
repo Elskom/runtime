@@ -8,7 +8,8 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// Event that holds the information needed to create a dump.
 /// </summary>
-public class MiniDumpEventArgs
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ref assembly which must match ABI of runtime.")]
+public class MiniDumpEventArgs : EventArgs
 {
     /// <summary>
     /// Gets the process id of the current process that the dump is to be made on.

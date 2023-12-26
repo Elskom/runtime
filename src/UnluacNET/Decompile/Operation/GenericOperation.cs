@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class GenericOperation : Operation
+internal sealed class GenericOperation : Operation
 {
     private readonly Statement m_statement;
 

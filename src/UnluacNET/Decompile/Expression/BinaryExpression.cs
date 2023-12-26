@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class BinaryExpression : Expression
+internal sealed class BinaryExpression : Expression
 {
     private readonly string m_op;
     private readonly Expression m_left;
@@ -27,11 +27,11 @@ internal class BinaryExpression : Expression
     public override bool BeginsWithParen
         => this.LeftGroup || this.m_left.BeginsWithParen;
 
-    protected bool LeftGroup
+    public bool LeftGroup
         => this.Precedence > this.m_left.Precedence ||
         (this.Precedence == this.m_left.Precedence && this.m_associativity == ASSOCIATIVITY_RIGHT);
 
-    protected bool RightGroup
+    public bool RightGroup
         => this.Precedence > this.m_right.Precedence ||
         (this.Precedence == this.m_right.Precedence && this.m_associativity == ASSOCIATIVITY_LEFT);
 

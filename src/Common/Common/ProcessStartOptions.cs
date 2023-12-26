@@ -81,7 +81,7 @@ public sealed class ProcessStartOptions
     /// Executes the process.
     /// </summary>
     /// <returns>The process's redirected outputs.</returns>
-    /// <exception cref="InvalidOperationException">When the instance's startup information is null.</exception>
+    /// <exception cref="ArgumentNullException">When the instance's startup information is null.</exception>
     /// <exception cref="FileNotFoundException">When the file to the process to execute does not exist on disk.</exception>
     public string Start()
         => this.Start(this.StartInfo);
@@ -91,11 +91,11 @@ public sealed class ProcessStartOptions
     /// </summary>
     /// <param name="startInfo">The process start information to use to start the process.</param>
     /// <returns>The process's redirected outputs.</returns>
-    /// <exception cref="InvalidOperationException">When the instance's startup information is null.</exception>
+    /// <exception cref="ArgumentNullException">When the instance's startup information is null.</exception>
     /// <exception cref="FileNotFoundException">When the file to the process to execute does not exist on disk.</exception>
     public string Start(ProcessStartInfo startInfo)
     {
-        ThrowHelpers.ThrowInvalidOperation(startInfo is null, "StartInfo must not be null.");
+        ArgumentNullException.ThrowIfNull(startInfo);
         ThrowHelpers.ThrowFileNotFound(!File.Exists(startInfo!.FileName), "File to execute does not exist.");
         this.Executing = true;
         using var proc = new Process();

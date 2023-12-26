@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class BList<T> : IBObject
+internal sealed class BList<T> : IBObject
     where T : IBObject
 {
     private readonly List<T> m_values;

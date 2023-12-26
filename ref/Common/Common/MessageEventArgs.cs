@@ -8,6 +8,7 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// Event that holds the message text and the caption.
 /// </summary>
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ref assembly.")]
 public class MessageEventArgs : EventArgs
 {
     /// <summary>

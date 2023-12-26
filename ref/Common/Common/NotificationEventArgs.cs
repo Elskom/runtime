@@ -8,7 +8,8 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// Event that holds that data to call the apis for notifications.
 /// </summary>
-public class NotificationEventArgs
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ref assembly.")]
+public class NotificationEventArgs : EventArgs
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="NotificationEventArgs"/> class.

@@ -11,7 +11,7 @@ namespace Elskom.Generic.Libs;
 /// Attribute that creates and registers an instance of the <see cref="GitInformation" /> class for the assembly.
 /// </summary>
 [AttributeUsage(AttributeTargets.Assembly, Inherited = false)]
-public class GitInformationAttribute : Attribute
+public sealed class GitInformationAttribute : Attribute
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="GitInformationAttribute"/> class.
@@ -31,6 +31,7 @@ public class GitInformationAttribute : Attribute
     /// <exception cref="ArgumentNullException">
     /// Thrown when <paramref name="assemblyType"/> is <see langword="null"/>.
     /// </exception>
+    [SuppressMessage("Design", "CA1019:Define accessors for attribute arguments", Justification = "Do not want the values of the mandatory arguments to be retrievable.")]
     public GitInformationAttribute(string headdesc, string commit, string branchname, Type assemblyType)
         => throw null!;
 }

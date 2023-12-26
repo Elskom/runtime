@@ -8,7 +8,7 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// The Plugin Update data for a plugin.
 /// </summary>
-public struct PluginUpdateData
+public struct PluginUpdateData : IEquatable<PluginUpdateData>
 {
     /// <summary>
     /// Gets the plugin name this instance is pointing to.
@@ -33,5 +33,28 @@ public struct PluginUpdateData
     /// <summary>
     /// Gets the files to the plugin to download.
     /// </summary>
-    public List<string?> DownloadFiles { get; internal set; }
+    public IList<string?> DownloadFiles { get; internal set; }
+
+    public static bool operator ==(PluginUpdateData left, PluginUpdateData right)
+        => left.Equals(right);
+
+    public static bool operator !=(PluginUpdateData left, PluginUpdateData right)
+        => !(left == right);
+
+    /// <inheritdoc/>
+    public override readonly bool Equals(object? obj)
+        => obj is PluginUpdateData data
+        && this.PluginName == data.PluginName
+        && this.CurrentVersion == data.CurrentVersion
+        && this.InstalledVersion == data.InstalledVersion
+        && EqualityComparer<Uri>.Default.Equals(this.DownloadUrl, data.DownloadUrl)
+        && EqualityComparer<IList<string?>>.Default.Equals(this.DownloadFiles, data.DownloadFiles);
+
+    /// <inheritdoc/>
+    public readonly bool Equals(PluginUpdateData other)
+        => this.Equals((object)other);
+
+    /// <inheritdoc/>
+    public override readonly int GetHashCode()
+        => HashCode.Combine(this.PluginName, this.CurrentVersion, this.InstalledVersion, this.DownloadUrl, this.DownloadFiles);
 }

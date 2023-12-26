@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class WhileBlock : Block
+internal sealed class WhileBlock : Block
 {
     private readonly Branch m_branch;
     private readonly int m_loopback;

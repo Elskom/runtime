@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class TestSetNode : TestNode
+internal sealed class TestSetNode : TestNode
 {
     public TestSetNode(int target, int test, bool inverted, int line, int begin, int end)
         : base(test, inverted, line, begin, end)

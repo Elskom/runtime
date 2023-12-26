@@ -8,6 +8,7 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// Blowfish encryption class.
 /// </summary>
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ref assembly which must match ABI of runtime.")]
 public sealed class BlowFish : IDisposable
 {
     /// <summary>
@@ -65,61 +66,33 @@ public sealed class BlowFish : IDisposable
         => throw null!;
 
     /// <summary>
-    /// Encrypts a string in CBC mode.
+    /// Encrypts a string.
     /// </summary>
-    /// <param name="pt">Plaintext data to encrypt.</param>
-    /// <returns>Ciphertext with IV appended to front.</returns>
-    public string EncryptCBC(string pt)
+    /// <param name="ct">Ciphertext with IV appended to front if <see cref="CipherMode.CBC"/> mode, or hex string if <see cref="CipherMode.ECB"/> mode.</param>
+    /// <param name="mode">Cipher mode.</param>
+    /// <returns>Ciphertext with or without the IV appended to front or <see langword="null"/> if mode is not <see cref="CipherMode.ECB"/> or <see cref="CipherMode.CBC"/>.</returns>
+    [Obsolete("Using CipherMode.ECB in this method is deprecated.")]
+    public string? Encrypt(string ct, CipherMode mode)
         => throw null!;
 
     /// <summary>
-    /// Encrypts a byte array in CBC mode.
-    /// IV must be created and saved manually.
+    /// Encrypts a byte array.
     /// </summary>
-    /// <param name="pt">Plaintext data to encrypt.</param>
-    /// <returns>Ciphertext.</returns>
-    public byte[] EncryptCBC(byte[] pt)
+    /// <param name="cipherText">Ciphertext byte array.</param>
+    /// <param name="mode">Cipher mode.</param>
+    /// <returns>Plaintext or <see langword="null"/> if mode is not <see cref="CipherMode.ECB"/> or <see cref="CipherMode.CBC"/>.</returns>
+    [Obsolete("Using CipherMode.ECB in this method is deprecated.")]
+    public byte[]? Encrypt(byte[] cipherText, CipherMode mode)
         => throw null!;
 
     /// <summary>
-    /// Decrypts a string in CBC mode.
+    /// Decrypts a string.
     /// </summary>
-    /// <param name="ct">Ciphertext with IV appended to front.</param>
-    /// <returns>Plaintext.</returns>
-    public string DecryptCBC(string ct)
-        => throw null!;
-
-    /// <summary>
-    /// Decrypts a byte array in CBC mode.
-    /// IV must be created and saved manually.
-    /// </summary>
-    /// <param name="ct">Ciphertext data to decrypt.</param>
-    /// <returns>Plaintext.</returns>
-    public byte[] DecryptCBC(byte[] ct)
-        => throw null!;
-
-    /// <summary>
-    /// Encrypt a string in ECB mode.
-    /// </summary>
-    /// <param name="pt">Plaintext to encrypt as ascii string.</param>
-    /// <returns>hex value of encrypted data.</returns>
-    public string EncryptECB(string pt)
-        => throw null!;
-
-    /// <summary>
-    /// Encrypts a byte array in ECB mode.
-    /// </summary>
-    /// <param name="pt">Plaintext data.</param>
-    /// <returns>Ciphertext bytes.</returns>
-    public byte[] EncryptECB(byte[] pt)
-        => throw null!;
-
-    /// <summary>
-    /// Decrypts a string (ECB).
-    /// </summary>
-    /// <param name="ct">hHex string of the ciphertext.</param>
-    /// <returns>Plaintext ascii string.</returns>
-    public string DecryptECB(string ct)
+    /// <param name="ct">Ciphertext with IV appended to front if <see cref="CipherMode.CBC"/> mode, or hex string if <see cref="CipherMode.ECB"/> mode.</param>
+    /// <param name="mode">Cipher mode.</param>
+    /// <returns>Plaintext or <see langword="null"/> if mode is not <see cref="CipherMode.ECB"/> or <see cref="CipherMode.CBC"/>.</returns>
+    [Obsolete("Using CipherMode.ECB in this method is deprecated.")]
+    public string? Decrypt(string ct, CipherMode mode)
         => throw null!;
 
     /// <summary>
@@ -127,8 +100,9 @@ public sealed class BlowFish : IDisposable
     /// </summary>
     /// <param name="cipherText">Ciphertext byte array.</param>
     /// <param name="mode">Cipher mode.</param>
-    /// <returns>Plaintext or <see langword="null"/> if mode is not <see cref="CipherMode.ECB"/>.</returns>
-    public byte[] Decrypt(byte[] cipherText, CipherMode mode)
+    /// <returns>Plaintext or <see langword="null"/> if mode is not <see cref="CipherMode.ECB"/> or <see cref="CipherMode.CBC"/>.</returns>
+    [Obsolete("Using CipherMode.ECB in this method is deprecated.")]
+    public byte[]? Decrypt(byte[] cipherText, CipherMode mode)
         => throw null!;
 
     /// <summary>

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class BSizeT : BInteger
+internal sealed class BSizeT : BInteger
 {
     public BSizeT(BInteger b)
         : base(b)

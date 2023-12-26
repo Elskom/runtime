@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LLocalType : BObjectType<LLocal>
+internal sealed class LLocalType : BObjectType<LLocal>
 {
     public override LLocal Parse(Stream stream, BHeader header)
     {

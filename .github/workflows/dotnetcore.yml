@@ -20,7 +20,7 @@ jobs:
     - name: Install latest .NET SDK
       uses: Elskom/setup-latest-dotnet@main
       with:
-        SDK_VERSION: '7.0.302'
+        SDK_VERSION: '8.0.100'
         RUNTIME_VERSIONS: ''
 
     - name: Restore, Build, and pack
@@ -38,7 +38,7 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@main
       with:
-        name: Shipping
+        name: Shipping-${{ runner.os }}
         path: artifacts/packages/Release/Shipping/*
 
     - name: Upload binlog on failure.

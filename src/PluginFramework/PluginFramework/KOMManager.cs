@@ -10,6 +10,12 @@ namespace Elskom.Generic.Libs;
 /// </summary>
 public static class KOMManager
 {
+    private static readonly CompositeFormat KOMManagerPluginNoUnpackerFunction = CompositeFormat.Parse(
+        Resources.KOMManager_Plugin_No_Unpacker_Function);
+
+    private static readonly CompositeFormat KOMManagerPluginNoPackerFunction = CompositeFormat.Parse(
+        Resources.KOMManager_Plugin_No_Packer_Function);
+
     private static List<IKomPlugin>? komplugins;
     private static List<IEncryptionPlugin>? encryptionplugins;
     private static List<ICallbackPlugin>? callbackplugins;
@@ -17,7 +23,7 @@ public static class KOMManager
     /// <summary>
     /// The event to which allows getting the message to do stuff with.
     /// </summary>
-    public static event MessageEventHandler? MessageEvent;
+    public static event EventHandler<MessageEventArgs>? MessageEvent;
 
     /// <summary>
     /// Gets a value indicating whether the current state on packing KOM files.
@@ -37,7 +43,8 @@ public static class KOMManager
     /// <value>
     /// The list of <see cref="IKomPlugin"/> plugins.
     /// </value>
-    public static List<IKomPlugin> Komplugins => komplugins ??= new();
+    public static IList<IKomPlugin> Komplugins
+        => komplugins ??= [];
 
     /// <summary>
     /// Gets The list of <see cref="IEncryptionPlugin"/> plugins.
@@ -45,7 +52,8 @@ public static class KOMManager
     /// <value>
     /// The list of <see cref="IEncryptionPlugin"/> plugins.
     /// </value>
-    public static List<IEncryptionPlugin> Encryptionplugins => encryptionplugins ??= new();
+    public static IList<IEncryptionPlugin> Encryptionplugins
+        => encryptionplugins ??= [];
 
     /// <summary>
     /// Gets the list of <see cref="ICallbackPlugin"/> plugins.
@@ -53,7 +61,8 @@ public static class KOMManager
     /// <value>
     /// The list of <see cref="ICallbackPlugin"/> plugins.
     /// </value>
-    public static List<ICallbackPlugin> Callbackplugins => callbackplugins ??= new();
+    public static IList<ICallbackPlugin> Callbackplugins
+        => callbackplugins ??= [];
 
     /// <summary>
     /// Copies Modified KOM files to the Elsword Directory that was Set in the Settings Dialog in Els_kom. Requires: File Name, Original Directory the File is in, And Destination Directory.
@@ -83,11 +92,12 @@ public static class KOMManager
     /// <param name="fileName">The name of the file to move.</param>
     /// <param name="origFileDir">The original kom file location.</param>
     /// <param name="destFileDir">The target to move the kom file too.</param>
-    /// <exception cref="ArgumentNullException">When <paramref name="origFileDir"/> or <paramref name="destFileDir"/> are <see langword="null"/> or empty.</exception>
+    /// <exception cref="ArgumentNullException">When <paramref name="origFileDir"/> or <paramref name="destFileDir"/> are <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">When <paramref name="origFileDir"/> or <paramref name="destFileDir"/> are empty.</exception>
     public static void MoveOriginalKomFilesBack(string fileName, string origFileDir, string destFileDir)
     {
-        ThrowHelpers.ThrowArgumentNull(string.IsNullOrEmpty(origFileDir), nameof(origFileDir));
-        ThrowHelpers.ThrowArgumentNull(string.IsNullOrEmpty(destFileDir), nameof(destFileDir));
+        ArgumentException.ThrowIfNullOrEmpty(origFileDir);
+        ArgumentException.ThrowIfNullOrEmpty(destFileDir);
         if (!origFileDir!.EndsWith($"{Path.DirectorySeparatorChar}", StringComparison.Ordinal))
         {
             origFileDir += Path.DirectorySeparatorChar;
@@ -164,7 +174,8 @@ public static class KOMManager
                     {
                         MessageEventArgs args = new(
                             string.Format(
-                                Resources.KOMManager_Plugin_No_Unpacker_Function!,
+                                CultureInfo.InvariantCulture,
+                                KOMManagerPluginNoUnpackerFunction!,
                                 komplugin.SupportedKOMVersion),
                             Resources.Error!,
                             ErrorLevel.Error);
@@ -239,7 +250,8 @@ public static class KOMManager
 
                             MessageEventArgs args = new(
                                 string.Format(
-                                    Resources.KOMManager_Plugin_No_Packer_Function!,
+                                    CultureInfo.InvariantCulture,
+                                    KOMManagerPluginNoPackerFunction!,
                                     komplugin.SupportedKOMVersion),
                                 Resources.Error!,
                                 ErrorLevel.Error);
@@ -396,7 +408,7 @@ public static class KOMManager
     }
 
     internal static void InvokeMessageEvent(ref MessageEventArgs e)
-        => MessageEvent?.Invoke(null, ref e);
+        => MessageEvent?.Invoke(null, e);
 
     private static void MoveOriginalKomFiles(string fileName, string origFileDir, string destFileDir)
     {

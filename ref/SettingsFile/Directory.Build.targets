@@ -8,6 +8,7 @@
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <Using Include="System.Diagnostics" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
     <Using Include="System.Text.Json" />
     <Using Include="System.Text.Json.Serialization" />
   </ItemGroup>

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class RepeatBlock : Block
+internal sealed class RepeatBlock : Block
 {
     private readonly Branch m_branch;
     private readonly Registers m_r;

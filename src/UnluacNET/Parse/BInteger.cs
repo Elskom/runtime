@@ -7,8 +7,8 @@ namespace Elskom.Generic.Libs.UnluacNET;
 
 internal class BInteger : IBObject
 {
-    private static readonly long MAX_INT = int.MaxValue;
-    private static readonly long MIN_INT = int.MinValue;
+    private const long MAX_INT = int.MaxValue;
+    private const long MIN_INT = int.MinValue;
 
     // TODO: Why not just use a 'long' to hold both sizes? Doesn't make much of a difference IMO
     private readonly long m_big;

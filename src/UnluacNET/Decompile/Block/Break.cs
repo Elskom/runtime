@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Break : Block
+internal sealed class Break : Block
 {
     public Break(LFunction function, int line, int target)
         : base(function, line, line)

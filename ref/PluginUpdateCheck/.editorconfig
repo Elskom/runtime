@@ -153,5 +153,8 @@ dotnet_diagnostic.CA1303.severity = warning
 # CA1305: Specify IFormatProvider
 dotnet_diagnostic.CA1305.severity = warning
 
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = suggestion
+
 # S3903: Move '%s' into a named namespace.
 dotnet_diagnostic.S3903.severity = none

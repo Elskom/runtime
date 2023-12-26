@@ -34,5 +34,5 @@ internal class TestNode : Branch
     }
 
     public override string ToString()
-        => string.Format("TestNode[test={0};inverted={1};line={2};begin={3};end={4}]", this.Test, this.Inverted, this.Line, this.Begin, this.End);
+        => $"TestNode[test={this.Test};inverted={this.Inverted};line={this.Line};begin={this.Begin};end={this.End}]";
 }

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LConstantType : BObjectType<LObject>
+internal sealed class LConstantType : BObjectType<LObject>
 {
     public override LObject Parse(Stream stream, BHeader header)
     {

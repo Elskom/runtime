@@ -13,7 +13,7 @@ public static class KOMManager
     /// <summary>
     /// The event to which allows getting the message to do stuff with.
     /// </summary>
-    public static event MessageEventHandler? MessageEvent
+    public static event EventHandler<MessageEventArgs>? MessageEvent
     {
         add => throw null!;
         remove => throw null!;
@@ -39,7 +39,7 @@ public static class KOMManager
     /// <value>
     /// The list of <see cref="IKomPlugin"/> plugins.
     /// </value>
-    public static List<IKomPlugin> Komplugins
+    public static IList<IKomPlugin> Komplugins
         => throw null!;
 
     /// <summary>
@@ -48,7 +48,7 @@ public static class KOMManager
     /// <value>
     /// The list of <see cref="IEncryptionPlugin"/> plugins.
     /// </value>
-    public static List<IEncryptionPlugin> Encryptionplugins
+    public static IList<IEncryptionPlugin> Encryptionplugins
         => throw null!;
 
     /// <summary>
@@ -57,7 +57,7 @@ public static class KOMManager
     /// <value>
     /// The list of <see cref="ICallbackPlugin"/> plugins.
     /// </value>
-    public static List<ICallbackPlugin> Callbackplugins
+    public static IList<ICallbackPlugin> Callbackplugins
         => throw null!;
 
     /// <summary>

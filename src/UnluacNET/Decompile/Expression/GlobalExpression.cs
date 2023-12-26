@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class GlobalExpression : Expression
+internal sealed class GlobalExpression : Expression
 {
     private readonly string m_name;
     private readonly int m_index;

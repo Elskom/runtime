@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class BIntegerType : BObjectType<BInteger>
+internal sealed class BIntegerType : BObjectType<BInteger>
 {
     public BIntegerType(int intSize)
         => this.IntSize = intSize;
@@ -23,7 +23,7 @@ internal class BIntegerType : BObjectType<BInteger>
         return value;
     }
 
-    protected internal BInteger RawParse(Stream stream, BHeader header)
+    internal BInteger RawParse(Stream stream, BHeader header)
     {
         // HACK HACK HACK
         var bigEndian = header.BigEndian;

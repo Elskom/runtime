@@ -56,6 +56,7 @@ public class JsonSettings
     /// Gets or sets the sources to use to install plugins from.
     /// </summary>
     [JsonPropertyName(nameof(Sources))]
+    [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Needed for settings json file.")]
     public string[] Sources { get; set; } = null!;
 
     /// <summary>

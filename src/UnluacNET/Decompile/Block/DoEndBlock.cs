@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class DoEndBlock : Block
+internal sealed class DoEndBlock : Block
 {
     private readonly List<Statement> m_statements;
 

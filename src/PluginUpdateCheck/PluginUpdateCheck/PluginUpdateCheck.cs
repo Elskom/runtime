@@ -11,6 +11,18 @@ namespace Elskom.Generic.Libs;
 [GenerateDispose(false)]
 public sealed partial class PluginUpdateCheck
 {
+    private static readonly CompositeFormat PluginUpdateCheckShowMessageUpdateForPluginIsAvailible = CompositeFormat.Parse(
+        Resources.PluginUpdateCheck_ShowMessage_Update_for_plugin_is_availible);
+
+    private static readonly CompositeFormat PluginUpdateCheckCheckForUpdatesFailedToDownloadThePluginsSourcesListReason = CompositeFormat.Parse(
+        Resources.PluginUpdateCheck_CheckForUpdates_Failed_to_download_the_plugins_sources_list_Reason);
+
+    private static readonly CompositeFormat PluginUpdateCheckInstallFailedToInstallTheSelectedPluginReason = CompositeFormat.Parse(
+        Resources.PluginUpdateCheck_Install_Failed_to_install_the_selected_plugin_Reason);
+
+    private static readonly CompositeFormat PluginUpdateCheckUninstallFailedToUninstallTheSelectedPluginReason = CompositeFormat.Parse(
+        Resources.PluginUpdateCheck_Uninstall_Failed_to_uninstall_the_selected_plugin_Reason);
+
     private readonly IServiceProvider serviceProvider;
 
     /// <summary>
@@ -26,13 +38,13 @@ public sealed partial class PluginUpdateCheck
     /// <summary>
     /// Event that fires when a new message should show up.
     /// </summary>
-    public static event MessageEventHandler? MessageEvent;
+    public static event EventHandler<MessageEventArgs>? MessageEvent;
 
     /// <summary>
     /// Gets the plugin urls used in all instances.
     /// </summary>
     [NullOnDispose]
-    public List<string>? PluginUrls { get; private set; }
+    public IList<string>? PluginUrls { get; private set; }
 
     /// <summary>
     /// Gets a value indicating whether there are any pending updates and displays a message if there is.
@@ -41,9 +53,9 @@ public sealed partial class PluginUpdateCheck
     {
         get
         {
-            ThrowHelpers.ThrowObjectDisposed(this.isDisposed, nameof(PluginUpdateCheck));
+            ObjectDisposedException.ThrowIf(this.isDisposed, typeof(PluginUpdateCheck));
             var result = false;
-            if (!this.PluginUpdateDatas.Any())
+            if (this.PluginUpdateDatas.Count == 0)
             {
                 return false;
             }
@@ -59,12 +71,12 @@ public sealed partial class PluginUpdateCheck
                 var args = new MessageEventArgs(
                         string.Format(
                             CultureInfo.InvariantCulture,
-                            Resources.PluginUpdateCheck_ShowMessage_Update_for_plugin_is_availible!,
+                            PluginUpdateCheckShowMessageUpdateForPluginIsAvailible!,
                             pluginUpdateData.CurrentVersion,
                             pluginUpdateData.PluginName),
                         Resources.PluginUpdateCheck_ShowMessage_New_plugin_update!,
                         ErrorLevel.Info);
-                MessageEvent?.Invoke(null, ref args);
+                MessageEvent?.Invoke(null, args);
                 result = true;
             }
 
@@ -76,7 +88,7 @@ public sealed partial class PluginUpdateCheck
     /// Gets a list of <see cref="PluginUpdateData"/> instances representing the plugins that needs updating or are to be installed.
     /// </summary>
     [NullOnDispose]
-    public List<PluginUpdateData> PluginUpdateDatas { get; private set; }
+    public IList<PluginUpdateData> PluginUpdateDatas { get; private set; }
 
     /// <summary>
     /// Checks for plugin updates from the provided plugin source urls.
@@ -94,7 +106,7 @@ public sealed partial class PluginUpdateCheck
     /// A value indicating if the operation was successful or not.
     /// </returns>
     // catches the plugin urls and uses that cache to detect added urls, and only appends those to the list.
-    public bool CheckForUpdates(string[] pluginURLs, List<Type> pluginTypes)
+    public bool CheckForUpdates(string[] pluginURLs, IList<Type> pluginTypes)
     {
         ArgumentNullException.ThrowIfNull(pluginURLs);
         ArgumentNullException.ThrowIfNull(pluginTypes);
@@ -107,20 +119,20 @@ public sealed partial class PluginUpdateCheck
                 "https://github.com/",
                 "https://raw.githubusercontent.com/",
                 StringComparison.Ordinal);
-            var arg1 = pluginURLs[i].EndsWith("/", StringComparison.Ordinal)
+            var arg1 = pluginURLs[i].EndsWith('/')
                 ? "main/plugins.xml"
                 : "/main/plugins.xml";
             pluginURLs1[i] = $"{arg0}{arg1}";
         }
 
-        this.PluginUrls ??= new();
+        this.PluginUrls ??= new List<string>();
         foreach (var pluginURL in pluginURLs1)
         {
             if (!this.PluginUrls.Contains(pluginURL))
             {
                 try
                 {
-                    var doc = XDocument.Parse(this.serviceProvider.GetRequiredService<HttpClient>()?.GetStringAsync(pluginURL).GetAwaiter().GetResult()!);
+                    var doc = XDocument.Parse(this.serviceProvider.GetRequiredService<HttpClient>()?.GetStringAsync(new Uri(pluginURL)).GetAwaiter().GetResult()!);
                     var elements = doc.Root!.Elements("Plugin");
                     foreach (var element in elements)
                     {
@@ -162,12 +174,12 @@ public sealed partial class PluginUpdateCheck
                     var args = new MessageEventArgs(
                         string.Format(
                             CultureInfo.InvariantCulture,
-                            Resources.PluginUpdateCheck_CheckForUpdates_Failed_to_download_the_plugins_sources_list_Reason!,
+                            PluginUpdateCheckCheckForUpdatesFailedToDownloadThePluginsSourcesListReason!,
                             Environment.NewLine,
                             ex.Message),
                         Resources.PluginUpdateCheck_CheckForUpdates_Error!,
                         ErrorLevel.Error);
-                    MessageEvent?.Invoke(null, ref args);
+                    MessageEvent?.Invoke(null, args);
                     return false;
                 }
 
@@ -193,7 +205,7 @@ public sealed partial class PluginUpdateCheck
     /// </returns>
     public bool Install(PluginUpdateData pluginUpdateData, bool saveToZip)
     {
-        ThrowHelpers.ThrowObjectDisposed(this.isDisposed, nameof(PluginUpdateCheck));
+        ObjectDisposedException.ThrowIf(this.isDisposed, typeof(PluginUpdateCheck));
         foreach (var downloadFile in pluginUpdateData.DownloadFiles)
         {
             try
@@ -201,7 +213,7 @@ public sealed partial class PluginUpdateCheck
                 var path = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}plugins{Path.DirectorySeparatorChar}{downloadFile}";
                 using (var fs = File.Create(path))
                 using (var response = this.serviceProvider.GetRequiredService<HttpClient>()?.GetStreamAsync(
-                    $"{pluginUpdateData.DownloadUrl}{downloadFile}").GetAwaiter().GetResult())
+                    new Uri($"{pluginUpdateData.DownloadUrl}{downloadFile}")).GetAwaiter().GetResult())
                 {
                     response?.CopyTo(fs);
                 }
@@ -227,12 +239,12 @@ public sealed partial class PluginUpdateCheck
                 var args = new MessageEventArgs(
                     string.Format(
                         CultureInfo.InvariantCulture,
-                        Resources.PluginUpdateCheck_Install_Failed_to_install_the_selected_plugin_Reason!,
+                        PluginUpdateCheckInstallFailedToInstallTheSelectedPluginReason!,
                         Environment.NewLine,
                         ex.Message),
                     Resources.PluginUpdateCheck_CheckForUpdates_Error!,
                     ErrorLevel.Error);
-                MessageEvent?.Invoke(null, ref args);
+                MessageEvent?.Invoke(null, args);
             }
         }
 
@@ -252,9 +264,10 @@ public sealed partial class PluginUpdateCheck
     /// <returns>
     /// A bool indicating if anything changed.
     /// </returns>
+    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "This should have proper error checking.")]
     public bool Uninstall(PluginUpdateData pluginUpdateData, bool saveToZip)
     {
-        ThrowHelpers.ThrowObjectDisposed(this.isDisposed, nameof(PluginUpdateCheck));
+        ObjectDisposedException.ThrowIf(this.isDisposed, typeof(PluginUpdateCheck));
         try
         {
             foreach (var downloadFile in pluginUpdateData.DownloadFiles)
@@ -290,12 +303,12 @@ public sealed partial class PluginUpdateCheck
             var args = new MessageEventArgs(
                 string.Format(
                     CultureInfo.InvariantCulture,
-                    Resources.PluginUpdateCheck_Uninstall_Failed_to_uninstall_the_selected_plugin_Reason!,
+                    PluginUpdateCheckUninstallFailedToUninstallTheSelectedPluginReason!,
                     Environment.NewLine,
                     ex.Message),
                 Resources.PluginUpdateCheck_CheckForUpdates_Error!,
                 ErrorLevel.Error);
-            MessageEvent?.Invoke(null, ref args);
+            MessageEvent?.Invoke(null, args);
         }
 
         return false;

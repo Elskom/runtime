@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Upvalues
+internal sealed class Upvalues
 {
     private readonly LUpvalue[] m_upvalues;
 
@@ -15,7 +15,7 @@ internal class Upvalues
     public string GetName(int idx)
         => idx < this.m_upvalues.Length && this.m_upvalues[idx].Name != null
         ? this.m_upvalues[idx].Name
-        : string.Format("_UPVALUE{0}_", idx);
+        : $"_UPVALUE{idx}_";
 
     public UpvalueExpression GetExpression(int index)
         => new(this.GetName(index));

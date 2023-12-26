@@ -79,6 +79,7 @@ internal abstract class Block : Statement, IComparable<Block>
         return new LambdaOperation(this.End - 1, (_, _) => statement);
     }
 
+    [SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "False Positive.")]
     public override bool Equals(object obj)
         => ReferenceEquals(this, obj) && obj is not null && this.CompareTo((Block)obj) is 0;
 

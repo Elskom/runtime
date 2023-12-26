@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LUpvalue : IBObject
+internal sealed class LUpvalue : IBObject
 {
     public int Index { get; set; }
 

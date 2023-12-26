@@ -5,13 +5,13 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Version
+internal sealed class Version
 {
     public static readonly Version LUA51 = new(0x51);
     public static readonly Version LUA52 = new(0x52);
     private readonly int versionNumber;
 
-    protected Version(int versionNumber)
+    public Version(int versionNumber)
     {
         this.versionNumber = versionNumber;
         this.HasHeaderTail = this.versionNumber is not 0x51;

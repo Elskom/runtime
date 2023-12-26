@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <!-- We need to mark the sfxproj files as packaging projects to avoid changing their output directories. -->
     <IsPackageProject Condition="'$(MSBuildProjectExtension)' == '.sfxproj' OR '$(MSBuildProjectExtension)' == '.bundleproj' OR '$(MSBuildProjectName)' == 'installers.csproj'">true</IsPackageProject>
     <IsPackageProject Condition="'$(MSBuildProjectExtension)' != '.sfxproj' AND '$(MSBuildProjectExtension)' != '.bundleproj'">false</IsPackageProject>
@@ -27,7 +27,7 @@
     <PackageProjectUrl>https://github.com/Elskom/runtime/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Elskom/runtime/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <CopyrightElskom>Copyright (c) 2018-2021</CopyrightElskom>
+    <CopyrightElskom>Copyright (c) 2018-2023</CopyrightElskom>
     <Copyright Condition="'$(IsPackageProject)' == 'false'">$(CopyrightElskom)</Copyright>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(IsPackageProject)' == 'false'">true</ContinuousIntegrationBuild>
     <IsTagBuild Condition="$(GITHUB_REF.StartsWith('refs/tags/'))">true</IsTagBuild>

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LIntNumber : LNumber
+internal sealed class LIntNumber : LNumber
 {
     public LIntNumber(int number)
         => this.Number = number;
@@ -21,5 +21,5 @@ internal class LIntNumber : LNumber
         => throw new NotImplementedException();
 
     public override string ToString()
-        => this.Number.ToString();
+        => this.Number.ToString(CultureInfo.InvariantCulture);
 }

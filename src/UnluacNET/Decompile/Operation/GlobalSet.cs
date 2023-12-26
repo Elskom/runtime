@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class GlobalSet : Operation
+internal sealed class GlobalSet : Operation
 {
     private readonly string m_global;
     private readonly Expression m_value;

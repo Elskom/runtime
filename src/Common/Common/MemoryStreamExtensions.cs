@@ -20,7 +20,7 @@ public static class MemoryStreamExtensions
     public static void Clear(this MemoryStream ms, int capacity)
     {
         ArgumentNullException.ThrowIfNull(ms);
-        ThrowHelpers.ThrowArgumentOutOfRange(capacity < 0, nameof(capacity), "capacity must not be negative.");
+        ArgumentOutOfRangeException.ThrowIfLessThan(capacity, 0);
         var len = ms.GetBuffer().Length;
         var changeCapacity = len != capacity;
         Array.Clear(ms.GetBuffer(), 0, len);

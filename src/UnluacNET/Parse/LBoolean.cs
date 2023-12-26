@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LBoolean : LObject
+internal sealed class LBoolean : LObject
 {
     public static readonly LBoolean LTRUE = new() { Value = true, };
     public static readonly LBoolean LFALSE = new() { Value = false, };

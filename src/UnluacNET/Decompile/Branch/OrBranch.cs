@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class OrBranch : Branch
+internal sealed class OrBranch : Branch
 {
     private readonly Branch m_left;
     private readonly Branch m_right;

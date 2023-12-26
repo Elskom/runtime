@@ -11,6 +11,9 @@ namespace Elskom.Generic.Libs;
 [Serializable]
 public sealed class ZipAssembly : Assembly
 {
+    private static readonly CompositeFormat ZipAssemblyDoesNotExist = CompositeFormat.Parse(Resources.ZipAssembly_does_not_exist);
+    private static readonly CompositeFormat ZipAssemblyMustEndWithDll = CompositeFormat.Parse(Resources.ZipAssembly_must_end_with_dll);
+
     // always set to Zip file full path + \\ + file path in zip.
     private string locationValue;
 
@@ -22,7 +25,8 @@ public sealed class ZipAssembly : Assembly
     /// <summary>
     /// Gets the location of the assembly in the zip file.
     /// </summary>
-    public override string Location => this.locationValue;
+    public override string Location
+        => this.locationValue;
 
     /// <summary>
     /// Loads the assembly with it’s debugging symbols
@@ -32,8 +36,11 @@ public sealed class ZipAssembly : Assembly
     /// <param name="assemblyName">The assembly file name to load.</param>
     /// <param name="context">The context to load the assemblies into.</param>
     /// <returns>A new <see cref="ZipAssembly"/> that represents the loaded assembly.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// When the passed in <see cref="AssemblyLoadContext"/> or the passed in <paramref name="zipFileName"/> is <see langword="null"/>.
+    /// </exception>
     /// <exception cref="ArgumentException">
-    /// When <paramref name="zipFileName"/> is null, Empty, or does not exist.
+    /// When <paramref name="zipFileName"/> Empty, or does not exist.
     /// Or <paramref name="assemblyName"/> is null, Empty or does not end with the '.dll' extension.
     /// </exception>
     /// <exception cref="ZipAssemblyLoadException">
@@ -45,25 +52,18 @@ public sealed class ZipAssembly : Assembly
     /// </exception>
     public static ZipAssembly? LoadFromZip(string zipFileName, string assemblyName, AssemblyLoadContext context)
     {
-        if (string.IsNullOrWhiteSpace(zipFileName))
-        {
-            throw new ArgumentException(string.Format(Resources.ZipAssembly_not_allowed_to_be_empty!, nameof(zipFileName)), nameof(zipFileName));
-        }
-
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentException.ThrowIfNullOrEmpty(zipFileName);
+        ArgumentException.ThrowIfNullOrEmpty(assemblyName);
         if (!File.Exists(zipFileName))
         {
-            throw new ArgumentException(string.Format(Resources.ZipAssembly_does_not_exist!, nameof(zipFileName)), nameof(zipFileName));
-        }
-
-        if (string.IsNullOrWhiteSpace(assemblyName))
-        {
-            throw new ArgumentException(string.Format(Resources.ZipAssembly_not_allowed_to_be_empty!, nameof(assemblyName)), nameof(assemblyName));
+            throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, ZipAssemblyDoesNotExist!, nameof(zipFileName)), nameof(zipFileName));
         }
 
         if (!assemblyName.EndsWith(".dll", StringComparison.Ordinal))
         {
             // setting pdbFileName fails or makes unpredicted/unwanted things if this is not checked
-            throw new ArgumentException(string.Format(Resources.ZipAssembly_must_end_with_dll!, nameof(assemblyName)), nameof(assemblyName));
+            throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, ZipAssemblyMustEndWithDll!, nameof(assemblyName)), nameof(assemblyName));
         }
 
         // check if the assembly is in the zip file.
@@ -80,7 +80,7 @@ public sealed class ZipAssembly : Assembly
             GetBytesFromZipFile(assemblyName, zipFile, out asmbytes, out found, out zipAssemblyName);
             if (Debugger.IsAttached)
             {
-                var pdbFileName = assemblyName.Replace("dll", "pdb");
+                var pdbFileName = assemblyName.Replace("dll", "pdb", StringComparison.OrdinalIgnoreCase);
                 GetBytesFromZipFile(pdbFileName, zipFile, out pdbbytes, out _, out pdbAssemblyName);
             }
         }

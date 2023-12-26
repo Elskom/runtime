@@ -10,6 +10,15 @@ namespace Elskom.Generic.Libs;
 /// </summary>
 public static class ExecutionManager
 {
+    private static readonly CompositeFormat ExecutionManagerElsDirNotSet = CompositeFormat.Parse(
+        Resources.ExecutionManager_ElsDir_Not_Set);
+
+    private static readonly CompositeFormat ExecutionManagerCannotFindElswordExe = CompositeFormat.Parse(
+        Resources.ExecutionManager_Cannot_Find_elsword_exe);
+
+    private static readonly CompositeFormat ExecutionManagerCannotFindX2Exe = CompositeFormat.Parse(
+        Resources.ExecutionManager_Cannot_Find_x2_exe);
+
     /// <summary>
     /// Gets a value indicating whether the launcher to Elsword is running.
     /// </summary>
@@ -114,7 +123,8 @@ public static class ExecutionManager
             {
                 MessageEventArgs args = new(
                     string.Format(
-                        Resources.ExecutionManager_Cannot_Find_x2_exe!,
+                        CultureInfo.InvariantCulture,
+                        ExecutionManagerCannotFindX2Exe!,
                         ElsDir,
                         Path.DirectorySeparatorChar),
                     Resources.Error!,
@@ -128,7 +138,8 @@ public static class ExecutionManager
         {
             MessageEventArgs args = new(
                 string.Format(
-                    Resources.ExecutionManager_ElsDir_Not_Set!,
+                    CultureInfo.InvariantCulture,
+                    ExecutionManagerElsDirNotSet!,
                     "Test your mods"),
                 Resources.Error!,
                 ErrorLevel.Error);
@@ -168,7 +179,8 @@ public static class ExecutionManager
                 {
                     MessageEventArgs args = new(
                         string.Format(
-                            Resources.ExecutionManager_Cannot_Find_elsword_exe!,
+                            CultureInfo.InvariantCulture,
+                            ExecutionManagerCannotFindElswordExe!,
                             ElsDir,
                             Path.DirectorySeparatorChar),
                         Resources.Error!,
@@ -183,7 +195,8 @@ public static class ExecutionManager
         {
             MessageEventArgs args = new(
                 string.Format(
-                    Resources.ExecutionManager_ElsDir_Not_Set!,
+                    CultureInfo.InvariantCulture,
+                    ExecutionManagerElsDirNotSet!,
                     "update Elsword"),
                 Resources.Error!,
                 ErrorLevel.Error);

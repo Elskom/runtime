@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class LFloatNumber : LNumber
+internal sealed class LFloatNumber : LNumber
 {
     public LFloatNumber(float number)
         => this.Number = number;
@@ -21,5 +21,7 @@ internal class LFloatNumber : LNumber
         => throw new NotImplementedException();
 
     public override string ToString()
-        => this.Number == (float)Math.Round(this.Number) ? ((int)this.Number).ToString() : this.Number.ToString();
+        => this.Number == (float)Math.Round(this.Number)
+        ? ((int)this.Number).ToString(CultureInfo.InvariantCulture)
+        : this.Number.ToString(CultureInfo.InvariantCulture);
 }

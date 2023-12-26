@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class ClosureExpression : Expression
+internal sealed class ClosureExpression : Expression
 {
     private readonly LFunction m_function;
     private readonly int m_upvalueLine;
@@ -47,7 +47,7 @@ internal class ClosureExpression : Expression
     {
         Decompiler d = new(this.m_function);
         output.Print("function ");
-        if (this.m_function.NumParams >= 1 && d.DeclList[0].Name.Equals("self") &&
+        if (this.m_function.NumParams >= 1 && d.DeclList[0].Name.Equals("self", StringComparison.Ordinal) &&
             name is TableTarget)
         {
             name.PrintMethod(output);

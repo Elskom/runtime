@@ -64,12 +64,12 @@ public sealed class MiniDumpAttribute : Attribute
     /// }
     /// </code>
     /// </remarks>
-    public static event MiniDumpEventHandler? Dump;
+    public static event EventHandler<MiniDumpEventArgs>? Dump;
 
     /// <summary>
     /// Occurs when a mini-dump is generated or fails.
     /// </summary>
-    public static event MessageEventHandler? DumpMessage;
+    public static event EventHandler<MessageEventArgs>? DumpMessage;
 
     /// <summary>
     /// Gets the current instance of this attribute.
@@ -128,11 +128,11 @@ public sealed class MiniDumpAttribute : Attribute
         => MiniDump.ExceptionEventHandlerCode(exception, threadException);
 
     internal static void InvokeDumpMessage(ref MessageEventArgs e)
-        => DumpMessage?.Invoke(null, ref e);
+        => DumpMessage?.Invoke(null, e);
 
     internal static bool InvokeDump(ref MiniDumpEventArgs e)
     {
-        Dump?.Invoke(null, ref e);
+        Dump?.Invoke(null, e);
         return e.Success;
     }
 }

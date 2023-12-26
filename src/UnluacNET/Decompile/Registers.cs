@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal class Registers
+internal sealed class Registers
 {
     private readonly Declaration[,] m_decls;
     private readonly Function m_func;
