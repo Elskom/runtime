@@ -5,12 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class BIntegerType : BObjectType<BInteger>
+internal sealed class BIntegerType(int intSize) : BObjectType<BInteger>
 {
-    public BIntegerType(int intSize)
-        => this.IntSize = intSize;
-
-    public int IntSize { get; }
+    public int IntSize { get; } = intSize;
 
     public override BInteger Parse(Stream stream, BHeader header)
     {

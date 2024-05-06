@@ -5,25 +5,16 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class IfThenEndBlock : Block
+internal sealed class IfThenEndBlock(LFunction function, Branch branch, Stack<Branch> stack, Registers r) : Block(function, branch.Begin == branch.End ? branch.Begin - 1 : branch.Begin, branch.Begin == branch.End ? branch.Begin - 1 : branch.End)
 {
-    private readonly Branch m_branch;
-    private readonly Stack<Branch> m_stack;
-    private readonly Registers m_r;
-    private readonly List<Statement> m_statements;
+    private readonly Branch m_branch = branch;
+    private readonly Stack<Branch> m_stack = stack;
+    private readonly Registers m_r = r;
+    private readonly List<Statement> m_statements = new(branch.End - branch.Begin + 1);
 
     public IfThenEndBlock(LFunction function, Branch branch, Registers r)
         : this(function, branch, null, r)
     {
-    }
-
-    public IfThenEndBlock(LFunction function, Branch branch, Stack<Branch> stack, Registers r)
-        : base(function, branch.Begin == branch.End ? branch.Begin - 1 : branch.Begin, branch.Begin == branch.End ? branch.Begin - 1 : branch.End)
-    {
-        this.m_branch = branch;
-        this.m_stack = stack;
-        this.m_r = r;
-        this.m_statements = new(branch.End - branch.Begin + 1);
     }
 
     public override bool Breakable => false;

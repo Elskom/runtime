@@ -5,19 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class FunctionCall : Expression
+internal sealed class FunctionCall(Expression function, Expression[] arguments, bool multiple) : Expression(PRECEDENCE_ATOMIC)
 {
-    private readonly Expression m_function;
-    private readonly Expression[] m_arguments;
-    private readonly bool m_multiple;
-
-    public FunctionCall(Expression function, Expression[] arguments, bool multiple)
-        : base(PRECEDENCE_ATOMIC)
-    {
-        this.m_function = function;
-        this.m_arguments = arguments;
-        this.m_multiple = multiple;
-    }
+    private readonly Expression m_function = function;
+    private readonly Expression[] m_arguments = arguments;
+    private readonly bool m_multiple = multiple;
 
     public override bool BeginsWithParen
     {

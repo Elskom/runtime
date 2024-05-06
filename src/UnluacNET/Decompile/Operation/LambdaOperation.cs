@@ -5,13 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class LambdaOperation : Operation
+internal sealed class LambdaOperation(int line, Func<Registers, Block, Statement> func) : Operation(line)
 {
-    private readonly Func<Registers, Block, Statement> m_func;
-
-    public LambdaOperation(int line, Func<Registers, Block, Statement> func)
-        : base(line)
-        => this.m_func = func;
+    private readonly Func<Registers, Block, Statement> m_func = func;
 
     public override Statement Process(Registers r, Block block)
         => this.m_func.Invoke(r, block);

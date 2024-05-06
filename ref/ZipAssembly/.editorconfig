@@ -155,3 +155,6 @@ dotnet_diagnostic.S3903.severity = none
 
 # S1133: Do not forget to remove this deprecated code someday.
 dotnet_diagnostic.S1133.severity = suggestion
+
+# AD0001: Analyzer Failure
+dotnet_diagnostic.AD0001.severity = suggestion

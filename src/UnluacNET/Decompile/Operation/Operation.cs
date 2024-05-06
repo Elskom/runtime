@@ -5,12 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal abstract class Operation
+internal abstract class Operation(int line)
 {
-    protected Operation(int line)
-        => this.Line = line;
-
-    public int Line { get; private set; }
+    public int Line { get; private set; } = line;
 
     public abstract Statement Process(Registers r, Block block);
 }

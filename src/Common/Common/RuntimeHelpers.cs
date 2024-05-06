@@ -15,26 +15,19 @@ internal static class RuntimeHelpers
     /// of the current process into an valid runtime identifier that the .NET SDK has.
     /// </summary>
     /// <returns>
-    /// An Runtime Identifier string, or null if it cannot be converted into an runtime identifier.
+    /// An Runtime Identifier <see langword="string" />, or <see cref="string.Empty" /> if it cannot be converted into a runtime identifier.
     /// </returns>
     public static string GetCurrentRuntimeIdentifier()
-        => (
-
-            // Desktop Operating Systems.
-            OperatingSystem.IsWindows(),
+        => (OperatingSystem.IsWindows(), /* Desktop Operating Systems. */
             OperatingSystem.IsLinux(),
             OperatingSystem.IsMacOS(),
             OperatingSystem.IsMacCatalyst(),
             OperatingSystem.IsFreeBSD(),
-
-            // Phone Operting Systems.
-            OperatingSystem.IsAndroid(),
+            OperatingSystem.IsAndroid(), /* Phone Operating Systems. */
             OperatingSystem.IsIOS(),
             OperatingSystem.IsWatchOS(),
             OperatingSystem.IsTvOS(),
-
-            // Web Browser.
-            OperatingSystem.IsBrowser()) switch
+            OperatingSystem.IsBrowser() /* Web Browser. */) switch
         {
             (true, false, false, false, false, false, false, false, false, false) => $"win-{RuntimeInformation.ProcessArchitecture}",
             (false, true, false, false, false, false, false, false, false, false) => $"linux-{RuntimeInformation.ProcessArchitecture}",

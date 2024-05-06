@@ -5,17 +5,14 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class LLongNumber : LNumber
+internal sealed class LLongNumber(long number) : LNumber
 {
-    public LLongNumber(long number)
-        => this.Number = number;
-
-    public long Number { get; private set; }
+    public long Number { get; private set; } = number;
 
     public override double Value => this.Number;
 
     public override bool Equals(object obj)
-        => obj is LLongNumber number ? this.Number == number.Number : base.Equals(obj);
+        => obj is LLongNumber lnumber ? this.Number == lnumber.Number : base.Equals(obj);
 
     public override int GetHashCode()
         => throw new NotImplementedException();

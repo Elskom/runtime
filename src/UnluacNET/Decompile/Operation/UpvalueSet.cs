@@ -5,17 +5,10 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class UpvalueSet : Operation
+internal sealed class UpvalueSet(int line, string upvalue, Expression value) : Operation(line)
 {
-    private readonly UpvalueTarget m_target;
-    private readonly Expression m_value;
-
-    public UpvalueSet(int line, string upvalue, Expression value)
-        : base(line)
-    {
-        this.m_target = new UpvalueTarget(upvalue);
-        this.m_value = value;
-    }
+    private readonly UpvalueTarget m_target = new(upvalue);
+    private readonly Expression m_value = value;
 
     public override Statement Process(Registers r, Block block)
         => new Assignment(this.m_target, this.m_value);

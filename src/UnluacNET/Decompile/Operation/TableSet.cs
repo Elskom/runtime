@@ -5,23 +5,13 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class TableSet : Operation
+internal sealed class TableSet(int line, Expression table, Expression index, Expression value, bool isTable, int timestamp) : Operation(line)
 {
-    private readonly Expression m_table;
-    private readonly Expression m_index;
-    private readonly Expression m_value;
-    private readonly bool m_isTable;
-    private readonly int m_timestamp;
-
-    public TableSet(int line, Expression table, Expression index, Expression value, bool isTable, int timestamp)
-        : base(line)
-    {
-        this.m_table = table;
-        this.m_index = index;
-        this.m_value = value;
-        this.m_isTable = isTable;
-        this.m_timestamp = timestamp;
-    }
+    private readonly Expression m_table = table;
+    private readonly Expression m_index = index;
+    private readonly Expression m_value = value;
+    private readonly bool m_isTable = isTable;
+    private readonly int m_timestamp = timestamp;
 
     public override Statement Process(Registers r, Block block)
     {

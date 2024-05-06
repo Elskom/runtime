@@ -129,10 +129,10 @@ internal sealed class BHeader
         this.Function = this.Version.GetLFunctionType();
         if (this.Version.HasHeaderTail)
         {
-            Span<byte> luacTail = stackalloc byte[]
-            {
+            Span<byte> luacTail =
+            [
                 0x19, 0x93, 0x0D, 0x0A, 0x1A, 0x0A,
-            };
+            ];
             foreach (var t in luacTail)
             {
                 if (stream.ReadByte() != t)

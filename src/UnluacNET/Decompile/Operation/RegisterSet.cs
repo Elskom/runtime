@@ -5,18 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class RegisterSet : Operation
+internal sealed class RegisterSet(int line, int register, Expression value) : Operation(line)
 {
-    public RegisterSet(int line, int register, Expression value)
-        : base(line)
-    {
-        this.Register = register;
-        this.Value = value;
-    }
+    public int Register { get; private set; } = register;
 
-    public int Register { get; private set; }
-
-    public Expression Value { get; private set; }
+    public Expression Value { get; private set; } = value;
 
     public override Statement Process(Registers r, Block block)
     {

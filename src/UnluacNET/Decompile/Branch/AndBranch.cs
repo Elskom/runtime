@@ -5,17 +5,10 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class AndBranch : Branch
+internal sealed class AndBranch(Branch left, Branch right) : Branch(right.Line, right.Begin, right.End)
 {
-    private readonly Branch m_left;
-    private readonly Branch m_right;
-
-    public AndBranch(Branch left, Branch right)
-        : base(right.Line, right.Begin, right.End)
-    {
-        this.m_left = left;
-        this.m_right = right;
-    }
+    private readonly Branch m_left = left;
+    private readonly Branch m_right = right;
 
     public override Expression AsExpression(Registers registers)
         => Expression.MakeAND(this.m_left.AsExpression(registers), this.m_right.AsExpression(registers));

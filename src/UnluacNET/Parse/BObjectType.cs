@@ -13,7 +13,7 @@ internal abstract class BObjectType<T> : IBObject
     public BList<T> ParseList(Stream stream, BHeader header)
     {
         var length = header.Integer.Parse(stream, header);
-        List<T> values = new();
+        List<T> values = [];
         length.Iterate(() =>
         {
             values.Add(this.Parse(stream, header));

@@ -5,23 +5,13 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class IfThenElseBlock : Block
+internal sealed class IfThenElseBlock(LFunction function, Branch branch, int loopback, bool emptyElse, Registers r) : Block(function, branch.Begin, branch.End)
 {
-    private readonly Branch m_branch;
-    private readonly int m_loopback;
-    private readonly Registers m_r;
-    private readonly List<Statement> m_statements;
-    private readonly bool m_emptyElse;
-
-    public IfThenElseBlock(LFunction function, Branch branch, int loopback, bool emptyElse, Registers r)
-        : base(function, branch.Begin, branch.End)
-    {
-        this.m_branch = branch;
-        this.m_loopback = loopback;
-        this.m_emptyElse = emptyElse;
-        this.m_r = r;
-        this.m_statements = new(branch.End - branch.Begin + 1);
-    }
+    private readonly Branch m_branch = branch;
+    private readonly int m_loopback = loopback;
+    private readonly Registers m_r = r;
+    private readonly List<Statement> m_statements = new(branch.End - branch.Begin + 1);
+    private readonly bool m_emptyElse = emptyElse;
 
     public ElseEndBlock Partner { get; set; }
 

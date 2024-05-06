@@ -9,7 +9,7 @@ internal static class RuntimeExtensions
 {
     public static List<T> CreateInstancesFromInterface<T>(this AssemblyLoadContext context, string dllFile, string pdbFile)
     {
-        List<T> instances = new();
+        List<T> instances = [];
         try
         {
             var (asmBytes, pdbBytes) = OpenAssemblyFiles(dllFile, pdbFile);
@@ -36,7 +36,7 @@ internal static class RuntimeExtensions
 
     public static List<T> CreateInstancesFromInterface<T>(Assembly? assembly)
     {
-        List<T> instances = new();
+        List<T> instances = [];
         if (assembly is not null)
         {
             try

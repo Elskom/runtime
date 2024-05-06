@@ -5,13 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class NotBranch : Branch
+internal sealed class NotBranch(Branch branch) : Branch(branch.Line, branch.Begin, branch.End)
 {
-    private readonly Branch m_branch;
-
-    public NotBranch(Branch branch)
-        : base(branch.Line, branch.Begin, branch.End)
-        => this.m_branch = branch;
+    private readonly Branch m_branch = branch;
 
     public override Expression AsExpression(Registers registers)
         => Expression.MakeNOT(this.m_branch.AsExpression(registers));

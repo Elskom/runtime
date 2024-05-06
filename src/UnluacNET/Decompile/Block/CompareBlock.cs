@@ -5,18 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class CompareBlock : Block
+internal sealed class CompareBlock(LFunction function, int begin, int end, int target, Branch branch) : Block(function, begin, end)
 {
-    public CompareBlock(LFunction function, int begin, int end, int target, Branch branch)
-        : base(function, begin, end)
-    {
-        this.Target = target;
-        this.Branch = branch;
-    }
+    public int Target { get; } = target;
 
-    public int Target { get; }
-
-    public Branch Branch { get; }
+    public Branch Branch { get; } = branch;
 
     public override bool Breakable => false;
 

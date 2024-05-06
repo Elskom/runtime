@@ -11,10 +11,10 @@ internal sealed class ReturnOperation : Operation
 
     public ReturnOperation(int line, Expression value)
         : base(line)
-        => this.m_values = new[]
-        {
+        => this.m_values =
+        [
             value,
-        };
+        ];
 
     public ReturnOperation(int line, Expression[] values)
         : base(line)

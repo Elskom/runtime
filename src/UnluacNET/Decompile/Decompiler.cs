@@ -264,7 +264,7 @@ internal sealed class Decompiler
     private OuterBlock HandleBranches(bool first)
     {
         var oldBlocks = this.blocks;
-        this.blocks = new List<Block>();
+        this.blocks = [];
         var l_outer = new OuterBlock(this.Function, this.length);
         this.blocks.Add(l_outer);
         var isBreak = new bool[this.length + 1];

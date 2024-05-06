@@ -5,14 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class AssignNode : Branch
+internal sealed class AssignNode(int line, int begin, int end) : Branch(line, begin, end)
 {
     private Expression m_expression;
-
-    public AssignNode(int line, int begin, int end)
-        : base(line, begin, end)
-    {
-    }
 
     public override Expression AsExpression(Registers registers)
         => this.m_expression;

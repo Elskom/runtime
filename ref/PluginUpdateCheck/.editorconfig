@@ -158,3 +158,6 @@ dotnet_diagnostic.CS1591.severity = suggestion
 
 # S3903: Move '%s' into a named namespace.
 dotnet_diagnostic.S3903.severity = none
+
+# IDE0251: Make member 'readonly'
+dotnet_diagnostic.IDE0251.severity = silent

@@ -5,13 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class DoEndBlock : Block
+internal sealed class DoEndBlock(LFunction function, int begin, int end) : Block(function, begin, end)
 {
-    private readonly List<Statement> m_statements;
-
-    public DoEndBlock(LFunction function, int begin, int end)
-        : base(function, begin, end)
-        => this.m_statements = new(end - begin + 1);
+    private readonly List<Statement> m_statements = new(end - begin + 1);
 
     public override bool Breakable => false;
 

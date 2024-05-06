@@ -110,7 +110,7 @@ public class JsonSettings
             : new()
             {
                 ElsDir = string.Empty,
-                Sources = Array.Empty<string>(),
+                Sources = [],
                 SaveToZip = default,
                 ShowTestMessages = default,
                 UseNotifications = default,

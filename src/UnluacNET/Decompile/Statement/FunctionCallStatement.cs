@@ -5,12 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class FunctionCallStatement : Statement
+internal sealed class FunctionCallStatement(FunctionCall call) : Statement
 {
-    private readonly FunctionCall m_call;
-
-    public FunctionCallStatement(FunctionCall call)
-        => this.m_call = call;
+    private readonly FunctionCall m_call = call;
 
     public override bool BeginsWithParen => this.m_call.BeginsWithParen;
 

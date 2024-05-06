@@ -5,12 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class UpvalueTarget : Target
+internal sealed class UpvalueTarget(string name) : Target
 {
-    private readonly string m_name;
-
-    public UpvalueTarget(string name)
-        => this.m_name = name;
+    private readonly string m_name = name;
 
     public override void Print(Output output)
         => output.Print(this.m_name);

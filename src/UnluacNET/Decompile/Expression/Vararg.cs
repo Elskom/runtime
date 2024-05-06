@@ -5,13 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class Vararg : Expression
+internal sealed class Vararg(bool multiple) : Expression(PRECEDENCE_ATOMIC)
 {
-    private readonly bool m_multiple;
-
-    public Vararg(bool multiple)
-        : base(PRECEDENCE_ATOMIC)
-        => this.m_multiple = multiple;
+    private readonly bool m_multiple = multiple;
 
     public override int ConstantIndex => -1;
 

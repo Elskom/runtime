@@ -5,17 +5,10 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class GlobalSet : Operation
+internal sealed class GlobalSet(int line, string global, Expression value) : Operation(line)
 {
-    private readonly string m_global;
-    private readonly Expression m_value;
-
-    public GlobalSet(int line, string global, Expression value)
-        : base(line)
-    {
-        this.m_global = global;
-        this.m_value = value;
-    }
+    private readonly string m_global = global;
+    private readonly Expression m_value = value;
 
     public override Statement Process(Registers r, Block block)
         => new Assignment(new GlobalTarget(this.m_global), this.m_value);

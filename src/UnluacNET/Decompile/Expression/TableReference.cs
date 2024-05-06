@@ -5,17 +5,10 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class TableReference : Expression
+internal sealed class TableReference(Expression table, Expression index) : Expression(PRECEDENCE_ATOMIC)
 {
-    private readonly Expression m_table;
-    private readonly Expression m_index;
-
-    public TableReference(Expression table, Expression index)
-        : base(PRECEDENCE_ATOMIC)
-    {
-        this.m_table = table;
-        this.m_index = index;
-    }
+    private readonly Expression m_table = table;
+    private readonly Expression m_index = index;
 
     public override int ConstantIndex => Math.Max(this.m_table.ConstantIndex, this.m_index.ConstantIndex);
 

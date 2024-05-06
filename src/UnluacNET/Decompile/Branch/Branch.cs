@@ -5,20 +5,13 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal abstract class Branch
+internal abstract class Branch(int line, int begin, int end)
 {
-    protected Branch(int line, int begin, int end)
-    {
-        this.Line = line;
-        this.Begin = begin;
-        this.End = end;
-    }
+    public int Line { get; private set; } = line;
 
-    public int Line { get; private set; }
+    public int Begin { get; set; } = begin;
 
-    public int Begin { get; set; }
-
-    public int End { get; set; } // Might be modified to undo redirect
+    public int End { get; set; } = end;
 
     public bool IsSet { get; set; }
 

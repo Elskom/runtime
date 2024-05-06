@@ -5,19 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class LENode : Branch
+internal sealed class LENode(int left, int right, bool invert, int line, int begin, int end) : Branch(line, begin, end)
 {
-    private readonly int m_left;
-    private readonly int m_right;
-    private readonly bool m_invert;
-
-    public LENode(int left, int right, bool invert, int line, int begin, int end)
-        : base(line, begin, end)
-    {
-        this.m_left = left;
-        this.m_right = right;
-        this.m_invert = invert;
-    }
+    private readonly int m_left = left;
+    private readonly int m_right = right;
+    private readonly bool m_invert = invert;
 
     public override Expression AsExpression(Registers registers)
     {

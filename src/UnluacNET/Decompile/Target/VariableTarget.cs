@@ -5,12 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class VariableTarget : Target
+internal sealed class VariableTarget(Declaration decl) : Target
 {
-    public VariableTarget(Declaration decl)
-        => this.Declaration = decl;
-
-    public Declaration Declaration { get; private set; }
+    public Declaration Declaration { get; private set; } = decl;
 
     public override bool IsLocal => true;
 

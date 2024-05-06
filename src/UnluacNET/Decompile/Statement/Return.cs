@@ -10,13 +10,13 @@ internal sealed class Return : Statement
     private readonly Expression[] values;
 
     public Return()
-        => this.values = Array.Empty<Expression>();
+        => this.values = [];
 
     public Return(Expression value)
-        => this.values = new[]
-        {
+        => this.values =
+        [
             value,
-        };
+        ];
 
     public Return(Expression[] values)
         => this.values = values;

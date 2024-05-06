@@ -5,20 +5,13 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class LLocal : IBObject
+internal sealed class LLocal(LString name, BInteger start, BInteger end) : IBObject
 {
-    public LLocal(LString name, BInteger start, BInteger end)
-    {
-        this.Name = name;
-        this.Start = start.AsInteger();
-        this.End = end.AsInteger();
-    }
+    public LString Name { get; private set; } = name;
 
-    public LString Name { get; private set; }
+    public int Start { get; private set; } = start.AsInteger();
 
-    public int Start { get; private set; }
-
-    public int End { get; private set; }
+    public int End { get; private set; } = end.AsInteger();
 
     /* Used by the decompiler for annotation. */
     internal bool ForLoop { get; set; }
