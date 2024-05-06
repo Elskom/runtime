@@ -12,8 +12,10 @@
     },
     "documentationRules": {
       "companyName": "Els_kom org.",
-      "copyrightText": "Copyright (c) 2018-2023, {companyName}\nhttps://github.com/Elskom/\nAll rights reserved.\nlicense: MIT, see LICENSE for more details.",
+      "copyrightText": "Copyright (c) 2018-2024, {companyName}\nhttps://github.com/Elskom/\nAll rights reserved.\nlicense: MIT, see LICENSE for more details.",
       "documentInternalElements": false,
+      "documentInterfaces": false,
+      "documentExposedElements": true,
       "xmlHeader": false
     }
   }
