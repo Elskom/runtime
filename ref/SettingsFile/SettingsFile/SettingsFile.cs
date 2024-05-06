@@ -68,4 +68,11 @@ public static class SettingsFile
     // On Non-Windows OS's all crash dumps must be named "core.{PID}"!!!
     public static string MiniDumpPath
         => throw null!;
+
+    /// <summary>
+    /// Gets the path to the Application crash screenshot file.
+    /// </summary>
+    // On Non-Windows OS's all crash screenshots must be named "core.{PID}.png"!!!
+    public static string CrashScreenshotPath
+        => throw null!;
 }
