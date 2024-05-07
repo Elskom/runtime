@@ -48,12 +48,12 @@ public static class ExecutionManager
             ProcessWindowStyle.Normal,
             $"{ElsDir}\\data\\");
 
-    private static ProcessStartOptions VoidLauncherStartOptions { get; }
+    private static ProcessStartOptions RiftLauncherStartOptions { get; }
         = new ProcessStartOptions
         {
             WaitForProcessExit = true,
         }.WithStartInformation(
-            $"{ElsDir}\\voidels.exe",
+            $"{ElsDir}\\elsrift.exe",
             string.Empty,
             false,
             false,
@@ -94,9 +94,9 @@ public static class ExecutionManager
     /// <param name="launcher">Get if the launcher is currently running.</param>
     /// <returns>If the specified program is currently running.</returns>
     public static bool IsExecuting(bool launcher)
-        => (launcher, File.Exists($"{ElsDir}\\voidels.exe")) switch
+        => (launcher, File.Exists($"{ElsDir}\\elsrift.exe")) switch
         {
-            (true, true) => VoidLauncherStartOptions.Executing,
+            (true, true) => RiftLauncherStartOptions.Executing,
             (true, false) => LauncherStartOptions.Executing,
             _ => GameStartOptions.Executing,
         };
@@ -161,11 +161,11 @@ public static class ExecutionManager
         if (!string.IsNullOrEmpty(ElsDir))
         {
             RunningElsword = true;
-            VoidLauncherStartOptions.StartInfo.FileName = $"{ElsDir}\\voidels.exe";
-            VoidLauncherStartOptions.StartInfo.WorkingDirectory = ElsDir;
+            RiftLauncherStartOptions.StartInfo.FileName = $"{ElsDir}\\elsrift.exe";
+            RiftLauncherStartOptions.StartInfo.WorkingDirectory = ElsDir;
             try
             {
-                VoidLauncherStartOptions.Start();
+                RiftLauncherStartOptions.Start();
             }
             catch (FileNotFoundException)
             {
