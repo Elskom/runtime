@@ -62,6 +62,12 @@ public static class SettingsFile
     // On Non-Windows OS's all crash dumps must be named "core.{PID}"!!!
     public static string MiniDumpPath { get; } = OperatingSystem.IsWindows() ? $"{LocalApplicationDataFolder}{thisProcessName}-{ThisProcessId}.mdmp" : $"{LocalApplicationDataFolder}core.{ThisProcessId}";
 
+    /// <summary>
+    /// Gets the path to the Application crash screenshot file.
+    /// </summary>
+    // On Non-Windows OS's all crash screenshots must be named "core.{PID}.png"!!!
+    public static string CrashScreenshotPath { get; } = OperatingSystem.IsWindows() ? MiniDumpPath.Replace(".mdmp", ".png", StringComparison.OrdinalIgnoreCase) : $"{MiniDumpPath}.png";
+
     internal static int ThisProcessId { get; private set; }
 
     private static string LocalApplicationDataFolder
