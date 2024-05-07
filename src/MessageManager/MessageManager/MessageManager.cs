@@ -53,7 +53,7 @@ public static class MessageManager
     /// <param name="useNotifications">Indicates if this function should show notifications.</param>
     /// <returns>A new DialogResult returned as an <see cref="int"/>.</returns>
     public static int ShowWarning(string text, string caption, bool useNotifications)
-        => ShowCore(0,  text, caption, 2, useNotifications, 0, 48);
+        => ShowCore(0, text, caption, 2, useNotifications, 0, 48);
 
     private static int ShowCore(int timeout, string text, string caption, int tipIcon, bool useNotifications, int messageBoxButtons, int messageBoxIcon)
     {

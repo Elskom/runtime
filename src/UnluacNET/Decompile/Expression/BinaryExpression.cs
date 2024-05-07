@@ -5,21 +5,12 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class BinaryExpression : Expression
+internal sealed class BinaryExpression(string op, Expression left, Expression right, int precedence, int associativity) : Expression(precedence)
 {
-    private readonly string m_op;
-    private readonly Expression m_left;
-    private readonly Expression m_right;
-    private readonly int m_associativity;
-
-    public BinaryExpression(string op, Expression left, Expression right, int precedence, int associativity)
-        : base(precedence)
-    {
-        this.m_op = op;
-        this.m_left = left;
-        this.m_right = right;
-        this.m_associativity = associativity;
-    }
+    private readonly string m_op = op;
+    private readonly Expression m_left = left;
+    private readonly Expression m_right = right;
+    private readonly int m_associativity = associativity;
 
     public override int ConstantIndex
         => Math.Max(this.m_left.ConstantIndex, this.m_right.ConstantIndex);

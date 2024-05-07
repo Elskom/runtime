@@ -5,19 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class ForBlock : Block
+internal sealed class ForBlock(LFunction function, int begin, int end, int register, Registers r) : Block(function, begin, end)
 {
-    private readonly int m_register;
-    private readonly Registers m_r;
-    private readonly List<Statement> m_statements;
-
-    public ForBlock(LFunction function, int begin, int end, int register, Registers r)
-        : base(function, begin, end)
-    {
-        this.m_register = register;
-        this.m_r = r;
-        this.m_statements = new(end - begin + 1);
-    }
+    private readonly int m_register = register;
+    private readonly Registers m_r = r;
+    private readonly List<Statement> m_statements = new(end - begin + 1);
 
     public override bool Breakable => true;
 

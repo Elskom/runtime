@@ -5,12 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class GlobalTarget : Target
+internal sealed class GlobalTarget(string name) : Target
 {
-    private readonly string m_name;
-
-    public GlobalTarget(string name)
-        => this.m_name = name;
+    private readonly string m_name = name;
 
     public override void Print(Output output)
         => output.Print(this.m_name);

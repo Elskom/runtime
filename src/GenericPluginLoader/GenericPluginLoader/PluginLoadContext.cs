@@ -6,18 +6,11 @@
 namespace Elskom.Generic.Libs;
 
 /// <inheritdoc/>
-internal sealed class PluginLoadContext : AssemblyLoadContext
+/// <param name="name">The name of the load context.</param>
+/// <param name="pluginPath">The path the the plugins.</param>
+internal sealed class PluginLoadContext(string name, string pluginPath) : AssemblyLoadContext(name, true)
 {
-    private readonly AssemblyDependencyResolver resolver;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PluginLoadContext"/> class.
-    /// </summary>
-    /// <param name="name">The name of the load context.</param>
-    /// <param name="pluginPath">The path the the plugins.</param>
-    public PluginLoadContext(string name, string pluginPath)
-        : base(name, true)
-        => this.resolver = new(pluginPath);
+    private readonly AssemblyDependencyResolver resolver = new(pluginPath);
 
     /// <inheritdoc/>
     protected override Assembly? Load(AssemblyName assemblyName)

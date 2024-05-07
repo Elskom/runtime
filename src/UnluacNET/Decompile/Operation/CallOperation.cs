@@ -5,13 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class CallOperation : Operation
+internal sealed class CallOperation(int line, FunctionCall call) : Operation(line)
 {
-    private readonly FunctionCall m_call;
-
-    public CallOperation(int line, FunctionCall call)
-        : base(line)
-        => this.m_call = call;
+    private readonly FunctionCall m_call = call;
 
     public override Statement Process(Registers r, Block block)
         => new FunctionCallStatement(this.m_call);

@@ -169,5 +169,5 @@ public sealed class ProcessStartOptions
 {this.Stderr}",
             (false, false) => string.Empty,
             (false, true) => $"{this.Stderr}",
-    };
+        };
 }

@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class Code
+internal sealed class Code(LFunction function)
 {
     /*
     ** Size and position of opcode arguments
@@ -37,15 +37,8 @@ internal sealed class Code
     private static readonly int MASK_C = MASK1(SIZE_C, 0);
     private static readonly int MASK_Bx = MASK1(SIZE_Bx, 0);
 
-    private readonly OpcodeMap map;
-    private readonly int[] code;
-
-    //----------------------------------------------------\\
-    public Code(LFunction function)
-    {
-        this.code = function.Code;
-        this.map = function.Header.Version.GetOpcodeMap();
-    }
+    private readonly OpcodeMap map = function.Header.Version.GetOpcodeMap();
+    private readonly int[] code = function.Code;
 
     public static int GetOpCode(int codePoint)
         => (codePoint >> POS_OP) & MASK_OPCODE;

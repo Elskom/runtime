@@ -12,8 +12,7 @@ internal sealed class Constant
     public const int CONST_NUMBER = 2;
     public const int CONST_STRING = 3;
     private static readonly HashSet<string> M_reservedWords =
-        new()
-        {
+        [
             "and",
             "and",
             "break",
@@ -36,7 +35,7 @@ internal sealed class Constant
             "true",
             "until",
             "while",
-        };
+        ];
 
     private readonly int m_type;
     private readonly bool m_bool;

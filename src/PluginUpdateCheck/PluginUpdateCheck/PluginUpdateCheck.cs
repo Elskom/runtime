@@ -8,8 +8,9 @@ namespace Elskom.Generic.Libs;
 /// <summary>
 /// A generic plugin update checker.
 /// </summary>
+/// <param name="serviceprovider">The serviceprovider to use for this instance.</param>
 [GenerateDispose(false)]
-public sealed partial class PluginUpdateCheck
+public sealed partial class PluginUpdateCheck(IServiceProvider serviceprovider)
 {
     private static readonly CompositeFormat PluginUpdateCheckShowMessageUpdateForPluginIsAvailible = CompositeFormat.Parse(
         Resources.PluginUpdateCheck_ShowMessage_Update_for_plugin_is_availible);
@@ -23,17 +24,7 @@ public sealed partial class PluginUpdateCheck
     private static readonly CompositeFormat PluginUpdateCheckUninstallFailedToUninstallTheSelectedPluginReason = CompositeFormat.Parse(
         Resources.PluginUpdateCheck_Uninstall_Failed_to_uninstall_the_selected_plugin_Reason);
 
-    private readonly IServiceProvider serviceProvider;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PluginUpdateCheck"/> class.
-    /// </summary>
-    /// <param name="serviceprovider">The serviceprovider to use for this instance.</param>
-    public PluginUpdateCheck(IServiceProvider serviceprovider)
-    {
-        this.serviceProvider = serviceprovider;
-        this.PluginUpdateDatas = new List<PluginUpdateData>();
-    }
+    private readonly IServiceProvider serviceProvider = serviceprovider;
 
     /// <summary>
     /// Event that fires when a new message should show up.
@@ -88,7 +79,7 @@ public sealed partial class PluginUpdateCheck
     /// Gets a list of <see cref="PluginUpdateData"/> instances representing the plugins that needs updating or are to be installed.
     /// </summary>
     [NullOnDispose]
-    public IList<PluginUpdateData> PluginUpdateDatas { get; private set; }
+    public IList<PluginUpdateData> PluginUpdateDatas { get; private set; } = [];
 
     /// <summary>
     /// Checks for plugin updates from the provided plugin source urls.
@@ -125,7 +116,7 @@ public sealed partial class PluginUpdateCheck
             pluginURLs1[i] = $"{arg0}{arg1}";
         }
 
-        this.PluginUrls ??= new List<string>();
+        this.PluginUrls ??= [];
         foreach (var pluginURL in pluginURLs1)
         {
             if (!this.PluginUrls.Contains(pluginURL))
@@ -312,17 +303,5 @@ public sealed partial class PluginUpdateCheck
         }
 
         return false;
-    }
-
-    [CallOnDispose]
-    private void ClearDownloadFiles()
-    {
-        foreach (var pluginUpdateData in this.PluginUpdateDatas)
-        {
-            pluginUpdateData.DownloadFiles.Clear();
-        }
-
-        this.PluginUpdateDatas.Clear();
-        this.PluginUrls?.Clear();
     }
 }

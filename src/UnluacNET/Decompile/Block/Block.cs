@@ -5,18 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal abstract class Block : Statement, IComparable<Block>
+internal abstract class Block(LFunction function, int begin, int end) : Statement, IComparable<Block>
 {
-    protected Block(LFunction function, int begin, int end)
-    {
-        this.Function = function;
-        this.Begin = begin;
-        this.End = end;
-    }
+    public int Begin { get; set; } = begin;
 
-    public int Begin { get; set; }
-
-    public int End { get; set; }
+    public int End { get; set; } = end;
 
     public bool LoopRedirectAdjustment { get; set; }
 
@@ -28,7 +21,7 @@ internal abstract class Block : Statement, IComparable<Block>
 
     public abstract bool IsUnprotected { get; }
 
-    protected LFunction Function { get; }
+    protected LFunction Function { get; } = function;
 
     public static bool operator ==(Block left, Block right)
         => left is null ? right is null : left.Equals(right);

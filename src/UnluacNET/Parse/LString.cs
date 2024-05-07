@@ -5,17 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class LString : LObject
+internal sealed class LString(BSizeT size, string value) : LObject
 {
-    public LString(BSizeT size, string value)
-    {
-        this.Size = size;
-        this.Value = value.Length is 0 ? string.Empty : value.AsSpan().Slice(0, value.Length - 1).ToString();
-    }
+    public BSizeT Size { get; } = size;
 
-    public BSizeT Size { get; }
-
-    public string Value { get; }
+    public string Value { get; } = value.Length is 0 ? string.Empty : value.AsSpan().Slice(0, value.Length - 1).ToString();
 
     public override string DeRef()
         => this.Value;

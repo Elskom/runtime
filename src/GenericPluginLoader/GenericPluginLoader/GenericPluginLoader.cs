@@ -20,7 +20,7 @@ public sealed class GenericPluginLoader
     /// </summary>
     public static event EventHandler<MessageEventArgs>? PluginLoaderMessage;
 
-    internal Dictionary<string, List<PluginLoadContext>> Contexts { get; } = new();
+    internal Dictionary<string, List<PluginLoadContext>> Contexts { get; } = [];
 
     /// <summary>
     /// Loads plugins with the specified plugin interface type.
@@ -71,8 +71,8 @@ public sealed class GenericPluginLoader
 
         // try to load from a zip as well if plugins are installed in both places.
         var zippath = $"{path}.zip";
-        List<T> plugins = new();
-        List<PluginLoadContext> contexts = new();
+        List<T> plugins = [];
+        List<PluginLoadContext> contexts = [];
 
         // handle when path points to a zip file.
         if (Directory.Exists(path) || File.Exists(zippath))
@@ -96,7 +96,7 @@ public sealed class GenericPluginLoader
 
             if (saveToZip && File.Exists(zippath))
             {
-                Dictionary<string, int> filesInZip = new();
+                Dictionary<string, int> filesInZip = [];
                 using (var zipFile = ZipFile.OpenRead(zippath))
                 {
                     foreach (var entry in zipFile.Entries)

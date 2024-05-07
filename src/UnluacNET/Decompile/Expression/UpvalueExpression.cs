@@ -5,13 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class UpvalueExpression : Expression
+internal sealed class UpvalueExpression(string name) : Expression(PRECEDENCE_ATOMIC)
 {
-    private readonly string m_name;
-
-    public UpvalueExpression(string name)
-        : base(PRECEDENCE_ATOMIC)
-        => this.m_name = name;
+    private readonly string m_name = name;
 
     public override int ConstantIndex => -1;
 

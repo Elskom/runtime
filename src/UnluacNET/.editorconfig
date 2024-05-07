@@ -88,6 +88,7 @@ csharp_preferred_modifier_order = public,private,protected,internal,static,exter
 
 # Code-block preferences
 csharp_prefer_braces = true:warning
+csharp_style_namespace_declarations = file_scoped
 
 # Expression-level preferences
 csharp_prefer_simple_default_expression = true:warning
@@ -179,3 +180,15 @@ dotnet_diagnostic.S1135.severity = suggestion
 
 # CA1812: Avoid uninstantiated internal classes
 dotnet_diagnostic.CA1812.severity = suggestion
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = suggestion
+
+# IDE0010: Add missing cases
+dotnet_diagnostic.IDE0010.severity = suggestion
+
+# IDE0072: Add missing cases
+dotnet_diagnostic.IDE0072.severity = suggestion
+
+#Remove unnecessary usings/imports
+dotnet_diagnostic.IDE0005.severity = suggestion

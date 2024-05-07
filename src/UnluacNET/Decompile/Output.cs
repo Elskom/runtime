@@ -5,17 +5,14 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class Output
+internal sealed class Output(TextWriter writer)
 {
-    private readonly TextWriter m_writer;
+    private readonly TextWriter m_writer = writer;
 
     public Output()
         : this(Console.Out)
     {
     }
-
-    public Output(TextWriter writer)
-        => this.m_writer = writer;
 
     public int IndentationLevel { get; set; }
 

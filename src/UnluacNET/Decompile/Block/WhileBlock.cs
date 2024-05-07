@@ -5,21 +5,12 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class WhileBlock : Block
+internal sealed class WhileBlock(LFunction function, Branch branch, int loopback, Registers registers) : Block(function, branch.Begin, branch.End)
 {
-    private readonly Branch m_branch;
-    private readonly int m_loopback;
-    private readonly Registers m_registers;
-    private readonly List<Statement> m_statements;
-
-    public WhileBlock(LFunction function, Branch branch, int loopback, Registers registers)
-        : base(function, branch.Begin, branch.End)
-    {
-        this.m_branch = branch;
-        this.m_loopback = loopback;
-        this.m_registers = registers;
-        this.m_statements = new(branch.End - branch.Begin + 1);
-    }
+    private readonly Branch m_branch = branch;
+    private readonly int m_loopback = loopback;
+    private readonly Registers m_registers = registers;
+    private readonly List<Statement> m_statements = new(branch.End - branch.Begin + 1);
 
     public override int ScopeEnd => this.End - 2;
 

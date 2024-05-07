@@ -5,16 +5,10 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class TableTarget : Target
+internal sealed class TableTarget(Expression table, Expression index) : Target
 {
-    private readonly Expression m_table;
-    private readonly Expression m_index;
-
-    public TableTarget(Expression table, Expression index)
-    {
-        this.m_table = table;
-        this.m_index = index;
-    }
+    private readonly Expression m_table = table;
+    private readonly Expression m_index = index;
 
     public override bool IsFunctionName => this.m_index.IsIdentifier && this.m_table.IsDotChain;
 

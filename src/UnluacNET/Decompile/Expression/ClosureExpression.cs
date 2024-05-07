@@ -5,17 +5,10 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class ClosureExpression : Expression
+internal sealed class ClosureExpression(LFunction function, int upvalueLine) : Expression(PRECEDENCE_ATOMIC)
 {
-    private readonly LFunction m_function;
-    private readonly int m_upvalueLine;
-
-    public ClosureExpression(LFunction function, int upvalueLine)
-        : base(PRECEDENCE_ATOMIC)
-    {
-        this.m_function = function;
-        this.m_upvalueLine = upvalueLine;
-    }
+    private readonly LFunction m_function = function;
+    private readonly int m_upvalueLine = upvalueLine;
 
     public override int ConstantIndex => -1;
 

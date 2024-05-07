@@ -5,17 +5,14 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class LIntNumber : LNumber
+internal sealed class LIntNumber(int number) : LNumber
 {
-    public LIntNumber(int number)
-        => this.Number = number;
-
-    public int Number { get; private set; }
+    public int Number { get; private set; } = number;
 
     public override double Value => this.Number;
 
     public override bool Equals(object obj)
-        => obj is LIntNumber number ? this.Number == number.Number : base.Equals(obj);
+        => obj is LIntNumber lnumber ? this.Number == lnumber.Number : base.Equals(obj);
 
     public override int GetHashCode()
         => throw new NotImplementedException();

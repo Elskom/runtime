@@ -141,23 +141,15 @@ internal sealed class TableLiteral : Expression
         }
     }
 
-    public sealed class Entry : IComparable<Entry>
+    public sealed class Entry(Expression key, Expression value, bool isList, int timestamp) : IComparable<Entry>
     {
-        public Entry(Expression key, Expression value, bool isList, int timestamp)
-        {
-            this.Key = key;
-            this.Value = value;
-            this.IsList = isList;
-            this.Timestamp = timestamp;
-        }
+        public Expression Key { get; private set; } = key;
 
-        public Expression Key { get; private set; }
+        public Expression Value { get; private set; } = value;
 
-        public Expression Value { get; private set; }
+        public bool IsList { get; private set; } = isList;
 
-        public bool IsList { get; private set; }
-
-        public int Timestamp { get; private set; }
+        public int Timestamp { get; private set; } = timestamp;
 
         public static bool operator ==(Entry left, Entry right)
             => left is null ? right is null : left.Equals(right);

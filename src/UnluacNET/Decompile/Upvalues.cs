@@ -5,12 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class Upvalues
+internal sealed class Upvalues(LUpvalue[] upvalues)
 {
-    private readonly LUpvalue[] m_upvalues;
-
-    public Upvalues(LUpvalue[] upvalues)
-        => this.m_upvalues = upvalues;
+    private readonly LUpvalue[] m_upvalues = upvalues;
 
     public string GetName(int idx)
         => idx < this.m_upvalues.Length && this.m_upvalues[idx].Name != null

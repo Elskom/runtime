@@ -11,10 +11,10 @@ namespace Elskom.Generic.Libs;
 public static class ReleasePackaging
 {
     private static List<string> Extensions
-        => new()
-    {
+        =>
+    [
         "*.exe", "*.dll", "*.xml", "*.txt", "*.pdb",
-    };
+    ];
 
     /// <summary>
     /// Packages an application's Release build to a zip file.
@@ -62,7 +62,7 @@ public static class ReleasePackaging
 
     private static List<FileInfo> GetAllFilesWithExtensions(DirectoryInfo dinfo, List<string> extensions)
     {
-        List<FileInfo> fileInfos = new();
+        List<FileInfo> fileInfos = [];
         foreach (var extension in extensions)
         {
             var files = dinfo.GetFiles(extension).ToList();

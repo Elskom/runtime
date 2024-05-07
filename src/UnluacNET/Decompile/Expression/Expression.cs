@@ -5,7 +5,7 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal abstract class Expression
+internal abstract class Expression(int precedence)
 {
     public const int PRECEDENCE_OR = 1;
     public const int PRECEDENCE_AND = 2;
@@ -20,9 +20,6 @@ internal abstract class Expression
     public const int ASSOCIATIVITY_LEFT = 1;
     public const int ASSOCIATIVITY_RIGHT = 2;
     public static readonly Expression NIL = new ConstantExpression(new(LNil.NIL), -1);
-
-    protected Expression(int precedence)
-        => this.Precedence = precedence;
 
     public abstract int ConstantIndex { get; }
 
@@ -56,7 +53,7 @@ internal abstract class Expression
 
     public virtual bool IsNewEntryAllowed => false;
 
-    public int Precedence { get; private set; }
+    public int Precedence { get; private set; } = precedence;
 
     public static BinaryExpression MakeADD(Expression left, Expression right)
         => new("+", left, right, PRECEDENCE_ADD, ASSOCIATIVITY_LEFT);

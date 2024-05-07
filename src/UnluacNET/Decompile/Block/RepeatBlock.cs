@@ -5,19 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class RepeatBlock : Block
+internal sealed class RepeatBlock(LFunction function, Branch branch, Registers r) : Block(function, branch.End, branch.Begin)
 {
-    private readonly Branch m_branch;
-    private readonly Registers m_r;
-    private readonly List<Statement> m_statements;
-
-    public RepeatBlock(LFunction function, Branch branch, Registers r)
-        : base(function, branch.End, branch.Begin)
-    {
-        this.m_branch = branch;
-        this.m_r = r;
-        this.m_statements = new(branch.Begin - branch.End + 1);
-    }
+    private readonly Branch m_branch = branch;
+    private readonly Registers m_r = r;
+    private readonly List<Statement> m_statements = new(branch.Begin - branch.End + 1);
 
     public override bool Breakable => true;
 

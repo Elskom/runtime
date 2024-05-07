@@ -5,17 +5,14 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class LFloatNumber : LNumber
+internal sealed class LFloatNumber(float number) : LNumber
 {
-    public LFloatNumber(float number)
-        => this.Number = number;
-
-    public float Number { get; }
+    public float Number { get; } = number;
 
     public override double Value => this.Number;
 
     public override bool Equals(object obj)
-        => obj is LFloatNumber number ? this.Number == number.Number : base.Equals(obj);
+        => obj is LFloatNumber lnumber ? this.Number == lnumber.Number : base.Equals(obj);
 
     public override int GetHashCode()
         => throw new NotImplementedException();

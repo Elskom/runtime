@@ -5,13 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class LocalVariable : Expression
+internal sealed class LocalVariable(Declaration decl) : Expression(PRECEDENCE_ATOMIC)
 {
-    public LocalVariable(Declaration decl)
-        : base(PRECEDENCE_ATOMIC)
-        => this.Declaration = decl;
-
-    public Declaration Declaration { get; private set; }
+    public Declaration Declaration { get; private set; } = decl;
 
     public override int ConstantIndex => -1;
 

@@ -94,11 +94,11 @@ public sealed partial class BlowFish
     [Obsolete("Using CipherMode.ECB in this method is deprecated.")]
     public string? Encrypt(string ct, CipherMode mode)
         => mode switch
-           {
-               CipherMode.ECB => this.bfInternal.EncryptECB(ct),
-               CipherMode.CBC => this.bfInternal.EncryptCBC(ct),
-               _ => null,
-           };
+        {
+            CipherMode.ECB => this.bfInternal.EncryptECB(ct),
+            CipherMode.CBC => this.bfInternal.EncryptCBC(ct),
+            _ => null,
+        };
 
     /// <summary>
     /// Encrypts a byte array.
@@ -126,11 +126,11 @@ public sealed partial class BlowFish
     [Obsolete("Using CipherMode.ECB in this method is deprecated.")]
     public string? Decrypt(string ct, CipherMode mode)
         => mode switch
-           {
-               CipherMode.ECB => this.bfInternal.DecryptECB(ct),
-               CipherMode.CBC => this.bfInternal.DecryptCBC(ct),
-               _ => null,
-           };
+        {
+            CipherMode.ECB => this.bfInternal.DecryptECB(ct),
+            CipherMode.CBC => this.bfInternal.DecryptCBC(ct),
+            _ => null,
+        };
 
     /// <summary>
     /// Decrypts a byte array.

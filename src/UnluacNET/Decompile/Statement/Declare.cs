@@ -5,12 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class Declare : Statement
+internal sealed class Declare(List<Declaration> decls) : Statement
 {
-    private readonly List<Declaration> m_decls;
-
-    public Declare(List<Declaration> decls)
-        => this.m_decls = decls;
+    private readonly List<Declaration> m_decls = decls;
 
     public override void Print(Output output)
     {

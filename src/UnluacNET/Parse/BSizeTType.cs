@@ -5,17 +5,11 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class BSizeTType : BObjectType<BSizeT>
+internal sealed class BSizeTType(int sizeTSize) : BObjectType<BSizeT>
 {
-    private readonly BIntegerType integerType;
+    private readonly BIntegerType integerType = new(sizeTSize);
 
-    public BSizeTType(int sizeTSize)
-    {
-        this.SizeTSize = sizeTSize;
-        this.integerType = new(sizeTSize);
-    }
-
-    public int SizeTSize { get; }
+    public int SizeTSize { get; } = sizeTSize;
 
     public override BSizeT Parse(Stream stream, BHeader header)
     {

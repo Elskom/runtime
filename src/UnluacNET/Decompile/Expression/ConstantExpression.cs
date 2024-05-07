@@ -5,17 +5,10 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class ConstantExpression : Expression
+internal sealed class ConstantExpression(Constant constant, int index) : Expression(PRECEDENCE_ATOMIC)
 {
-    private readonly Constant m_constant;
-    private readonly int m_index;
-
-    public ConstantExpression(Constant constant, int index)
-        : base(PRECEDENCE_ATOMIC)
-    {
-        this.m_constant = constant;
-        this.m_index = index;
-    }
+    private readonly Constant m_constant = constant;
+    private readonly int m_index = index;
 
     public override int ConstantIndex => this.m_index;
 

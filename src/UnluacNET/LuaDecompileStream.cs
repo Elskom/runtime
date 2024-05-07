@@ -48,7 +48,7 @@ public partial class LuaDecompileStream : Stream
 
     /// <inheritdoc/>
     public override bool CanRead
-        => false;
+        => !this.InputNoData;
 
     /// <inheritdoc/>
     public override bool CanSeek
@@ -56,7 +56,7 @@ public partial class LuaDecompileStream : Stream
 
     /// <inheritdoc/>
     public override bool CanWrite
-        => false;
+        => this.InputNoData;
 
     /// <inheritdoc/>
     public override long Length
@@ -82,7 +82,7 @@ public partial class LuaDecompileStream : Stream
     /// <param name="count">A dummy count, set to 0 always.</param>
     /// <returns>The amount of data bytes in the decompiled lua.</returns>
     public override int Read(byte[] buffer, int offset, int count)
-        => this.InputNoData switch
+        => !this.CanRead switch
         {
             true => throw new InvalidOperationException(
                 "Read can only be used to decompile an lua file only if the backing stream contains the data to the lua file to decompile."),
@@ -97,7 +97,7 @@ public partial class LuaDecompileStream : Stream
     /// <param name="count">.</param>
     public override void Write(byte[] buffer, int offset, int count)
     {
-        if (!this.InputNoData)
+        if (!this.CanWrite)
         {
             throw new InvalidOperationException("Write can only be used to decompile an lua file only if the backing stream contains no data.");
         }

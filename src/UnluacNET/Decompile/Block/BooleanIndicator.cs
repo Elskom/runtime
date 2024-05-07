@@ -5,13 +5,8 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class BooleanIndicator : Block
+internal sealed class BooleanIndicator(LFunction function, int line) : Block(function, line, line)
 {
-    public BooleanIndicator(LFunction function, int line)
-        : base(function, line, line)
-    {
-    }
-
     public override bool Breakable => false;
 
     public override bool IsContainer => false;

@@ -5,13 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class AlwaysLoop : Block
+internal sealed class AlwaysLoop(LFunction function, int begin, int end) : Block(function, begin, end)
 {
-    private readonly List<Statement> m_statements;
-
-    public AlwaysLoop(LFunction function, int begin, int end)
-        : base(function, begin, end)
-        => this.m_statements = new();
+    private readonly List<Statement> m_statements = [];
 
     public override bool Breakable => true;
 

@@ -5,13 +5,9 @@
 
 namespace Elskom.Generic.Libs.UnluacNET;
 
-internal sealed class OuterBlock : Block
+internal sealed class OuterBlock(LFunction function, int length) : Block(function, 0, length + 1)
 {
-    private readonly List<Statement> m_statements;
-
-    public OuterBlock(LFunction function, int length)
-        : base(function, 0, length + 1)
-        => this.m_statements = new(length);
+    private readonly List<Statement> m_statements = new(length);
 
     public override bool Breakable => false;
 
@@ -31,7 +27,7 @@ internal sealed class OuterBlock : Block
     {
         /* extra return statement */
         var last = this.m_statements.Count - 1;
-        if (last < 0 || !(this.m_statements[last] is Return))
+        if (last < 0 || this.m_statements[last] is not Return)
         {
             throw new InvalidOperationException(this.m_statements[last].ToString());
         }
