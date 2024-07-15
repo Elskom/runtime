@@ -46,25 +46,20 @@ internal sealed class IfThenEndBlock(LFunction function, Branch branch, Stack<Br
         if (this.m_statements.Count == 1)
         {
             var statement = this.m_statements[0];
-            if (statement is Assignment)
+            if (statement is Assignment assignment && assignment.GetArity() == 1 && this.m_branch is TestNode node)
             {
-                var assignment = statement as Assignment;
-                if (assignment.GetArity() == 1 && this.m_branch is TestNode)
+                var decl = this.m_r.GetDeclaration(node.Test, node.Line);
+                if (assignment.GetFirstTarget().IsDeclaration(decl))
                 {
-                    var node = this.m_branch as TestNode;
-                    var decl = this.m_r.GetDeclaration(node.Test, node.Line);
-                    if (assignment.GetFirstTarget().IsDeclaration(decl))
+                    LocalVariable left = new(decl);
+                    var right = assignment.GetFirstValue();
+                    var expr = node.Inverted
+                        ? Expression.MakeOR(left, right)
+                        : Expression.MakeAND(left, right);
+                    return new LambdaOperation(this.End - 1, (_, _) =>
                     {
-                        LocalVariable left = new(decl);
-                        var right = assignment.GetFirstValue();
-                        var expr = node.Inverted
-                            ? Expression.MakeOR(left, right)
-                            : Expression.MakeAND(left, right);
-                        return new LambdaOperation(this.End - 1, (_, _) =>
-                        {
-                            return new Assignment(assignment.GetFirstTarget(), expr);
-                        });
-                    }
+                        return new Assignment(assignment.GetFirstTarget(), expr);
+                    });
                 }
             }
         }
