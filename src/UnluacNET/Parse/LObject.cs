@@ -7,7 +7,7 @@ namespace Elskom.Generic.Libs.UnluacNET;
 
 internal abstract class LObject : IBObject, IEqualityComparer<LObject>
 {
-    public abstract new bool Equals(object obj);
+    public new abstract bool Equals(object obj);
 
     public virtual string DeRef()
         => throw new NotImplementedException();

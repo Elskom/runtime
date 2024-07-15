@@ -547,13 +547,9 @@ internal sealed class Decompiler
                         this.Code.Op(assignEnd - 3) == Op.JMP &&
                         this.Code.SBx(assignEnd - 3) == 2)
                     {
-                        if (peekNode is TestNode)
+                        if (peekNode is TestNode node && node.Test == this.Code.A(assignEnd - 2))
                         {
-                            var node = peekNode as TestNode;
-                            if (node.Test == this.Code.A(assignEnd - 2))
-                            {
-                                isAssignNode = true;
-                            }
+                            isAssignNode = true;
                         }
                     }
                     else if (assignEnd - 2 >= 1 &&
