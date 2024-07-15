@@ -72,7 +72,7 @@ jobs:
 
     - name: Extract version from version.txt.
       id: read_file
-      uses: andstor/file-reader-action@master
+      uses: guibranco/github-file-reader-action-v2@main
       with:
         path: "artifacts/packages/Release/Shipping/version.txt"
 
