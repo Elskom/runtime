@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageVersion Include="ZlibSharp" Version="1.2.13.3" />
+    <PackageVersion Include="ZlibSharp" Version="1.2.13.4" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="IDisposableGenerator" Version="1.1.1" />
     <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Installers" Version="8.0.0-beta.23620.2" />
