@@ -1352,9 +1352,9 @@ internal sealed class Decompiler
         // TODO: Optimize code
         if (stmt != null)
         {
-            if (stmt is Assignment)
+            if (stmt is Assignment _assign)
             {
-                assign = stmt as Assignment;
+                assign = _assign;
                 if (!assign.GetFirstValue().IsMultiple)
                 {
                     block.AddStatement(stmt);

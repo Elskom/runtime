@@ -193,3 +193,6 @@ dotnet_diagnostic.IDE0072.severity = suggestion
 
 #Remove unnecessary usings/imports
 dotnet_diagnostic.IDE0005.severity = suggestion
+
+# S1244: Floating point numbers should not be tested for equality
+dotnet_diagnostic.S1244.severity = none

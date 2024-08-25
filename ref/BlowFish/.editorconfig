@@ -149,3 +149,6 @@ dotnet_diagnostic.S3903.severity = none
 
 # S1133: Deprecated code should be removed
 dotnet_diagnostic.S1133.severity = suggestion
+
+# S2325: Methods and properties that don't access instance data should be static
+dotnet_diagnostic.S2325.severity = none
