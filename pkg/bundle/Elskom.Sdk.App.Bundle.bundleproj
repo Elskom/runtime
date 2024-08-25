@@ -35,6 +35,7 @@
     <PackageReference Include="Microsoft.DotNet.Build.Tasks.Archives"> <!-- Condition="$([MSBuild]::IsOSPlatform('Linux'))"> -->
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <SdkPackReference Include="../../Elskom.Sdk/Elskom.Sdk.csproj" />
     <BundleComponentReference Include="../sfx/Elskom.Sdk.App.Runtime.sfxproj">
       <AdditionalProperties>RuntimeIdentifier=$(RuntimeIdentifier)</AdditionalProperties>
     </BundleComponentReference>
@@ -46,6 +47,7 @@
   <Target Name="PublishToDisk">
     <Error Condition="'$(OutputPath)' == ''" Text="Publishing to disk requires the OutputPath to be set to the root of the path to write to." />
     <MSBuild Projects="@(BundleComponentReference)" Targets="PublishToDisk;Pack" Properties="OutputPath=$(OutputPath)" />
+    <MSBuild Projects="@(SdkPackReference)" Targets="Pack" Properties="OutputPath=$(ArtifactsShippingPackagesDir);Version=$(Version)" RemoveProperties="RuntimeIdentifier" />
   </Target>
 
   <Target Name="PublishSymbolsToDisk">

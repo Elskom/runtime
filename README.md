@@ -5,6 +5,7 @@ Runtime for the Elskom .NET SDK workload.
 
 | Package | Version |
 |:-------:|:-------:|
+| Elskom.Sdk | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk/)
 | Elskom.Sdk.App.Runtime.win-x86 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.win-x86?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.win-x86/) |
 | Elskom.Sdk.App.Runtime.win-x64 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.win-x64?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.win-x64/) |
 | Elskom.Sdk.App.Runtime.win-arm64 | [![NuGet Badge](https://buildstats.info/nuget/Elskom.Sdk.App.Runtime.win-arm64?includePreReleases=true)](https://www.nuget.org/packages/Elskom.Sdk.App.Runtime.win-arm64/) |

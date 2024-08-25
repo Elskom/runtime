@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.Build.NoTargets" InitialTargets="WriteSdkPropsFile">
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <PackageTags>GitBuildInformation;SettingsFile;zlib;BlowFish;Unluac;ZipAssembly;ReleasePackaging;MessageManager;GenericPluginLoader;MiniDump;PluginFramework;PluginUpdateCheck;GitBuildInfo</PackageTags>
+    <Description>Elskom SDK for development of Els_kom plugins and for Els_kom itself. Also contains libs that can be used for other projects as well.</Description>
+    <PackageReleaseNotes>Fixed issue where SDK might not add a known framework reference for projects that target the .NET 7 runtime.</PackageReleaseNotes>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="*.in" />
+    <!-- If Sdk.props file exists, update it. -->
+    <!-- <None Update="Sdk.props" Pack="true" PackagePath="Sdk" Condition="Exists('Sdk.props')" /> -->
+    <None Include="Sdk.targets" Pack="true" PackagePath="Sdk" />
+    <None Include="Elskom.Sdk.DefaultItems.targets" Pack="true" PackagePath="Sdk" />
+    <None Include="../els_kom.png" Pack="true" PackagePath="Icon.png" Visible="false" />
+  </ItemGroup>
+
+  <Target Name="WriteSdkPropsFile">
+    <WriteLinesToFile
+      File="Sdk.props"
+      Lines="$([System.IO.File]::ReadAllText('Sdk.props.in').Replace('@SDK_VERSION@',$(Version)))"
+      Overwrite="true"
+      Encoding="Unicode"
+      WriteOnlyWhenDifferent="true" />
+
+    <ItemGroup>
+      <None Include="Sdk.props" Pack="true" PackagePath="Sdk" />
+    </ItemGroup>
+  </Target>
+
+</Project>

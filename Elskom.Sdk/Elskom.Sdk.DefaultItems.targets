@@ -1,0 +1,11 @@
+﻿<Project>
+
+  <ItemGroup>
+    <!-- .NET 9.0 -->
+    <KnownFrameworkReference Include="Elskom.Sdk.App" TargetFramework="net9.0" RuntimeFrameworkName="Elskom.Sdk.App" DefaultRuntimeFrameworkVersion="$(ElskomSdkFrameworkVersion)" LatestRuntimeFrameworkVersion="$(ElskomSdkFrameworkVersion)" TargetingPackName="Elskom.Sdk.App.Ref" TargetingPackVersion="$(ElskomSdkFrameworkVersion)" RuntimePackNamePatterns="Elskom.Sdk.App.Runtime.**RID**" RuntimePackRuntimeIdentifiers="win-x86;win-x64;win-arm64;linux-x64;linux-arm;linux-arm64;osx-x64;osx-arm64" IsTrimmable="true" />
+    <!-- .NET 8.0 -->
+    <KnownFrameworkReference Include="Elskom.Sdk.App" TargetFramework="net8.0" RuntimeFrameworkName="Elskom.Sdk.App" DefaultRuntimeFrameworkVersion="$(ElskomSdkFrameworkVersion)" LatestRuntimeFrameworkVersion="$(ElskomSdkFrameworkVersion)" TargetingPackName="Elskom.Sdk.App.Ref" TargetingPackVersion="$(ElskomSdkFrameworkVersion)" RuntimePackNamePatterns="Elskom.Sdk.App.Runtime.**RID**" RuntimePackRuntimeIdentifiers="win-x86;win-x64;win-arm64;linux-x64;linux-arm;linux-arm64;osx-x64;osx-arm64" IsTrimmable="true" />
+    <FrameworkReference Include="Elskom.Sdk.App" IsImplicitlyDefined="true" Pack="false" PrivateAssets="All" Condition="'$(ElskomSdkDisableImplicitFrameworkReference)' != 'true'" />
+  </ItemGroup>
+
+</Project>

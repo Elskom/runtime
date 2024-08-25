@@ -1,0 +1,6 @@
+<Project>
+
+  <Import Project="Elskom.Sdk.DefaultItems.targets" />
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" Condition="'$(ElskomSdkMicrosoftNETSdkImported)' == 'true'" />
+
+</Project>
