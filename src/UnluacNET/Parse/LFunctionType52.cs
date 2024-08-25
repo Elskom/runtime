@@ -20,8 +20,8 @@ internal sealed class LFunctionType52 : LFunctionType
         s.LenParameter = stream.ReadByte();
         s.VarArg = stream.ReadByte();
         s.MaximumStackSize = stream.ReadByte();
-        this.ParseCode(stream, header, s);
-        this.ParseConstants(stream, header, s);
+        ParseCode(stream, header, s);
+        ParseConstants(stream, header, s);
         this.ParseUpvalues(stream, header, s);
         this.ParseDebug(stream, header, s);
     }

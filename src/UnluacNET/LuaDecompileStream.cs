@@ -33,6 +33,7 @@ public partial class LuaDecompileStream : Stream
     /// <param name="keepOpen">
     /// Controls if the stream keeps the input stream open when the stream is disposed.
     /// </param>
+    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Cannot be used for this class. This is a Roslyn Bug LOL.")]
     public LuaDecompileStream(Stream input, bool keepOpen)
     {
         this.BaseStream = input;

@@ -149,3 +149,6 @@ dotnet_diagnostic.S101.severity = none
 
 # S3903: Move '%s' into a named namespace.
 dotnet_diagnostic.S3903.severity = none
+
+# S2325: Methods and properties that don't access instance data should be static
+dotnet_diagnostic.S2325.severity = none

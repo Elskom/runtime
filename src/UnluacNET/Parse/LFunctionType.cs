@@ -33,7 +33,7 @@ internal class LFunctionType : BObjectType<LFunction>
             s.VarArg);
     }
 
-    protected void ParseCode(Stream stream, BHeader header, LFunctionParseState s)
+    protected static void ParseCode(Stream stream, BHeader header, LFunctionParseState s)
     {
         if (header.Debug)
         {
@@ -54,7 +54,7 @@ internal class LFunctionType : BObjectType<LFunction>
         }
     }
 
-    protected void ParseConstants(Stream stream, BHeader header, LFunctionParseState s)
+    protected static void ParseConstants(Stream stream, BHeader header, LFunctionParseState s)
     {
         if (header.Debug)
         {
@@ -106,8 +106,8 @@ internal class LFunctionType : BObjectType<LFunction>
         s.LenParameter = stream.ReadByte();
         s.VarArg = stream.ReadByte();
         s.MaximumStackSize = stream.ReadByte();
-        this.ParseCode(stream, header, s);
-        this.ParseConstants(stream, header, s);
+        ParseCode(stream, header, s);
+        ParseConstants(stream, header, s);
         this.ParseUpvalues(stream, header, s);
         this.ParseDebug(stream, header, s);
     }

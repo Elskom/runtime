@@ -161,3 +161,6 @@ dotnet_diagnostic.S3903.severity = none
 
 # IDE0251: Make member 'readonly'
 dotnet_diagnostic.IDE0251.severity = silent
+
+# S2325: Methods and properties that don't access instance data should be static
+dotnet_diagnostic.S2325.severity = none
