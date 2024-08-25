@@ -1,0 +1,98 @@
+<Project>
+
+  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == ''">
+    <ElskomSdkMicrosoftNETSdkImported>true</ElskomSdkMicrosoftNETSdkImported>
+  </PropertyGroup>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" Condition="'$(UsingMicrosoftNETSdk)' == ''" />
+
+  <PropertyGroup>
+    <LangVersion>preview</LangVersion>
+    <EnforceCodeStyleInBuild Condition="'$(ProduceOnlyReferenceAssembly)' == ''">true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>preview</AnalysisLevel>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <!--
+        When DisableImplicitFrameworkReferences is true and ElskomSdkDisableImplicitFrameworkReference
+        is not set, then set it to true by default.
+    -->
+    <ElskomSdkDisableImplicitFrameworkReference Condition="'$(DisableImplicitFrameworkReferences)' == 'true' AND '$(ElskomSdkDisableImplicitFrameworkReference)' == ''">true</ElskomSdkDisableImplicitFrameworkReference>
+    <ElskomSdkFrameworkVersion Condition="'$(ElskomSdkFrameworkVersion)' == ''">@SDK_VERSION@</ElskomSdkFrameworkVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(ElskomSdkSkipImplicitPackages)' == ''">
+    <!-- Only add these analyzers when installed as an Sdk package from nuget. -->
+    <PackageReference
+            Include="SonarAnalyzer.CSharp"
+            IsImplicitlyDefined="true"
+            Version="*-*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference
+            Include="StyleCop.Analyzers"
+            IsImplicitlyDefined="true"
+            Version="*-*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference
+            Include="IDisposableAnalyzers"
+            IsImplicitlyDefined="true"
+            Version="*-*">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <!--
+    <PackageReference
+            Include="ReflectionAnalyzers"
+            IsImplicitlyDefined="true"
+            Version="*-*"
+            Condition="'$(ProduceOnlyReferenceAssembly)' == ''">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference> -->
+    <!--
+        Generate code for resx files.
+        But not for code that targets WindowsDesktop as that needs a source generator
+        that supports binary resources in resx files.
+    -->
+    <PackageReference
+            Include="Microsoft.CodeAnalysis.ResxSourceGenerator"
+            IsImplicitlyDefined="true"
+            Version="*-*"
+            Condition="'$(ProduceOnlyReferenceAssembly)' == '' AND '$(UseWPF)' != 'true' AND '$(UseWindowsForms)' != 'true'">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <!--
+        For WindowsDesktop targeting applications, we need to use a special source generator that supports binary resource
+        files that are a part of the resx file.
+    -->
+    <PackageReference
+            Include="Meziantou.Framework.ResxSourceGenerator"
+            IsImplicitlyDefined="true"
+            Version="*-*"
+            Condition="'$(ProduceOnlyReferenceAssembly)' == '' AND ('$(UseWPF)' == 'true' OR '$(UseWindowsForms)' == 'true')">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <!-- Implicitly include Properties/Resources.resx file for source generation. -->
+    <AdditionalFiles
+            Include="Properties\Resources.resx"
+            Condition="Exists('Properties\Resources.resx')" />
+    <!-- Update implicitly included Properties/Resources.resx file for source generation when it exists inside of a WindowsDesktop application. -->
+    <AdditionalFiles
+            Update="Properties\Resources.resx"
+            Condition="Exists('Properties\Resources.resx') AND ('$(UseWPF)' == 'true' OR '$(UseWindowsForms)' == 'true')"
+            Namespace="$(RootNamespace).Properties"
+            ClassName="Resources" />
+    <!-- We need the source generator we created. -->
+    <PackageReference
+            Include="GitBuildInfo.SourceGenerator"
+            IsImplicitlyDefined="true"
+            Version="*-*"
+            Condition="'$(ProduceOnlyReferenceAssembly)' == ''">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

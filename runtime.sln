@@ -60,6 +60,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "installer", "installer", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "installers", "pkg\installer\installers.csproj", "{B9065E22-3A4C-4A38-BD46-330CD60F094F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sdk", "Sdk", "{5212A248-77A1-49A4-9E86-0FAADEAE6042}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elskom.Sdk", "Elskom.Sdk\Elskom.Sdk.csproj", "{1C37BC41-D636-44EC-8603-ADB356BC7B3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -166,6 +170,10 @@ Global
 		{B9065E22-3A4C-4A38-BD46-330CD60F094F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9065E22-3A4C-4A38-BD46-330CD60F094F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9065E22-3A4C-4A38-BD46-330CD60F094F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C37BC41-D636-44EC-8603-ADB356BC7B3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C37BC41-D636-44EC-8603-ADB356BC7B3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C37BC41-D636-44EC-8603-ADB356BC7B3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C37BC41-D636-44EC-8603-ADB356BC7B3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,6 +205,7 @@ Global
 		{2D1878AD-8A11-4F56-9E3A-58ABDAAEA292} = {E5605BA8-4F46-4B1F-AB27-C5DA07FED9C5}
 		{611B9497-B82A-4C65-91E7-7C54F1E52CF4} = {20C33D3B-3412-40EB-8284-C4979AD2F390}
 		{B9065E22-3A4C-4A38-BD46-330CD60F094F} = {611B9497-B82A-4C65-91E7-7C54F1E52CF4}
+		{1C37BC41-D636-44EC-8603-ADB356BC7B3F} = {5212A248-77A1-49A4-9E86-0FAADEAE6042}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE022F12-D088-439B-8AD2-EAAF2FE7C6C0}

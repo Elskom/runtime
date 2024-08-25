@@ -19,3 +19,4 @@ website/
 
 # exclude security scanning results.
 results.sarif
+Elskom.Sdk/Sdk.props
