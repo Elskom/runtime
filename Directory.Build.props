@@ -27,7 +27,7 @@
     <PackageProjectUrl>https://github.com/Elskom/runtime/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Elskom/runtime/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <CopyrightElskom>Copyright (c) 2018-2023</CopyrightElskom>
+    <CopyrightElskom>Copyright (c) 2018-2024</CopyrightElskom>
     <Copyright Condition="'$(IsPackageProject)' == 'false'">$(CopyrightElskom)</Copyright>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true' AND '$(IsPackageProject)' == 'false'">true</ContinuousIntegrationBuild>
     <IsTagBuild Condition="$(GITHUB_REF.StartsWith('refs/tags/'))">true</IsTagBuild>
