@@ -20,6 +20,7 @@
     <!-- bypass issue where the arcade sdk sets the nuget packages to an microsoft copyright. -->
     <CopyrightMicrosoft>$(CopyrightElskom)</CopyrightMicrosoft>
     <PackageIconFullPath>../../els_kom.png</PackageIconFullPath>
+    <RollForward>Major</RollForward>
   </PropertyGroup>
 
 </Project>
