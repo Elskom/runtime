@@ -288,8 +288,8 @@ internal sealed partial class BlowFishInternal
     internal string DecryptCBC(string ct)
     {
         ArgumentNullException.ThrowIfNull(ct);
-        this.IV = HexToByte(ct.AsSpan().Slice(0, 16));
-        return Encoding.ASCII.GetString(this.DecryptCBC(HexToByte(ct.AsSpan().Slice(16))).Remove((byte)'\0'));
+        this.IV = HexToByte(ct.AsSpan()[..16]);
+        return Encoding.ASCII.GetString(this.DecryptCBC(HexToByte(ct.AsSpan()[16..])).Remove((byte)'\0'));
     }
 
     internal byte[] DecryptCBC(byte[] ct)
@@ -494,7 +494,7 @@ internal sealed partial class BlowFishInternal
 
         var plainText = text.AsSpan();
         byte[]? preblock = null;
-        var iv = this.initVector.AsSpan().Slice(0, 8);
+        var iv = this.initVector.AsSpan()[..8];
         for (var i = 0; i < plainText.Length; i += 8)
         {
             var block = plainText.Slice(i, 8);
